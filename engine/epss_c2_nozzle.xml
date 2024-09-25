@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<nozzle name="EPSS_C2_Nozzle">
+  <!--
+    pe      = Nozzle exit pressure, psf.
+    area    = Nozzle exit area, sqft.
+  -->
+  <pe unit="PSF"> 52213.5856825975  </pe>
+  <area unit="FT2"> 0.08333333  </area>
+</nozzle>

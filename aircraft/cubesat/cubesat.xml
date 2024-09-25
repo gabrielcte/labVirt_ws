@@ -42,20 +42,20 @@
     </metrics>
 
     <mass_balance>
-        <ixx unit="SLUG*FT2"> 0.04794154 </ixx>
-        <iyy unit="SLUG*FT2"> 0.03687811 </iyy>
-        <izz unit="SLUG*FT2"> 0.01843905 </izz>
+        <ixx unit="SLUG*FT2"> 0.0414175 </ixx>
+        <iyy unit="SLUG*FT2"> 0.03185961 </iyy>
+        <izz unit="SLUG*FT2"> 0.01592981 </izz>
         <ixy unit="SLUG*FT2"> -0 </ixy>
         <ixz unit="SLUG*FT2"> -0 </ixz>
         <iyz unit="SLUG*FT2"> -0 </iyz>
-        <emptywt unit="LBS"> 13.1913599 </emptywt>
+        <emptywt unit="LBS"> 11.4276618 </emptywt>
         <location name="CG" unit="IN">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
         </location>
         <pointmass name="M0">
-            <weight unit="LBS"> 13.1913599 </weight>
+            <weight unit="LBS"> 11.4276618 </weight>
             <location name="POINTMASS" unit="IN">
                 <x> 0 </x>
                 <y> 0 </y>
@@ -141,7 +141,33 @@
 
     </external_reactions>
 
-    <propulsion/>
+    <propulsion>
+            <engine file="EPSS_C2">
+            <feed>0</feed>
+            <feed>1</feed>
+            <thruster file="direct">
+                <location unit="IN">
+                    <x> 0 </x>
+                    <y> 3.93700787 </y>
+                    <z> 0 </z>
+                </location>
+                <orient unit="DEG">
+                    <roll> 0.0 </roll>
+                    <pitch> 0.0 </pitch>
+                    <yaw> 0.0 </yaw>
+                </orient>
+            </thruster>
+        </engine>
+        <tank type="FUEL">    <!-- Tank number 0 -->
+            <location unit="IN">
+                <x> 0 </x>
+                <y> 0 </y>
+                <z> 0 </z>
+            </location>
+            <capacity unit="LBS"> 1.7636981 </capacity>
+            <contents unit="LBS"> 1.7636981 </contents>
+        </tank>
+    </propulsion>
 
     <flight_control name="FGFCS">
     

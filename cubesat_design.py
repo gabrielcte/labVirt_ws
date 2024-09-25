@@ -7,10 +7,8 @@ if __name__ == '__main__':
     m2ft = 3.2808399
     kg2slug = 0.06852177
 
-
-
     # For a CubeSat 6U
-    cubeSatMass = 6*kg2slug #  [SLUG]
+    cubeSatMass = 5.18350019*kg2slug #  [SLUG]
     cubeSatLength = 0.1*m2ft # [FT] -> x
     cubeSatWidth = 0.2*m2ft # [FT] -> y
     cubeSatHeight = 0.3*m2ft # [FT] -> z
