@@ -1,4 +1,4 @@
 # Default ignored files
 /.ideia
 /.git
-
+/__pycache__
