@@ -17,9 +17,9 @@
     </fileheader>
 
     <metrics>
-        <wingarea unit="FT2"> 1 </wingarea>
-        <wingspan unit="FT"> 1 </wingspan>
-        <chord unit="FT"> 1 </chord>
+        <wingarea unit="FT2"> 0 </wingarea>
+        <wingspan unit="FT"> 0.0 </wingspan>
+        <chord unit="FT"> 0.0 </chord>
         <htailarea unit="FT2"> 0 </htailarea>
         <htailarm unit="FT"> 0 </htailarm>
         <vtailarea unit="FT2"> 0 </vtailarea>
@@ -42,20 +42,20 @@
     </metrics>
 
     <mass_balance>
-        <ixx unit="SLUG*FT2"> 20 </ixx>
-        <iyy unit="SLUG*FT2"> 10 </iyy>
-        <izz unit="SLUG*FT2"> 10 </izz>
+        <ixx unit="SLUG*FT2"> 0.04794154 </ixx>
+        <iyy unit="SLUG*FT2"> 0.03687811 </iyy>
+        <izz unit="SLUG*FT2"> 0.01843905 </izz>
         <ixy unit="SLUG*FT2"> -0 </ixy>
         <ixz unit="SLUG*FT2"> -0 </ixz>
         <iyz unit="SLUG*FT2"> -0 </iyz>
-        <emptywt unit="LBS"> 20000 </emptywt>
+        <emptywt unit="LBS"> 13.1913599 </emptywt>
         <location name="CG" unit="IN">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
         </location>
         <pointmass name="M0">
-            <weight unit="LBS"> 10 </weight>
+            <weight unit="LBS"> 13.1913599 </weight>
             <location name="POINTMASS" unit="IN">
                 <x> 0 </x>
                 <y> 0 </y>
@@ -194,16 +194,20 @@
         </axis>
     </aerodynamics>
 
-    <output name="BallOut.csv" type="CSV" rate="1">
+    <output name="CubesatOut.csv" type="CSV" rate="1">
         <rates> ON </rates>
         <velocities> ON </velocities>
         <forces> ON </forces>
         <moments> ON </moments>
         <position> ON </position>
         <massprops> ON </massprops>
-        <property> position/vrp-gc-latitude_deg </property>
-        <property> position/vrp-longitude_deg </property>
-        <property> position/vrp-radius-ft </property>
-
+        <property> position/radius-to-vehicle-ft </property>
+        <property> velocities/eci-velocity-mag-fps</property>
+        <property> attitude/phi-rad </property>
+        <property> attitude/theta-rad </property>
+        <property> attitude/psi-rad </property>
+        <property> velocities/phidot-rad_sec </property>
+        <property> velocities/thetadot-rad_sec </property>
+        <property> velocities/psidot-rad_sec </property>
     </output>
 </fdm_config>
