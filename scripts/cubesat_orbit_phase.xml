@@ -3,7 +3,7 @@
 <runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
     name="Orbital Phasing Test">
-  <use aircraft="ball" initialize="iss_orbit"/>
+  <use aircraft="cubesat" initialize="iss_orbit"/>
   <run start="0.0" end="11000" dt="0.005">
     <description>
       Integrators
