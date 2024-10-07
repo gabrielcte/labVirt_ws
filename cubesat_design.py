@@ -2,8 +2,32 @@
 # Imports
 import numpy as np
 import math
+
+
 # Funções
 mu_Terra = 3.98600441e+014 # [m^3/s^2]
+sequencia_rotacao = np.array([3, 2, 1])
+
+def eulerAngles2C (theta_1, theta_2, theta_3):
+    global sequencia_rotacao
+    angles = np.array([theta_1, theta_2, theta_3])
+    C = np.eye(3)
+    for seq in range(len(sequencia_rotacao)):
+        if sequencia_rotacao[seq] == 1:
+            e_x = angles[seq]
+            rot_x = np.array([[1, 0, 0], [0, np.cos(e_x), np.sin(e_x)], [0, -np.sin(e_x), np.cos(e_x)]])
+            C = C * rot_x
+        elif sequencia_rotacao[seq] == 2:
+            e_y = angles[seq]
+            rot_y = np.array([[np.cos(e_y), 0, -np.sin(e_y)], [0, 1, 0], [np.sin(e_y), 0, np.cos(e_y)]])
+            C = C*rot_y
+        elif sequencia_rotacao[seq] == 3:
+            e_z = angles[seq]
+            rot_z = np.array([[np.cos(e_z), np.sin(e_z), 0], [-np.sin(e_z), np.cos(e_z), 0], [0, 0, 1]])
+            C = C*rot_z
+        else:
+            print('Erro em calcular a matriz de rotação')
+    return C
 
 def osv2eko(r_SCGI, v_SCGI):
     global mu_Terra
@@ -42,6 +66,45 @@ def eko2osv(a, e, i, RAAN, omega, f):
     v_SCGI = np.matmul(math.sqrt(mu_Terra/p)*np.transpose(T),np.array([[e*np.sin(f)], [(1+e*np.cos(f))],[0]]))
     return [r_SCGI, v_SCGI]
 
+
+
+# def posicaoVeiculoEspacialOrbitaCircularReferenciaInercial(e, a, p, i, RAAN, omega, f, num_Orbitas, dt):
+#     global sequencia_rotacao
+#     x_scgi = np.zeros(num_Orbitas, 1)
+#     x_scgi = np.zeros(num_Orbitas, 1)
+#     x_scgi = np.zeros(num_Orbitas, 1)
+#     lat = np.zeros(num_Orbitas, 1)
+#     lon = np.zeros(num_Orbitas, 1)
+#     C = angulosEulerParaC (-RAAN, -i, -omega);
+#     for contador = 1:num_Orbitas
+#         E = omega+f;
+#         x_scgi(contador) = (p/(1+norm(e)*cos(f)))*(cos(norm(RAAN))*cos(E)-sin(norm(RAAN))*sin(E)*cos(norm(i)));
+#         x_scgi(contador) = (p/(1+norm(e)*cos(f)))*(sin(norm(RAAN))*cos(E)+cos(norm(RAAN))*sin(E)*cos(norm(i)));
+#         x_scgi(contador) = (p/(1+norm(e)*cos(f)))*(sin(E)*sin(norm(i)));
+#         f = f+dt;
+#     # Trajetória Polar
+#       auxiliar(contador) =(f);
+#       raioCoordenadaPolar(contador) = a*(1-dot(e,e))/(1+norm(e)*cos(auxiliar(contador)));
+#       e_xpolar(contador) = raioCoordenadaPolar(contador)*cos(f);
+#       e_ypolar(contador) = raioCoordenadaPolar(contador)*sin(f);
+#       e_zpolar(contador) = 0;
+#       f = f+dt;
+#     # Trajetória SGI
+#         velocidadePolar(1,1) = e_xpolar(contador);
+#         velocidadePolar(2,1) = e_ypolar(contador);
+#         velocidadePolar(3,1) = e_zpolar(contador);
+#         velocidadeSistemaGeocentricoInercial = C*velocidadePolar;
+#         e_xSistemaGeocentricoInercial(contador) = velocidadeSistemaGeocentricoInercial(1,1);
+#         e_ySistemaGeocentricoInercial(contador) = velocidadeSistemaGeocentricoInercial(2,1);
+#         e_zSistemaGeocentricoInercial(contador) = velocidadeSistemaGeocentricoInercial(3,1);
+#     # Ground Track
+#       lat(contador) = rad2deg(atan2(e_zSistemaGeocentricoInercial(contador),sqrt(e_xSistemaGeocentricoInercial(contador)^2+e_ySistemaGeocentricoInercial(contador)^2)));
+#       lon(contador) = rad2deg(atan2(e_ySistemaGeocentricoInercial(contador),e_xSistemaGeocentricoInercial(contador)));
+#       if lon(contador) < 0;
+#         lon(contador) = lon(contador);
+#     return [x_scgi, x_scgi, x_scgi, lat, lon]
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     m2ft = 3.2808399
@@ -74,15 +137,15 @@ if __name__ == '__main__':
     [a, e, i, RAAN, omega, f] = osv2eko(r_SCGI, v_SCGI)
     print('Elementos Clássicos de Órbita:')
     print(f'Semi-eixo maior: {a} [m]')
-    print(f'Excentricidade: {e}')
+    print(f'e: {e}')
     print(f'Inclinação: {i}')
-    print(f'Longitude do nodo ascendente: {RAAN}')
+    print(f'lon do nodo ascendente: {RAAN}')
     print(f'Argumento do perigeo: {omega}')
     print(f'Anomalia verdadeira: {f}')
 
     [r_SCGI, v_SCGI]= eko2osv(a, e, i, RAAN, omega, f)
 
     print('Vetores de estado da órbita:')
-    print(f'distancia: {r_SCGI} [m]')
-    print(f'velocidade: {v_SCGI} [m/s]')
+    print(f'distancia no SCGI: {r_SCGI} [m]')
+    print(f'velocidade no SCGI: {v_SCGI} [m/s]')
 
