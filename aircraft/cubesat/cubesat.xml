@@ -1,6 +1,6 @@
-<?xml version="2.0"?>
+<?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
-<fdm_config name="CUBESAT" version="1.0" release="BETA"
+<fdm_config name="CUBESAT" version="2.0" release="BETA"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
 
@@ -133,10 +133,11 @@
           <y>0</y>
           <z>0</z>
         </location>
-        <!-- The direction that the thrust acts in is defined below in the Pointing
-             channel of the flight_control section, through the creation of a unit 
-             pointing vector. That is, the direction specified below
-             is the direction that the drag force acts in. -->
+        <direction>
+          <x> 0 </x>
+          <y>  0 </y>
+          <z>  0 </z>
+        </direction>
       </force>
 
     </external_reactions>
@@ -208,17 +209,17 @@
     </flight_control>
 
     <aerodynamics>
-        <axis name="DRAG">
-            <function name="aero/coefficient/CD">
-                <description>Drag</description>
-                <product>
-                    <property>aero/qbar-psf</property>
-                    <property>metrics/Sw-sqft</property>
-                    <value>0.000</value>
-                </product>
-            </function>
-        </axis>
-    </aerodynamics>
+         <axis name="DRAG">
+             <function name="aero/coefficient/CD">
+             <description>Drag</description>
+                 <product>
+                     <property>aero/qbar-psf</property>
+                     <property>metrics/Sw-sqft</property>
+                    <value>0.0001</value>
+                 </product>
+             </function>
+         </axis>
+     </aerodynamics>
 
     <output name="CubesatOut.csv" type="CSV" rate="1">
         <rates> ON </rates>
