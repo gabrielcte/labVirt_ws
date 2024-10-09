@@ -74,8 +74,6 @@ def eko2osv(a, e, i, RAAN, omega, f):
     v_SCGI = np.matmul(math.sqrt(mu_Terra/p)*np.transpose(T),np.array([[e*np.sin(f)], [(1+e*np.cos(f))],[0]]))
     return [r_SCGI, v_SCGI]
 
-
-
 def trajetoria(e, a, i, RAAN, omega, f, num_Orbitas, dt):
     x_scgi = np.zeros((num_Orbitas, 1))
     y_scgi = np.zeros((num_Orbitas, 1))
@@ -91,6 +89,7 @@ def trajetoria(e, a, i, RAAN, omega, f, num_Orbitas, dt):
     e_xpolar = np.zeros((num_Orbitas, 1))
     e_ypolar = np.zeros((num_Orbitas, 1))
     e_zpolar = np.zeros((num_Orbitas, 1))
+    h = np.zeros((num_Orbitas, 1))
     p = a * (1 - e ** 2)
     p = np.linalg.norm(p)
     C = eulerAngles2C (-RAAN, -i, -omega)
@@ -121,9 +120,10 @@ def trajetoria(e, a, i, RAAN, omega, f, num_Orbitas, dt):
         # Ground Track
         lat[stps]= rad2deg(np.arctan2(e_z_scgi[stps],np.sqrt(e_x_scgi[stps]**2+e_y_scgi[stps]**2)))
         lon[stps]= rad2deg(np.arctan2(e_y_scgi[stps],e_x_scgi[stps]))
+        h[stps] = np.linalg.norm([e_x_scgi[stps], e_y_scgi[stps], e_z_scgi[stps]]) - raioEquatorialTerra
         if lon[stps]< 0:
             lon[stps] = lon[stps]
-    return [x_scgi, y_scgi, z_scgi, lat, lon]
+    return [x_scgi, y_scgi, z_scgi, lat, lon, h]
 
 
 # Press the green button in the gutter to run the script.
@@ -170,7 +170,12 @@ if __name__ == '__main__':
     print(f'distancia no SCGI: {r_SCGI} [m]')
     print(f'velocidade no SCGI: {v_SCGI} [m/s]')
 
-    [x_scgi, y_scgi, z_scgi, lat, lon]= trajetoria(e=e, a=a, i=i, RAAN=RAAN, omega=omega, f=f, num_Orbitas=720, dt=1)
+    [x_scgi, y_scgi, z_scgi, lat, lon, h]= trajetoria(e=e, a=a, i=i, RAAN=RAAN, omega=omega, f=f, num_Orbitas=720, dt=1)
+
+    print('Latitude, Longitude e altitude Inicial:')
+    print(f'Latitude: {lat[0]} [º]')
+    print(f'Longitude: {lon[0]} [º]')
+    print(f'altitude: {h[0]} [m]')
 
     plt.figure(1)
     plt.title('Ground Track')
@@ -196,7 +201,7 @@ if __name__ == '__main__':
                ['180W', '150W', '120W', '90W', '60W', '30W', '0', '30E', '60E', '90E', '120E', '150E', '180E'])
 
     # Definir as marcações dos eixos y
-    plt.yticks([-90, -75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75, 90],
+    plt.yticks([90, 75, 60, 45, 30, 15, 0, -15, -30, -45, -60, -75, -90],
                ['90N', '75N', '60N', '45N', '30N', '15N', '0', '15S', '30S', '45S', '60S', '75S', '90S'])
 
     # Configurar a grade e proporções iguais
