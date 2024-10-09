@@ -1,0 +1,321 @@
+% ---------------------------------------------------------------
+% Modelo LaTex para dissertação e tese do programa de Pós Graduação em Ciência da Computação da UFABC
+% ---------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,					% tamanho da fonte
+	openright,				% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	twoside,					% para impressão em verso e anverso. Oposto a oneside
+	a4paper,					% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,			% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,			% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,		% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,	% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,					% idioma adicional para hifenização
+	%french,					% idioma adicional para hifenização
+	%spanish,				% idioma adicional para hifenização
+	brazil					% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---------------------
+% Pacotes OBRIGATÓRIOS
+% ---------------------
+\usepackage{lmodern}				% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}			% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}			% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx,graphicx}	% Inclusão de gráficos
+\usepackage{epsfig,subfig}		% Inclusão de figuras
+\usepackage{microtype} 			% Melhorias de justificação
+% ---------------------
+		
+% ---------------------
+% Pacotes ADICIONAIS
+% ---------------------
+\usepackage{lipsum}						% Geração de dummy text
+\usepackage{amsmath,amssymb,mathrsfs}	% Comandos matemáticos avançados 
+\usepackage{setspace}  					% Para permitir espaçamento simples, 1 1/2 e duplo
+\usepackage{verbatim}					% Para poder usar o ambiente "comment"
+\usepackage{tabularx} 					% Para poder ter tabelas com colunas de largura auto-ajustável
+\usepackage{afterpage} 					% Para executar um comando depois do fim da página corrente
+\usepackage{url} 						% Para formatar URLs (endereços da Web)
+\usepackage{minted}             % Formata códigos
+
+\numberwithin{equation}{subsection}
+\let\oldsection\section% Store \section
+\renewcommand{\section}{% Update \section
+  \renewcommand{\theequation}{\thesection.\arabic{equation}}% Update equation number
+  \oldsection}% Regular \section
+\let\oldsubsection\subsection% Store \subsection
+\renewcommand{\subsection}{% Update \subsection
+  \renewcommand{\theequation}{\thesubsection.\arabic{equation}}% Update equation number
+  \oldsubsection}% Regular \subsection
+% ---------------------
+% ---------------------
+
+% ---------------------
+% Pacotes de CITAÇÕES
+% ---------------------
+\usepackage[brazilian,hyperpageref]{backref}	% Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}				% Citações padrão ABNT (alfa)
+%\usepackage[num]{abntex2cite}				% Citações padrão ABNT (numericas)
+% ---------------------
+
+% Configurações de CITAÇÕES para abntex2
+\include{extras/conf_citacoes}
+
+% Inclusão de dados para CAPA e FOLHA DE ROSTO (título, autor, orientador, etc.)
+\include{extras/dados}
+
+% Inclui Configurações de aparência do PDF Final
+\include{extras/conf_pdf}
+
+% O tamanho da identação do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---------------------
+% Compila o indice
+% ---------------------
+\makeindex
+% ---------------------
+
+% ---------------------
+% Configuração Adição de Script
+% ---------------------
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=sh,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily\footnotesize,
+  morestring=[b]",
+  moredelim=[s][\bfseries\color{gray}]{<}{\ },
+  moredelim=[s][\bfseries\color{gray}]{</}{>},
+  moredelim=[l][\bfseries\color{gray}]{/>},
+  moredelim=[l][\bfseries\color{gray}]{>},
+  morecomment=[s]{<?}{?>},
+  morecomment=[s]{<!--}{-->},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{blue},
+  identifierstyle=\color{red}
+}
+% ---------------------
+\usepackage{pgfgantt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  INICIO DO DOCUMENTO  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS (Capa, Resumo, Abstract, etc.)
+% ----------------------------------------------------------
+\pretextual
+
+% Capa
+\include{pretextual/capa}
+
+% Folha de rosto (o * indica que haverá a ficha bibliográfica)
+\imprimirfolhaderosto*
+
+% Imprimir Ficha Catalografica
+\include{pretextual/catalografica}
+
+% Inserir Folha de Aprovação
+\include{pretextual/assinaturas}
+
+% Dedicatória
+\include{pretextual/dedicatoria}
+
+% Agradecimentos
+\include{pretextual/agradecimentos}
+
+% Epígrafe
+\include{pretextual/epigrafe}
+
+% Resumo e Abstract
+\include{pretextual/resumos}
+
+% Lista de ilustrações
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+% Lista de tabelas
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+
+% Lista de abreviaturas e siglas
+% Ordem Alfabética
+\begin{siglas}
+\item[ADCS] Sistema de Determinação e Controle de Atitude (\textit{Attitude Determination and Control System})
+ \item[CGEE] Centro de Gestão e Estudos Estratégicos
+ \item[CSLI] Iniciativa de lançamento do CubeSat  (\textit{CubeSat Launch Initiative})
+ \item [EDO] Equação Diferencial Ordinária
+ \item[IGRF] Campo de Referência Geomagnético Internacional (\textit{International Geomagnetic Reference Field})
+  \item[INPE] Instituto Nacional de Pesquisas Espaciais
+  \item[J2000] Data Juliana em 1 de Janeiro de 2000
+  \item[JPL] Laboratório de Propulsão a Jato (\textit{Jet Propulsion Laboratory})
+  \item[LEO] Órbita Terrestre Baixa (\textit{Low Earth Orbit})
+ \item[MarsCo] (\textit{Mars Cube One})
+  \item[NASA] Administração Nacional da Aeronáutica e Espaço (\textit{National Aeronautics and Space Administration})
+  \item[NEO] Objeto Próximo da Terra (\textit{Near-Earth Object})  
+  \item[PID] Proporcional Integral Derivativo
+  \item[REQ] Requisito
+  \item[ROS] sistema operacional de robôs (\textit{Robot Operating System})
+  \item[RPM] Rotações Por Minuto
+  \item[SCFC] Sistema de Coordenadas Fixo no Corpo
+  \item[SCGI] Sistema de Coordenadas Geocêntrico-Equatorial Inercial
+  \item[SCO] Sistema de Coordenadas Orbital]
+  \item[SDF] Formato de Descrição de Simulação (\textit{Simulation Description Format})
+  \item[TRIAD] Determinação de Atitude Triaxial (\textit{TRIaxial Attitude Determination})  
+  \item[VE] Veículo Espacial  
+  \item[URDF] Formato de Descrição de Robôs  Unificado (\textit{Unified Robotics Description Format}) 
+  \item[UT] Horário Universal  
+\end{siglas}
+
+% Lista de símbolos
+\begin{simbolos}
+	\item[$\vec{a}$] Aceleração Linear
+    \item[B] Base Ortonormal do SCFC
+    \item[$\vec{b}$] Versor da Base B
+    \item[$C_j$] Matriz de Cossenos Diretores para uma Rotação Elementar sobre o eixo j 
+    \item[$C^{B/A}$] Matriz de Transformação de Coordenadas de A para B 
+    \item[E] Matriz Antissimétrica do Eixo de Euler
+    \item[$\vec{e}$] Eixo de Euler
+    \item[$\vec{e}_r$] Eixo Radial
+    \item[$\vec{e}_s$] Eixo Transversal
+    \item[$e_j$] componente no eixo j do eixo de Euler
+    \item[$\vec{F}$] Força
+    \item[f] Coeficiente de Viscosidade
+    \item[G] Constante Gravitacional Universal
+    \item[$\vec{H}$] Momento Angular da Órbita
+    \item[$H_j$] Componente j do Momento Angular
+    \item[I] Base Ortonormal do SCGI; Matriz Identidade
+    \item[$\vec{i}$] Versor da Base I
+    \item[J] Matriz de Inercia, Momento de Inercia
+    \item[$K_{cr}$] Ganho Crítico
+    \item[$K_P$] Ganho Proporcional
+    \item[m] Massa
+    \item[$N$] Torque
+    \item[$N_{em}$] Torque Eletromagnético
+    \item[$N_0$] Torque Eletromagnético máximo
+    \item[$N_c$] Torque de Coulomb
+    \item[O] Base Ortonormal do SCO
+    \item[$\vec{o}$] Versor da Base O
+    \item[P] Período
+    \item[$P_{cr}$] Período Crítico
+    \item[Q] Matriz Antissimétrica do Quatérnio
+    \item[q] Quatérnio
+    \item[R] Matriz de Rotação, Raio
+    \item[$\vec{r}$] vetor distância
+    \item[r] Razão entre $s$ e $s_{max}$ 
+    \item[s] Velocidade de Rotação
+    \item[$s_{max}$] Velocidade de Rotação Máxima
+    \item[$\vec{v}$] Velocidade Linear
+    \item[T] Torque
+    \item[$T_i$] Período Integrativo
+    \item[$T_d$] Período Derivativo
+    \item[t] tempo
+    \item[$X_{ct}$] Ciclo de Trabalho   
+    \item[$\alpha$] Aceleração Angular
+    \item[$\theta$] Ângulo, Arfagem
+    \item[$\mu$] Parâmetro Gravitacional
+    \item[$\rho$] Dimensão em um Eixo
+    \item[$\Upsilon$] Equinócio Vernal
+    \item[$\phi$] Rolamento
+    \item[$\psi$] Guinada
+    \item[$\vec{\omega}$] Velocidade angular
+    \item[$\omega_0$] Movimento Médio da órbita
+    \item[$\vec{\omega}^b_{ib}$] Velocidade Angular de SCFC em relação ao SCGI visto no SCFC
+    \item[$\vec{\omega}^o_{io}$] Velocidade Angular de SCO em relação ao SCGI visto no SCO
+    \item[$\vec{\omega}^b_{ob}$] Velocidade Angular de SCFC em relação ao SCO visto no SCFC
+\end{simbolos}
+
+
+% Inserir o SUMÁRIO
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS (Capítulos)
+% ----------------------------------------------------------
+\textual
+% Elementos textuais com numeração arábica
+\pagenumbering{arabic}
+% Reinicia a contagem do número de páginas
+\setcounter{page}{1}
+
+% Inclui cada capitulo da Dissertação
+\include{capitulos/introducao}
+
+% PARTE - Define a divisão do documento em partes (Não é obrigatório)
+\part{Preparação da pesquisa}
+\include{capitulos/referencias}
+\include{capitulos/estadodaarte}
+\include{capitulos/ferramentas}
+
+% PARTE
+\part{Proposta}
+\include{capitulos/proposta}
+
+% PARTE
+\part{Parte Final}
+\include{capitulos/resultados}
+\include{capitulos/conclusao}
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS (Referências, Glossário, Apêndices)
+% ----------------------------------------------------------
+\postextual
+
+% Referências bibliográficas
+\bibliography{bibliografia}
+
+% Glossário (Consulte o manual)
+%\glossary
+
+% Apêndices
+\include{postextual/apendices}
+
+% Anexos
+\include{postextual/anexos}
+
+% Índice remissivo (Consultar manual)
+%\phantompart
+%\printindex
+
+\end{document}

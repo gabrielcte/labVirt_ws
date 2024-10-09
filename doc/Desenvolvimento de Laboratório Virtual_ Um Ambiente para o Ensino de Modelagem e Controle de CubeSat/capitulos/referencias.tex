@@ -1,0 +1,13 @@
+
+\chapter{Uso de referências bibliográficas}
+% ---
+O desenvolvimento de um laboratório virtual para o ensino de modelagem e controle de CubeSats é uma tarefa ambiciosa devido à sua extensão, complexidade e natureza multidisciplinar. Requer a integração de tópicos que abrangem desde a mecânica espacial até aplicações de robótica, visualização e simulação, ao mesmo tempo em que mantém um ambiente didático propício ao aprendizado.
+
+O modelo de corpo-rígido em órbita se baseia nas leis de Euler para representação da atitude, sendo eles, matriz de cossenos diretores, ângulos de Euler, ângulo-eixo de Euler e parâmetros de Euler, \textit{i.e.}, quatérnions. Para a visualização da rotação tanto em relação ao corpo quanto em relação a um referencial global são definidos três sistemas de coordenadas seguindo a referência temporal J2000, são eles, o sistema de coordenadas geocêntrico-equatorial inercial, o sistema de coordenadas orbital e o sistema de coordenadas fixo no corpo presentes da literatura \citeonline{zanardi2018}, \citeonline{sellers2000understanding} e \citeonline{wie2008space}. 
+
+Por sua vez o modelo dos Sensores Solar e Magnéticos e Rodas de reação em 3-eixos são adaptados da literatura \citeonline{wertz2012spacecraft} e \cite{baroni2020attitude},  a simplificação desconsiderando ruídos e abstraindo a aquisição dos vetores de posição do sol e o magnético, o atuador utiliza os conceitos de rotação de massa, torque eletromagnético e atrito presente, são arranjadas nos três eixos principais de inércia e se localizam no centro de massa do corpo. O algoritmo de TRIAD utiliza os valores de posição obtidos anteriormente, seguindo a metodologia proposta por \citeonline{hall2003spacecraft} enquanto a técnica de controle PID é implementada conforme descrito por \citeonline{ogata2011engenharia}.
+
+Seguindo a documentação presente em \citeonline{ros2humble}, \citeonline{gazebosim}, \citeonline{sdf} e \citeonline{urdf}. A modelagem do veículo espacial, simplificado como um corpo rígido de configuração 6U, é realizada utilizando URDF (Unified Robotics Description Format) contemplando todos os subsistemas, como sensores solares e magnéticos, rodas de reação e câmera. O ambiente espacial, que inclui o veículo espacial e sua órbita, é obtido por meio de simulação computacional com GNU Octave, e esses valores são utilizados em um SDF (Simulation Description Format) para visualização no Gazebo Simulator. Essa integração dos modelos é facilitada pelo ROS (Robotic Operating System), permitindo a comunicação entre os códigos e os modelos. 
+
+
+

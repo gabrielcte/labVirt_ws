@@ -20,7 +20,7 @@ fdm.load_model(aircraft)
 filename_con = 'fg_conn.xml'  # Arquivo de conexão com o FlightGear
 filename_log = 'simulation_data.csv'  # Arquivo de conexão com o FlightGear
 realtime = False
-sim_dt = 0.05
+sim_dt = 0.004
 sim_period = 720
 
 

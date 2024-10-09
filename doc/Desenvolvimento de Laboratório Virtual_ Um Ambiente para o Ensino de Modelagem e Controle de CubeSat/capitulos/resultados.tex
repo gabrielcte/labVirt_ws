@@ -1,0 +1,33 @@
+\chapter{Cronograma de Atividades}\label{cap:resultados}
+
+\section{Atividades Previstas}
+\begin{enumerate}
+
+    \item Exame de Qualificação de Mestrado do PPGMEC (Data 23/04/2024)
+    \item Roteiro 3: Adicionando Atuadores - ROS2 Control 
+    \item Roteiro 4: Determinação e Controle de Atitude
+    \item CONEM 2024 (29/07/24 a 02/08/24)
+    \item Defesa da Dissertação de Mestrado (Previsão 2024.03)
+    
+\end{enumerate}
+
+\section{Cronograma}
+
+
+\noindent\begin{ganttchart}[y unit title=0.5cm,
+y unit chart=0.5cm,
+vgrid,hgrid,
+title height=1,
+bar/.style={draw,fill=cyan},
+bar incomplete/.append style={fill=yellow!50},
+bar height=0.5]{1}{12}
+ \gantttitle{2024.1}{4} \gantttitle{2024.2}{4}  \gantttitle{2024.3}{4} \\
+ \gantttitlelist{1,...,4}{1} \gantttitlelist{5,...,8}{1}  \gantttitlelist{9,...,12}{1}\\
+ \ganttbar{Qualificação}{4}{4} \\
+ \ganttbar{Roteiro 3}{5}{7} \\
+ \ganttbar{Roteiro 4}{5}{7} \\
+ \ganttbar{CONEM 2024}{8}{8} \\
+ \ganttbar{Defesa}{12}{12}
+ % rela\c c\~oes
+% \ganttlink{elem2}{elem3}
+\end{ganttchart}
