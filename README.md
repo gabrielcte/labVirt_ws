@@ -22,11 +22,11 @@ Este repositório contém scripts para:
 
 A análise do sistema de controle do Cubesat 6u foi realizada por meio de três ferramentas:
 
-| Ferramenta      | Aplicação                                                                                                           |
-| --------------- | ------------------------------------------------------------------------------------------------------------------- |
-| FlightGear (FG) | Software gráfico de simulação de voo                                                                                |
-| JSBSim          | Software/Biblioteca que implementa um modelo matemático/físico de dinâmica de voo para simulação de veículos aéreos |
-| Python          | Linguagem de programação multipropósito. Neste caso é usado para interagir com FlightGear e JSBsim                  |
+| Ferramenta                                  | Aplicação                                                                                                           |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [Flight Gear](https://www.flightgear.org/); | Software gráfico de simulação de voo                                                                                |
+| [JSBSim](https://jsbsim.sourceforge.net/);  | Software/Biblioteca que implementa um modelo matemático/físico de dinâmica de voo para simulação de veículos aéreos |
+| [Python](https://www.python.org/);          | Linguagem de programação multipropósito. Neste caso é usado para interagir com FlightGear e JSBsim                  |
 
 ## Listagem dos scripts
 
@@ -35,7 +35,6 @@ Segue uma descrição dos scripts que fazem parte da simulação:
 | Script                | Descrição                                                                                                           |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | cubesat_plots.py      | Plotagem dos dados simulados no script `dynamic_simulation.py`                                                      |
-| cubesat_design.py     | Projeto preliminar que define dados do veículo espacial, rodas de reação e missão.                                  |
+| cubesat_design.ipynb  | Projeto preliminar que define dados do veículo espacial, rodas de reação e missão.                                  |
 | dynamic_simulation.py | Simulação da missão do cubesat 6U com modelo não linear, em que as equações do movimento são integradas pelo JSBSim |
-| seeker_analysis.py    | Análise da visada do seeker, de acordo com o ponto de início da manobra                                             |
-|                       |                                                                                                                     |
+
