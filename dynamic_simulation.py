@@ -213,4 +213,4 @@ if __name__ == '__main__':
         plt.show()
 
         # Salva data frame como csv
-        df.to_csv('teste_dataframe.csv', index=False)
+        df.to_csv('cubesat_dataframe.csv', index=False)
