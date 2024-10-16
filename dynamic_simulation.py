@@ -21,35 +21,70 @@ class FlightStages(Enum):
     flight_stage_control              = 1
 
 
-
-# Parâmetros Roda de Reação
-V_RDR_Idle = 0.225 # [V]
-V_RDR_Operacao = 4.5 # [V]
-wRDR_max = 8000/9.5492965964254 # [rad/s]
-wRDR_Otima = 1000/9.5492965964254 # [rad/s]
-alpha = 1-wRDR_Otima/wRDR_max
-r = 1
-Xdc = 0
-No = 3.84e-003 # [N.m]
-N_C = 7.06e-004 # [N.m]
-f = 1.21e-008*9.5492965964254 # [N.m/rad/s]
-m_RDR = 0.137 # [kg]
-r_RDR = 0.0435 # [m]
-J_axial_RDR = 0.5*m_RDR*r_RDR**2 # [kg*m²]
-
-
 if __name__ == '__main__':
     
     # Simulação
-    dt = 0.005 
-    realtime     = True
-    sim_period   = 3600
+
+    realtime     = False
+    sim_period   = 300
+    num_steps = 300*20
     frame_time   = 0
+    dt = sim_period/num_steps
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
-    no_control_duration = 100
-    control_duration =720
-    num_steps = int(sim_period/dt)
+    no_control_duration = 0
+    control_duration = 300
+    
+
+    # Parâmetros do CubeSat
+    h_CubeSat = 30e-002  # [m]
+    l_CubeSat = 20e-002 # [m]
+    c_CubeSat = 10e-002 # [m]
+    m_CubeSat = 6 # [kg]
+    J_1 = 1/12*m_CubeSat*((l_CubeSat**2)+(h_CubeSat**2)) # [kg.m²]
+    J_2 = 1/12*m_CubeSat*((c_CubeSat**2)+(h_CubeSat**2)) # [kg.m²]
+    J_3 = 1/12*m_CubeSat*((l_CubeSat**2)+(c_CubeSat**2)) # [kg.m²]
+    J = np.diag([J_1, J_2, J_3]) # [kg.m²]
+
+    # Parâmetros Roda de Reação
+    V_RDR_Idle = 0.225 # [V]
+    V_RDR_Operacao = 4.5 # [V]
+    wRDR_max = 8000/9.5492965964254 # [rad/s]
+    wRDR_Otima = 1000/9.5492965964254; # [rad/s]
+    alpha = 1-wRDR_Otima/wRDR_max
+    r = 1
+    No = 3.84e-003 # [N.m]
+    N_C = 7.06e-004 # [N.m]
+    f = 1.21e-008*9.5492965964254 # [N.m/rad/s]
+    m_RDR = 0.137 # [kg]
+    r_RDR = 0.0435 # [m]
+    J_axial_RDR = 0.5*m_RDR*r_RDR**2 # [kg*m²]
+
+    # Declarando Variáveis
+    T_res = np.zeros((3,num_steps)) # [N.m]
+    N_app = np.zeros((3,num_steps)) # [N.m]
+    N_Friccao = np.zeros((3,num_steps)) # [N.m]
+    N_em = np.zeros((3,num_steps)) # [N.m]
+    aRDR = np.zeros((3,num_steps)) # [rad/s²]
+    wRDR = np.zeros((3,num_steps)) # [rad/s]
+
+    # Afinação do Controle de Atitude
+    ref_ang = np.array([0, 0, 0])
+    Se_angdt = np.array([0, 0, 0])
+    e_ang = np.zeros((3,num_steps))
+    Kp_ang = 15
+    Ki_ang = 15/(0.5*10)
+    Kd_ang = 15*0.125*10
+
+    # Afinação do Contole de Rotação da Roda de Reação
+    Vapp = np.array([0, 0, 0])
+    Xdc = np.array([0, 0, 0])
+    ref_wrdr = np.array([0.0, 0.0, 0.0])
+    Se_wrdrdt = np.array([0.0, 0.0, 0.0])
+    e_wrdr = np.zeros((3,num_steps))
+    Kp_wrdr = 0.6
+    Ki_wrdr = 0.6*2*0.001
+    Kd_wrdr = 0.6*0.125*0.001
     
 
     # Set jsbsim and flightgear
@@ -60,7 +95,7 @@ if __name__ == '__main__':
     fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
     fdm.set_debug_level(0)
     fdm.load_model(aircraft_model)
-    fdm.set_dt(0.005)                                            # Define o passo da simulação (s)
+    fdm.set_dt(dt)                                            # Define o passo da simulação (s)
 
     # Initial Conditions
     # Position
@@ -69,9 +104,9 @@ if __name__ == '__main__':
     fdm['ic/h-sl-ft'] = m2ft(569366.9993)        # ft
 
     # Attitude
-    fdm['ic/phi-rad'] =  0.0                         # Roll (rad)
-    fdm['ic/theta-rad'] = 0.0                        # Pitch (rad)   
-    fdm['ic/psi-true-rad'] = 0.0                     # Yaw (rad)
+    fdm['ic/phi-rad'] =   np.deg2rad(-1)                         # Roll (rad)
+    fdm['ic/theta-rad'] = np.deg2rad(-1)                       # Pitch (rad)   
+    fdm['ic/psi-true-rad'] =   np.deg2rad(-1)                     # Yaw (rad)
 
 
      # Linear Velocities
@@ -80,20 +115,19 @@ if __name__ == '__main__':
     fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
 
     # Angular Velocities
-    fdm['ic/p-rad_sec'] =  1                                   
-    fdm['ic/q-rad_sec'] = 0                                      
-    fdm['ic/r-rad_sec'] = 0                                   
+    fdm['ic/p-rad_sec'] = np.deg2rad(-0.1)                                    
+    fdm['ic/q-rad_sec'] = np.deg2rad(-0.1)                                     
+    fdm['ic/r-rad_sec'] = np.deg2rad(-0.1)                                   
 
     fdm.run_ic()
-
+     
     # Data frame
     data = []
-
-    # Control
+    
 
 
     try:
-
+           
         for i in range(num_steps):
         #while fdm.get_sim_time() <= sim_period:
 
@@ -106,21 +140,80 @@ if __name__ == '__main__':
                     #break
 
             elif flight_stage_current == FlightStages.flight_stage_control:
+                
+                for j in range(3):                    
+                    # Controle da Atitude do Satélite
+                    theta_B_I_B = [fdm['attitude/phi-rad'], fdm['attitude/theta-rad'], fdm['attitude/psi-rad']]
+                    e_ang[j][i] = ref_ang[j]-theta_B_I_B[j]
+                    
+
+                    if (i>1):
+                        de_ang = e_ang[j][i]-e_ang[j][i-1]
+
+                    else:
+                        de_ang = 0
+                
+                    Se_angdt[j] = Se_angdt[j]+e_ang[j][i]*dt
+                    ref_wrdr[j] = Kp_ang*e_ang[j][i]+Ki_ang*Se_angdt[j]+Kd_ang*de_ang/dt # [V]
+                    
+                    # Controle de Rotação Roda de Reação 
+                    e_wrdr[j][i] = ref_wrdr[j] - wRDR[j][i]
+                                                            
+                    if (i>1):
+                        de_wrdr = e_wrdr[j][i]-e_wrdr[j][i-1]                        
+
+                    else:
+                        de_wrdr = 0
+
+                    Se_wrdrdt[j] = Se_wrdrdt[j]+e_wrdr[j][i]*dt
+                    Vapp[j] = Kp_wrdr*e_wrdr[j][i]+Ki_wrdr*Se_wrdrdt[j]+Kd_wrdr*de_wrdr/dt # [V]
+                                        # Atuador
+                    # Ciclo de Trabalho
+                    if np.abs(Vapp[j])>V_RDR_Operacao:
+                        Xdc[j] = 1
+
+                    elif np.abs(Vapp[j])<V_RDR_Idle:
+                        Xdc[j] = 0
+                
+                    elif np.abs(Vapp[j])>=V_RDR_Idle and np.abs(Vapp[j])<=V_RDR_Operacao:
+                        coefs = np.polyfit([V_RDR_Idle, V_RDR_Operacao], [V_RDR_Idle/V_RDR_Operacao, 1], 1)
+                        Xdc[j] = np.polyval(coefs, np.abs(Vapp[j]))
+                
+                    Xdc[j] = np.sign(Vapp[j])*Xdc[j]
+                    
+                    #Torques Roda de Reação
+                    if np.abs(wRDR[j][i])>wRDR_max:
+                        wRDR[j][i] = np.sign(wRDR[j][i])*wRDR_max # [rad/s]
+
+                    if Xdc[j]>0:
+                        r = 1-wRDR[j][i]/wRDR_max # [rad/s]
+
+                    elif Xdc[j]<0:
+                        r = 1+wRDR[j][i]/wRDR_max # [rad/s]
+
+                    
+                    N_Friccao[j][i+1] = N_C*np.sign(wRDR[j][i])+f*wRDR[j][i] # [N.m]
+                    N_em[j][i+1] = Xdc[j]*2*No*alpha*r/(alpha**2+r**2) # [N.m]
+                    N_app[j][i+1] = (N_em[j][i+1]-N_Friccao[j][i+1]) # [N.m]
+                    aRDR[j][i+1] = N_app[j][i+1]/J_axial_RDR # [rad/s^2]                    
+                    wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
+                    
+                # Aplicação do torque de controle na planta
+                fdm['accelerations/pdot-rad_sec2'] = fdm['accelerations/pdot-rad_sec2'] + (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[0][i+1])
+                fdm['accelerations/qdot-rad_sec2'] = fdm['accelerations/qdot-rad_sec2'] + (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[1][i+1])
+                fdm['accelerations/rdot-rad_sec2'] = fdm['accelerations/rdot-rad_sec2'] + (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+N_app[2][i+1])
+
+                    
 
                 if fdm.get_sim_time() > control_duration:
                     break                                            
 
-
+                
             else:
                 raise Exception('### ERROR: undefined flight stage!')        
 
             
-            print(f"Time: {fdm.get_sim_time():.2f} s\
-                H: {fdm['position/h-agl-ft']/3.281:.2f} m\
-                Vel X: {fdm['velocities/u-fps']/3.281:.2f} m/s\
-                Atuador: {np.rad2deg(fdm['fcs/elevator-cmd-norm']):.2f} deg\
-                Alpha: {np.rad2deg(fdm['aero/alpha-rad']):.2f} deg\
-                Pitch: {np.rad2deg(fdm['attitude/theta-rad']):.2f} deg", end='\r', flush=True)
+
             
             new_data = {'sim-time-sec' : fdm.get_sim_time(),
                         'position/lat-geod-deg' : fdm['position/lat-geod-deg'],
@@ -135,6 +228,13 @@ if __name__ == '__main__':
                         }
             
             data.append(new_data)       
+
+            print(f"Time: {fdm.get_sim_time():.2f} s\
+                    H: {fdm['position/h-agl-ft']/3.281:.2f} m\
+                    Vel X: {fdm['velocities/u-fps']/3.281:.2f} m/s\
+                    Atuador: {np.rad2deg(fdm['fcs/elevator-cmd-norm']):.2f} deg\
+                    Alpha: {np.rad2deg(fdm['aero/alpha-rad']):.2f} deg\
+                    Pitch: {np.rad2deg(fdm['attitude/theta-rad']):.2f} deg", end='\r', flush=True)
             
             fdm.run()
 
@@ -158,7 +258,6 @@ if __name__ == '__main__':
 
     finally:
         print('END')
-
                    
         df = pd.DataFrame(data, columns=[
                         'sim-time-sec',
@@ -183,10 +282,9 @@ if __name__ == '__main__':
         # Ler a imagem
 
         contour = mpimg.imread('mapaContorno.jpg')
-
         # Configurar a exibição da imagem
 
-        plt.imshow(contour, extent=[-180, 180, -90, 90])
+        plt.imshow(contour, extent=[-180, 180, -90, 90], cmap='gray')
 
         # Configurar os rótulos dos eixos
         plt.xlabel("Longitude")
@@ -217,6 +315,15 @@ if __name__ == '__main__':
         plt.xlabel('Time [sec]')
         plt.ylabel('Attitude [rad]')
         plt.title('Evolução da Atitude do Cubesat 6U')
+        plt.grid()
+
+        plt.figure(3)
+        plt.plot(df['sim-time-sec'], df['velocities/phidot-rad_sec'],':b')
+        plt.plot(df['sim-time-sec'], df['velocities/thetadot-rad_sec'],':r')
+        plt.plot(df['sim-time-sec'], df['velocities/psidot-rad_sec'],':g')
+        plt.xlabel('Time [sec]')
+        plt.ylabel('Attitude [rad]')
+        plt.title('Velocidade Angular do Cubesat 6U')
         plt.grid()
 
         # Mostrar a imagem
