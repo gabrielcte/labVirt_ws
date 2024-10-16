@@ -75,8 +75,6 @@ def set_ic0(fdm):
     fdm['ap/heading_hold']      = 0
     fdm['forces/hold-down']     = 0
 
-    # Wing opened
-    fdm['wing/wing_ang_pos'] = 0
     
     # Booster separation
     fdm['inertia/pointmass-weight-lbs[1]'] = 0

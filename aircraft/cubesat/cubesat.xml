@@ -6,20 +6,22 @@
 
     <fileheader>
       <author> Gabriel Alves Silva </author>
-      <filecreationdate> 2024-09-24 </filecreationdate>
+      <filecreationdate> 2024-10-15 </filecreationdate>
       <version> Version 1.0 </version>
       <description> Test file </description>
       <note>
-        This model of a CubeSat was created using publicly available data, publicly available
+        This model of a cubesat 6U was created using publicly available data, publicly available
         technical reports, textbooks, testing, and guesses. It contains no proprietary or
-        restricted data.
+        restricted data. 
+        This simulation model is not endorsed by the manufacturer. This model is not
+        to be sold.
       </note>
     </fileheader>
 
     <metrics>
-        <wingarea unit="FT2"> 0 </wingarea>
-        <wingspan unit="FT"> 0.0 </wingspan>
-        <chord unit="FT"> 0.0 </chord>
+        <wingarea unit="FT2"> 1 </wingarea>
+        <wingspan unit="FT"> 1 </wingspan>
+        <chord unit="FT"> 1 </chord>
         <htailarea unit="FT2"> 0 </htailarea>
         <htailarm unit="FT"> 0 </htailarm>
         <vtailarea unit="FT2"> 0 </vtailarea>
@@ -42,34 +44,18 @@
     </metrics>
 
     <mass_balance>
-        <ixx unit="SLUG*FT2"> 0.0414175 </ixx>
-        <iyy unit="SLUG*FT2"> 0.03185961 </iyy>
-        <izz unit="SLUG*FT2"> 0.01592981 </izz>
+        <ixx unit="SLUG*FT2"> 0.001357553227747535 </ixx>
+        <iyy unit="SLUG*FT2"> 0.00104427171365195 </iyy>
+        <izz unit="SLUG*FT2"> 0.000522135856825975 </izz>
         <ixy unit="SLUG*FT2"> -0 </ixy>
         <ixz unit="SLUG*FT2"> -0 </ixz>
         <iyz unit="SLUG*FT2"> -0 </iyz>
-        <emptywt unit="LBS"> 11.4276618 </emptywt>
+        <emptywt unit="LBS"> 13.2277357 </emptywt>
         <location name="CG" unit="IN">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
         </location>
-        <pointmass name="M0">
-            <weight unit="LBS"> 11.4276618 </weight>
-            <location name="POINTMASS" unit="IN">
-                <x> 0 </x>
-                <y> 0 </y>
-                <z> 0 </z>
-            </location>
-        </pointmass>
-        <pointmass name="M1">
-            <weight unit="LBS"> 0 </weight>
-            <location name="POINTMASS" unit="FT">
-                <x> 0 </x>
-                <y> -5 </y>
-                <z> 0 </z>
-            </location>
-        </pointmass>
     </mass_balance>
 
     <ground_reactions>
@@ -82,8 +68,8 @@
             <static_friction> 0 </static_friction>
             <dynamic_friction> 0 </dynamic_friction>
             <rolling_friction> 0 </rolling_friction>
-            <spring_coeff unit="LBS/FT"> 10000 </spring_coeff>
-            <damping_coeff unit="LBS/FT/SEC"> 200000 </damping_coeff>
+            <spring_coeff unit="LBS/FT"> 0 </spring_coeff>
+            <damping_coeff unit="LBS/FT/SEC"> 0 </damping_coeff>
             <max_steer unit="DEG"> 0.0 </max_steer>
             <brake_group> NONE </brake_group>
             <retractable>0</retractable>
@@ -134,7 +120,7 @@
           <z>0</z>
         </location>
         <direction>
-          <x> 0 </x>
+          <x>  1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
@@ -142,33 +128,7 @@
 
     </external_reactions>
 
-    <propulsion>
-            <engine file="EPSS_C2">
-            <feed>0</feed>
-            <feed>1</feed>
-            <thruster file="direct">
-                <location unit="IN">
-                    <x> 0 </x>
-                    <y> 3.93700787 </y>
-                    <z> 0 </z>
-                </location>
-                <orient unit="DEG">
-                    <roll> 0.0 </roll>
-                    <pitch> 0.0 </pitch>
-                    <yaw> 0.0 </yaw>
-                </orient>
-            </thruster>
-        </engine>
-        <tank type="FUEL">    <!-- Tank number 0 -->
-            <location unit="IN">
-                <x> 0 </x>
-                <y> 0 </y>
-                <z> 0 </z>
-            </location>
-            <capacity unit="LBS"> 1.7636981 </capacity>
-            <contents unit="LBS"> 1.7636981 </contents>
-        </tank>
-    </propulsion>
+    <propulsion/>
 
     <flight_control name="FGFCS">
     
@@ -209,32 +169,16 @@
     </flight_control>
 
     <aerodynamics>
-         <axis name="DRAG">
-             <function name="aero/coefficient/CD">
-             <description>Drag</description>
-                 <product>
-                     <property>aero/qbar-psf</property>
-                     <property>metrics/Sw-sqft</property>
-                    <value>0.0001</value>
-                 </product>
-             </function>
-         </axis>
-     </aerodynamics>
+        <axis name="DRAG">
+            <function name="aero/coefficient/CD">
+                <description>Drag</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <value>0.027</value>
+                </product>
+            </function>
+        </axis>
+    </aerodynamics>
 
-    <output name="CubesatOut.csv" type="CSV" rate="1">
-        <rates> ON </rates>
-        <velocities> ON </velocities>
-        <forces> ON </forces>
-        <moments> ON </moments>
-        <position> ON </position>
-        <massprops> ON </massprops>
-        <property> position/radius-to-vehicle-ft </property>
-        <property> velocities/eci-velocity-mag-fps</property>
-        <property> attitude/phi-rad </property>
-        <property> attitude/theta-rad </property>
-        <property> attitude/psi-rad </property>
-        <property> velocities/phidot-rad_sec </property>
-        <property> velocities/thetadot-rad_sec </property>
-        <property> velocities/psidot-rad_sec </property>
-    </output>
 </fdm_config>
