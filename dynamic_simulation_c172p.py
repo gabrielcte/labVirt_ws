@@ -11,6 +11,17 @@ class FlightStages(Enum):
 
 if __name__ == '__main__':
     
+    # Simulação
+    dt = 0.005 
+    realtime     = True
+    sim_period   = 3600
+    frame_time   = 0
+    frame_period = dt
+    flight_stage_current = FlightStages.flight_stage_cruise
+    cruise_duration = 500
+    
+
+    # Set jsbsim and flightgear
     aircraft_model='c172p'
     aircraft_path=(Path('.')).resolve()
 
@@ -18,7 +29,7 @@ if __name__ == '__main__':
     fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
     fdm.set_debug_level(0)
     fdm.load_model(aircraft_model)
-    fdm.set_dt(0.005)                                            # Define o passo da simulação (s)
+    fdm.set_dt(dt)                                            # Define o passo da simulação (s)
 
     # Initial Conditions
     fdm['ic/lat-geod-rad'] = np.deg2rad(-15.7584639398734650)    # Latitude (rad)
@@ -44,13 +55,7 @@ if __name__ == '__main__':
 
     fdm.run_ic()
 
-    # Simulação
-    realtime     = True
-    sim_period   = 3600
-    frame_time   = 0
-    frame_period = 0.005
-    flight_stage_current = FlightStages.flight_stage_cruise
-    cruise_duration = 500
+
 
     try:
 
@@ -74,6 +79,8 @@ if __name__ == '__main__':
             else:
                 raise Exception('### ERROR: undefined flight stage!')        
 
+
+            
             print(f"Time: {fdm.get_sim_time():.2f} s\
                         H: {fdm['position/h-agl-ft']/3.281:.2f} m\
                         Vel X: {fdm['velocities/u-fps']/3.281:.2f} m/s\

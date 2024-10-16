@@ -40,6 +40,19 @@ J_axial_RDR = 0.5*m_RDR*r_RDR**2 # [kg*m²]
 
 if __name__ == '__main__':
     
+    # Simulação
+    dt = 0.005 
+    realtime     = True
+    sim_period   = 3600
+    frame_time   = 0
+    frame_period = dt
+    flight_stage_current = FlightStages.flight_stage_no_control
+    no_control_duration = 100
+    control_duration =720
+    num_steps = int(sim_period/dt)
+    
+
+    # Set jsbsim and flightgear
     aircraft_model='cubesat'
     aircraft_path=(Path('.')).resolve()
 
@@ -73,16 +86,6 @@ if __name__ == '__main__':
 
     fdm.run_ic()
 
-
-    # Simulação
-    realtime     = False
-    sim_period   = 3600
-    frame_time   = 0
-    frame_period = 0.005
-    flight_stage_current = FlightStages.flight_stage_no_control
-    no_control_duration = 720
-    control_duration = 10
-
     # Data frame
     data = []
 
@@ -91,8 +94,8 @@ if __name__ == '__main__':
 
     try:
 
-
-        while fdm.get_sim_time() <= sim_period:
+        for i in range(num_steps):
+        #while fdm.get_sim_time() <= sim_period:
 
             if flight_stage_current == FlightStages.flight_stage_no_control:
 
@@ -111,6 +114,13 @@ if __name__ == '__main__':
             else:
                 raise Exception('### ERROR: undefined flight stage!')        
 
+            
+            print(f"Time: {fdm.get_sim_time():.2f} s\
+                H: {fdm['position/h-agl-ft']/3.281:.2f} m\
+                Vel X: {fdm['velocities/u-fps']/3.281:.2f} m/s\
+                Atuador: {np.rad2deg(fdm['fcs/elevator-cmd-norm']):.2f} deg\
+                Alpha: {np.rad2deg(fdm['aero/alpha-rad']):.2f} deg\
+                Pitch: {np.rad2deg(fdm['attitude/theta-rad']):.2f} deg", end='\r', flush=True)
             
             new_data = {'sim-time-sec' : fdm.get_sim_time(),
                         'position/lat-geod-deg' : fdm['position/lat-geod-deg'],
