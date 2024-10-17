@@ -36,10 +36,44 @@ if __name__ == '__main__':
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
     no_control_duration = 0
-    control_duration = 3600
-    
+    control_duration = 300    
 
-    # Parâmetros do CubeSat
+    # Set jsbsim and flightgear
+    aircraft_model='cubesat'
+    aircraft_path=(Path('.')).resolve()
+
+    fdm = jsbsim.FGFDMExec(str(aircraft_path))
+    fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
+    fdm.set_debug_level(0)
+    fdm.load_model(aircraft_model)
+    fdm.set_dt(dt)                                            # Define o passo da simulação (s)
+
+    # Initial Conditions
+    # Position
+    fdm['ic/lat-geod-rad'] = np.deg2rad(-82.365)     # Latitude (rad)
+    fdm['ic/long-gc-rad'] = np.deg2rad(-41.076)      # Longitude (rad)
+    fdm['ic/h-sl-ft'] = m2ft(569366.9993)            # ft
+
+    # Attitude
+    fdm['ic/phi-rad'] =   np.deg2rad(0)                            # Roll (rad)
+    fdm['ic/theta-rad'] = np.deg2rad(0)                            # Pitch (rad)   
+    fdm['ic/psi-true-rad'] =   np.deg2rad(0)                       # Yaw (rad)
+
+
+     # Linear Velocities
+    fdm['ic/u-fps'] = m2ft(-5.19923341417592e+003)
+    fdm['ic/v-fps'] = m2ft(3.82519438208177e+003)
+    fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
+
+    # Angular Velocities
+    fdm['ic/p-rad_sec'] = np.deg2rad(-0.1)                                    
+    fdm['ic/q-rad_sec'] = np.deg2rad(-0.1)                                     
+    fdm['ic/r-rad_sec'] = np.deg2rad(0.1)                                   
+
+    fdm.run_ic()
+     
+
+        # Parâmetros do CubeSat
     h_CubeSat = 30e-002  # [m]
     l_CubeSat = 20e-002 # [m]
     c_CubeSat = 10e-002 # [m]
@@ -72,7 +106,7 @@ if __name__ == '__main__':
     wRDR = np.zeros((3,num_steps), dtype='float32')  # [rad/s]
 
     # Afinação do Controle de Atitude
-    ref_ang = np.array([0, 0, 0], dtype='float32') 
+    ref_ang = np.array([fdm['ic/phi-rad'], fdm['ic/theta-rad'], fdm['ic/psi-true-rad']], dtype='float32') 
     Se_angdt = np.array([0, 0, 0], dtype='float32') 
     e_ang = np.zeros((3,num_steps), dtype='float32') 
     Kp_ang = 15
@@ -88,42 +122,7 @@ if __name__ == '__main__':
     Kp_wrdr = 0.6
     Ki_wrdr = 0.6*2*0.001
     Kd_wrdr = 0.6*0.125*0.001
-    
 
-    # Set jsbsim and flightgear
-    aircraft_model='cubesat'
-    aircraft_path=(Path('.')).resolve()
-
-    fdm = jsbsim.FGFDMExec(str(aircraft_path))
-    fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
-    fdm.set_debug_level(0)
-    fdm.load_model(aircraft_model)
-    fdm.set_dt(dt)                                            # Define o passo da simulação (s)
-
-    # Initial Conditions
-    # Position
-    fdm['ic/lat-geod-rad'] = np.deg2rad(-82.365)     # Latitude (rad)
-    fdm['ic/long-gc-rad'] = np.deg2rad(-41.076)      # Longitude (rad)
-    fdm['ic/h-sl-ft'] = m2ft(569366.9993)        # ft
-
-    # Attitude
-    fdm['ic/phi-rad'] =   np.deg2rad(0)                         # Roll (rad)
-    fdm['ic/theta-rad'] = np.deg2rad(0)                       # Pitch (rad)   
-    fdm['ic/psi-true-rad'] =   np.deg2rad(0)                     # Yaw (rad)
-
-
-     # Linear Velocities
-    fdm['ic/u-fps'] = m2ft(-5.19923341417592e+003)
-    fdm['ic/v-fps'] = m2ft(3.82519438208177e+003)
-    fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
-
-    # Angular Velocities
-    fdm['ic/p-rad_sec'] = np.deg2rad(0)                                    
-    fdm['ic/q-rad_sec'] = np.deg2rad(0)                                     
-    fdm['ic/r-rad_sec'] = np.deg2rad(0)                                   
-
-    fdm.run_ic()
-     
     # Data frame
     data = []
 
@@ -168,7 +167,8 @@ if __name__ == '__main__':
 
                     Se_wrdrdt[j] = Se_wrdrdt[j]+e_wrdr[j][i]*dt
                     Vapp[j] = Kp_wrdr*e_wrdr[j][i]+Ki_wrdr*Se_wrdrdt[j]+Kd_wrdr*de_wrdr/dt # [V]
-                                        # Atuador
+                    
+                    # Atuador
                     # Ciclo de Trabalho
                     if np.abs(Vapp[j])>V_RDR_Operacao:
                         Xdc[j] = 1
@@ -200,9 +200,15 @@ if __name__ == '__main__':
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
                 # Aplicação do torque de controle na planta
-                fdm['propulsion/tvc_inertial_x'] = (1/J_1)*((J_2-J_3)*fdm['velocities/q-rad_sec']*fdm['velocities/r-rad_sec']+N_app[0][i+1])
-                fdm['propulsion/tvc_inertial_y'] = (1/J_2)*((J_3-J_1)*fdm['velocities/p-rad_sec']*fdm['velocities/r-rad_sec']+N_app[1][i+1])
-                fdm['propulsion/tvc_inertial_z'] = (1/J_3)*((J_1-J_2)*fdm['velocities/p-rad_sec']*fdm['velocities/q-rad_sec']+N_app[2][i+1])
+                fdm['moments/l-total-lbsft'] = Nm2Lbft(N_app[0][i+1])
+                fdm['moments/m-total-lbsft'] = Nm2Lbft(N_app[1][i+1])
+                fdm['moments/n-total-lbsft'] = Nm2Lbft(N_app[2][i+1]) 
+
+                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+fdm['propulsion/tvc_inertial_x'])
+                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+fdm['propulsion/tvc_inertial_y'])
+                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+fdm['propulsion/tvc_inertial_z'])
+
+                fdm['accelerations/pdot-rad_sec2']
 
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
@@ -224,6 +230,9 @@ if __name__ == '__main__':
                         'attitude/phi-rad' : fdm['attitude/phi-rad'],
                         'attitude/theta-rad' : fdm['attitude/theta-rad'],   
                         'attitude/psi-rad' : fdm['attitude/psi-rad'],
+                        'velocities/p-rad_sec' : fdm['velocities/p-rad_sec'],
+                        'velocities/q-rad_sec': fdm['velocities/q-rad_sec'],
+                        'velocities/r-rad_sec': fdm['velocities/q-rad_sec'],
                         'velocities/phidot-rad_sec' : fdm['velocities/phidot-rad_sec'],                                
                         'velocities/thetadot-rad_sec' : fdm['velocities/thetadot-rad_sec'],                                     
                         'velocities/psidot-rad_sec' : fdm['velocities/psidot-rad_sec'],
@@ -267,6 +276,9 @@ if __name__ == '__main__':
                         'attitude/phi-rad',
                         'attitude/theta-rad',   
                         'attitude/psi-rad',
+                        'velocities/p-rad_sec',
+                        'velocities/q-rad_sec',
+                        'velocities/r-rad_sec',
                         'velocities/phidot-rad_sec',                                
                         'velocities/thetadot-rad_sec',                                     
                         'velocities/psidot-rad_sec',
@@ -313,7 +325,7 @@ if __name__ == '__main__':
         plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/theta-rad']),':r')
         plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/psi-rad']),':g')
         plt.xlabel('Time [sec]')
-        plt.ylabel('Attitude [rad]')
+        plt.ylabel('Attitude [Deg]')
         plt.title('Evolução da Atitude do Cubesat 6U')
         plt.grid()
 
@@ -322,7 +334,7 @@ if __name__ == '__main__':
         plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/thetadot-rad_sec']),':r')
         plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/psidot-rad_sec']),':g')
         plt.xlabel('Time [sec]')
-        plt.ylabel('Attitude [rad]')
+        plt.ylabel('Velocidade Angular [Deg/sec]')
         plt.title('Velocidade Angular do Cubesat 6U')
         plt.grid()
 

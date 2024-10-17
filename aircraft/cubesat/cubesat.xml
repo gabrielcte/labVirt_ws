@@ -74,7 +74,7 @@
             <retractable>0</retractable>
         </contact>
     </ground_reactions>
-
+   
     <external_reactions>
       <!-- "Declare" the reefing term -->
       <property>fcs/parachute_reef_pos_norm</property>
@@ -126,7 +126,24 @@
       </force>
 
     </external_reactions>
-    
+
+  
+            <engine file="EPSS_C2">
+            <feed>0</feed>
+            <feed>1</feed>
+            <thruster file="epss_c2_nozzle">
+                <location unit="M">
+                    <x> 0 </x>
+                    <y> 0 </y>
+                    <z> 0.15 </z>
+                </location>
+                <orient unit="DEG">
+                    <roll> 0.0 </roll>
+                    <pitch> 0.0 </pitch>
+                    <yaw> 0.0 </yaw>
+                </orient>
+            </thruster>
+        </engine>
     <propulsion/>
 
     <flight_control name="FGFCS">
