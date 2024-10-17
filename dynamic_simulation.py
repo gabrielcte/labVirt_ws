@@ -16,6 +16,10 @@ def m2ft(meter_value):
     feet_value = meter_value/0.3048
     return feet_value
 
+def Nm2Lbft(Nm):
+    Lbft = Nm*0.7375621493
+    return Lbft
+
 class FlightStages(Enum):
     flight_stage_no_control           = 0
     flight_stage_control              = 1
@@ -26,14 +30,14 @@ if __name__ == '__main__':
     # Simulação
 
     realtime     = False
-    sim_period   = 300
-    num_steps = 300*20
+    sim_period   = 3600
+    num_steps = sim_period*100
     frame_time   = 0
     dt = sim_period/num_steps
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
     no_control_duration = 0
-    control_duration = 300
+    control_duration = 1200
     
 
     # Parâmetros do CubeSat
@@ -61,27 +65,27 @@ if __name__ == '__main__':
     J_axial_RDR = 0.5*m_RDR*r_RDR**2 # [kg*m²]
 
     # Declarando Variáveis
-    T_res = np.zeros((3,num_steps)) # [N.m]
-    N_app = np.zeros((3,num_steps)) # [N.m]
-    N_Friccao = np.zeros((3,num_steps)) # [N.m]
-    N_em = np.zeros((3,num_steps)) # [N.m]
-    aRDR = np.zeros((3,num_steps)) # [rad/s²]
-    wRDR = np.zeros((3,num_steps)) # [rad/s]
+    T_res = np.zeros((3,num_steps), dtype='float32') # [N.m]
+    N_app = np.zeros((3,num_steps), dtype='float32')  # [N.m]
+    N_Friccao = np.zeros((3,num_steps), dtype='float32')  # [N.m]
+    N_em = np.zeros((3,num_steps), dtype='float32')  # [N.m]
+    aRDR = np.zeros((3,num_steps), dtype='float32')  # [rad/s²]
+    wRDR = np.zeros((3,num_steps), dtype='float32')  # [rad/s]
 
     # Afinação do Controle de Atitude
-    ref_ang = np.array([0, 0, 0])
-    Se_angdt = np.array([0, 0, 0])
-    e_ang = np.zeros((3,num_steps))
+    ref_ang = np.array([0, 0, 0], dtype='float32') 
+    Se_angdt = np.array([0, 0, 0], dtype='float32') 
+    e_ang = np.zeros((3,num_steps), dtype='float32') 
     Kp_ang = 15
     Ki_ang = 15/(0.5*10)
     Kd_ang = 15*0.125*10
 
     # Afinação do Contole de Rotação da Roda de Reação
-    Vapp = np.array([0, 0, 0])
-    Xdc = np.array([0, 0, 0])
+    Vapp = np.array([0, 0, 0], dtype='float32') 
+    Xdc = np.array([0, 0, 0], dtype='float32') 
     ref_wrdr = np.array([0.0, 0.0, 0.0])
     Se_wrdrdt = np.array([0.0, 0.0, 0.0])
-    e_wrdr = np.zeros((3,num_steps))
+    e_wrdr = np.zeros((3,num_steps), dtype='float32') 
     Kp_wrdr = 0.6
     Ki_wrdr = 0.6*2*0.001
     Kd_wrdr = 0.6*0.125*0.001
@@ -199,13 +203,17 @@ if __name__ == '__main__':
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
                 # Aplicação do torque de controle na planta
-                fdm['accelerations/pdot-rad_sec2'] = fdm['accelerations/pdot-rad_sec2'] + (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[0][i+1])
-                fdm['accelerations/qdot-rad_sec2'] = fdm['accelerations/qdot-rad_sec2'] + (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[1][i+1])
-                fdm['accelerations/rdot-rad_sec2'] = fdm['accelerations/rdot-rad_sec2'] + (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+N_app[2][i+1])
+                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[0][i+1])
+                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[1][i+1])
+                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+N_app[2][i+1])
 
-                    
-
-                if fdm.get_sim_time() > control_duration:
+                if np.abs(wRDR[0][i]) == 761.11:
+                    print('RDR eixo X Saturou')
+                elif np.abs(wRDR[1][i]) == 761.11:
+                    print('RDR eixo Y Saturou')
+                elif np.abs(wRDR[2][i]) == 761.11:
+                    print('RDR eixo Z Saturou')
+                elif fdm.get_sim_time() > control_duration:
                     break                                            
 
                 
@@ -230,11 +238,9 @@ if __name__ == '__main__':
             data.append(new_data)       
 
             print(f"Time: {fdm.get_sim_time():.2f} s\
-                    H: {fdm['position/h-agl-ft']/3.281:.2f} m\
-                    Vel X: {fdm['velocities/u-fps']/3.281:.2f} m/s\
-                    Atuador: {np.rad2deg(fdm['fcs/elevator-cmd-norm']):.2f} deg\
-                    Alpha: {np.rad2deg(fdm['aero/alpha-rad']):.2f} deg\
-                    Pitch: {np.rad2deg(fdm['attitude/theta-rad']):.2f} deg", end='\r', flush=True)
+                    Atuator X: {wRDR[0][i]:.2f} rad/sec\
+                    Atuator Y: {wRDR[1][i]:.2f} rad/sec\
+                    Atuator Z: {wRDR[2][i]:.2f} rad/sec", end='\r', flush=True)
             
             fdm.run()
 
