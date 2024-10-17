@@ -57,8 +57,7 @@
             <z> 0 </z>
         </location>
     </mass_balance>
-
-    <ground_reactions>
+<ground_reactions>
         <contact type="BOGEY" name="CONTACT">
             <location unit="IN">
                 <x> 0 </x>
@@ -68,8 +67,8 @@
             <static_friction> 0 </static_friction>
             <dynamic_friction> 0 </dynamic_friction>
             <rolling_friction> 0 </rolling_friction>
-            <spring_coeff unit="LBS/FT"> 0 </spring_coeff>
-            <damping_coeff unit="LBS/FT/SEC"> 0 </damping_coeff>
+            <spring_coeff unit="LBS/FT"> 10000 </spring_coeff>
+            <damping_coeff unit="LBS/FT/SEC"> 200000 </damping_coeff>
             <max_steer unit="DEG"> 0.0 </max_steer>
             <brake_group> NONE </brake_group>
             <retractable>0</retractable>
@@ -119,11 +118,10 @@
           <y>0</y>
           <z>0</z>
         </location>
-        <direction>
-          <x>  1 </x>
-          <y>  0 </y>
-          <z>  0 </z>
-        </direction>
+        <!-- The direction that the thrust acts in is defined below in the Pointing
+             channel of the flight_control section, through the creation of a unit 
+             pointing vector. That is, the direction specified below
+             is the direction that the drag force acts in. -->
       </force>
 
     </external_reactions>
@@ -175,10 +173,25 @@
                 <product>
                     <property>aero/qbar-psf</property>
                     <property>metrics/Sw-sqft</property>
-                    <value>0.027</value>
+                    <value>0.000</value>
                 </product>
             </function>
         </axis>
     </aerodynamics>
 
+
+    <!--
+    <output name="BallOut.csv" type="CSV" rate="1">
+        <rates> ON </rates>
+        <velocities> ON </velocities>
+        <forces> ON </forces>
+        <moments> ON </moments>
+        <position> ON </position>
+        <massprops> ON </massprops>
+        <property> position/vrp-gc-latitude_deg </property>
+        <property> position/vrp-longitude_deg </property>
+        <property> position/vrp-radius-ft </property>
+    </output>
+    -->
+    
 </fdm_config>

@@ -203,9 +203,18 @@ if __name__ == '__main__':
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
                 # Aplicação do torque de controle na planta
-                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[0][i+1])
-                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+N_app[1][i+1])
-                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+N_app[2][i+1])
+                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/q-rad_sec']*fdm['velocities/r-rad_sec']+N_app[0][i+1])
+                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/p-rad_sec']*fdm['velocities/r-rad_sec']+N_app[1][i+1])
+                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/p-rad_sec']*fdm['velocities/q-rad_sec']+N_app[2][i+1])
+
+                fdm['velocities/p-rad_sec'] = fdm['velocities/p-rad_sec']+fdm['accelerations/pdot-rad_sec2']*dt
+                fdm['velocities/q-rad_sec'] = fdm['velocities/q-rad_sec']+fdm['accelerations/qdot-rad_sec2']*dt
+                fdm['velocities/r-rad_sec'] = fdm['velocities/r-rad_sec']+fdm['accelerations/rdot-rad_sec2']*dt
+
+                fdm['attitude/phi-rad'] = fdm['attitude/phi-rad']+fdm['velocities/p-rad_sec']*dt
+                fdm['attitude/theta-rad'] = fdm['attitude/theta-rad']+fdm['velocities/q-rad_sec']*dt
+                fdm['attitude/psi-rad'] = fdm['attitude/psi-rad']+fdm['velocities/r-rad_sec']*dt
+
 
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
@@ -218,10 +227,7 @@ if __name__ == '__main__':
 
                 
             else:
-                raise Exception('### ERROR: undefined flight stage!')        
-
-            
-
+                raise Exception('### ERROR: undefined flight stage!')
             
             new_data = {'sim-time-sec' : fdm.get_sim_time(),
                         'position/lat-geod-deg' : fdm['position/lat-geod-deg'],
