@@ -12,7 +12,7 @@
 
 		<urls>
 			<home-page>http://wiki.flightgear.org/CUBESAT_from_the_%27White_Project%27_of_the_UNESCO</home-page>
-			<code-repository>https://sourceforge.net/p/flightgear/fgdata/ci/next/tree/Aircraft/ufo/</code-repository>
+			<code-repository>https://sourceforge.net/p/flightgear/fgdata/ci/next/tree/Aircraft/cubesat/</code-repository>
 			<support>https://forum.flightgear.org/viewforum.php?f=17</support>
 			<wikipedia>https://en.wikipedia.org/wiki/Unidentified_flying_object</wikipedia>
 		</urls>
@@ -37,19 +37,19 @@
             <tag>spaceship</tag>
         </tags>
 
-		<flight-model>ufo</flight-model>
+		<flight-model>cubesat</flight-model>
 
 		<sound>
-			<path>Aircraft/ufo/ufo-sound.xml</path>
+			<path>Aircraft/cubesat/cubesat-sound.xml</path>
 		</sound>
 
 		<panel>
 			<visibility>false</visibility>
-			<path>Aircraft/ufo/Instruments/panel.xml</path>
+			<path>Aircraft/cubesat/Instruments/panel.xml</path>
 		</panel>
 
 		<model>
-			<path>Aircraft/ufo/Models/ufo.xml</path>
+			<path>Aircraft/cubesat/Models/cubesat.xml</path>
 			<always-show-in-MP type="bool">false</always-show-in-MP>
 			 <door>
                 <position-x-m type="float">-5.0</position-x-m>
@@ -73,7 +73,7 @@
 		</model>
 
 		<instrumentation>
-			<path>Aircraft/ufo/Instruments/instrumentation.xml</path>
+			<path>Aircraft/cubesat/Instruments/instrumentation.xml</path>
 		</instrumentation>
 
 		<!--current-view>
@@ -222,7 +222,7 @@
 			</key>
 			<key>
 				<name>Ctrl + G</name>
-				<desc>Show/hide 8x8x8m box grid around ufo for screen alignment</desc>
+				<desc>Show/hide 8x8x8m box grid around cubesat for screen alignment</desc>
 			</key>
 
 			<line>Pre-select initial model (path relative to $FG_ROOT):</line>
@@ -233,8 +233,8 @@
 			<line>&#32;&#32;&#45;&#45;prop:source=Models,Scenery/Objects</line>
 			<line/>
 			<line>Exported data are written to:</line>
-			<line>&#32;&#32;~/.fgfs/Export/ufo-model-export.xml   (Unix)</line>
-			<line>&#32;&#32;%APPDATA%\flightgear.org\Export\ufo-model-export.xml   (Microsoft Windows)</line>
+			<line>&#32;&#32;~/.fgfs/Export/cubesat-model-export.xml   (Unix)</line>
+			<line>&#32;&#32;%APPDATA%\flightgear.org\Export\cubesat-model-export.xml   (Microsoft Windows)</line>
 			<line/>
 			<line>In the adjustment dialog (= key) holding the Ctrl or Shift key down</line>
 			<line>makes slider effects coarser/finer.</line>
@@ -248,7 +248,7 @@
 				<desc>Remove selected object</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.modelmgr.remove_selected()</script>
+					<script>cubesat.modelmgr.remove_selected()</script>
 				</binding>
 			</key>
 
@@ -266,7 +266,7 @@
 				<desc>Show object adjustment dialog</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.adjust_dialog.toggle()</script>
+					<script>cubesat.adjust_dialog.toggle()</script>
 				</binding>
 			</key>
 
@@ -275,7 +275,7 @@
 				<desc>Show model select dialog</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.select_dialog.toggle()</script>
+					<script>cubesat.select_dialog.toggle()</script>
 				</binding>
 			</key>
 
@@ -284,7 +284,7 @@
 				<desc>Clone selected objects</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.modelmgr.clone_selected()</script>
+					<script>cubesat.modelmgr.clone_selected()</script>
 				</binding>
 			</key>
 
@@ -293,7 +293,7 @@
 				<desc>Dump coordinates</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.print_data()</script>
+					<script>cubesat.print_data()</script>
 				</binding>
 			</key>
 
@@ -302,7 +302,7 @@
 				<desc>Export object data XML file</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.export_data()</script>
+					<script>cubesat.export_data()</script>
 				</binding>
 			</key>
 
@@ -311,7 +311,7 @@
 				<desc>Open file selector</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.file_select_model()</script>
+					<script>cubesat.file_select_model()</script>
 				</binding>
 			</key>
 
@@ -320,7 +320,7 @@
 				<desc>Toggle "active object" marker</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.modelmgr.toggle_marker()</script>
+					<script>cubesat.modelmgr.toggle_marker()</script>
 				</binding>
 			</key>
 
@@ -329,7 +329,7 @@
 				<desc>Export FlightPlan</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.export_flightplan()</script>
+					<script>cubesat.export_flightplan()</script>
 				</binding>
 			</key>
 
@@ -341,7 +341,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.cycle(1);
+							cubesat.modelmgr.cycle(1);
 						} else {
 							controls.incThrottle(0.01, 1.0)
 						}
@@ -365,7 +365,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.cycle(-1);
+							cubesat.modelmgr.cycle(-1);
 						} else {
 							controls.incThrottle(-0.01, -1.0)
 						}
@@ -389,7 +389,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.adjust("transversal", -1);
+							cubesat.modelmgr.adjust("transversal", -1);
 						} else {
 							controls.incAileron(-0.05, -1.0);
 						}
@@ -401,7 +401,7 @@
 						<command>nasal</command>
 						<script>
 							if (getprop("/devices/status/keyboard/ctrl")) {
-								ufo.modelmgr.adjust("transversal", -10);
+								cubesat.modelmgr.adjust("transversal", -10);
 							} else {
 								setprop("/sim/current-view/goal-heading-offset-deg",
 									getprop("/sim/view/config/left-direction-deg"));
@@ -419,7 +419,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.adjust("longitudinal", 1);
+							cubesat.modelmgr.adjust("longitudinal", 1);
 						} else {
 							controls.incElevator(0.05, -100);
 						}
@@ -431,7 +431,7 @@
 						<command>nasal</command>
 						<script>
 							if (getprop("/devices/status/keyboard/ctrl")) {
-								ufo.modelmgr.adjust("longitudinal", 10);
+								cubesat.modelmgr.adjust("longitudinal", 10);
 							} else {
 								setprop("/sim/current-view/goal-heading-offset-deg",
 									getprop("/sim/view/config/front-direction-deg"));
@@ -449,7 +449,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.adjust("transversal", 1);
+							cubesat.modelmgr.adjust("transversal", 1);
 						} else {
 							controls.incAileron(0.05, 1.0);
 						}
@@ -462,7 +462,7 @@
 						<command>nasal</command>
 						<script>
 							if (getprop("/devices/status/keyboard/ctrl")) {
-								ufo.modelmgr.adjust("transversal", 10);
+								cubesat.modelmgr.adjust("transversal", 10);
 							} else {
 								setprop("/sim/current-view/goal-heading-offset-deg",
 									getprop("/sim/view/config/right-direction-deg"));
@@ -480,7 +480,7 @@
 					<command>nasal</command>
 					<script>
 						if (getprop("/devices/status/keyboard/ctrl")) {
-							ufo.modelmgr.adjust("longitudinal", -1);
+							cubesat.modelmgr.adjust("longitudinal", -1);
 						} else {
 							controls.incElevator(-0.05, 100);
 						}
@@ -492,7 +492,7 @@
 						<command>nasal</command>
 						<script>
 							if (getprop("/devices/status/keyboard/ctrl")) {
-								ufo.modelmgr.adjust("longitudinal", -10);
+								cubesat.modelmgr.adjust("longitudinal", -10);
 							} else {
 								setprop("/sim/current-view/goal-heading-offset-deg",
 									getprop("/sim/view/config/back-direction-deg"));
@@ -507,12 +507,12 @@
 				<desc>Hover Up</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.up(1)</script>
+					<script>cubesat.up(1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.up(0)</script>
+						<script>cubesat.up(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -524,12 +524,12 @@
 				<repeatable type="bool">true</repeatable>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.leftright(-1)</script>
+					<script>cubesat.leftright(-1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.leftright(0)</script>
+						<script>cubesat.leftright(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -539,12 +539,12 @@
 				<repeatable type="bool">true</repeatable>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.leftright(1)</script>
+					<script>cubesat.leftright(1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.leftright(0)</script>
+						<script>cubesat.leftright(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -556,12 +556,12 @@
 				<desc>Hover Down</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.up(-1)</script>
+					<script>cubesat.up(-1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.up(0)</script>
+						<script>cubesat.up(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -571,12 +571,12 @@
 				<desc>Hover Up</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.up(1)</script>
+					<script>cubesat.up(1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.up(0)</script>
+						<script>cubesat.up(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -586,12 +586,12 @@
 				<desc>Hover Down</desc>
 				<binding>
 					<command>nasal</command>
-					<script>ufo.up(-1)</script>
+					<script>cubesat.up(-1)</script>
 				</binding>
 				<mod-up>
 					<binding>
 						<command>nasal</command>
-						<script>ufo.up(0)</script>
+						<script>cubesat.up(0)</script>
 					</binding>
 				</mod-up>
 			</key>
@@ -599,15 +599,15 @@
 	</input>
 
 	<!-- default model -->
-	<cursor type="string">Aircraft/ufo/Models/cursor.ac</cursor>
+	<cursor type="string">Aircraft/cubesat/Models/cursor.ac</cursor>
 
 	<!-- subdirs of $FG_ROOT to search models in. Comma separated, e.g. "Models,Scenery/Objects/w130n30" -->
 	<source type="string">Models</source>
 
 	<nasal>
-		<ufo>
-			<file>Aircraft/ufo/ufo.nas</file>
-		</ufo>
+		<cubesat>
+			<file>Aircraft/cubesat/cubesat.nas</file>
+		</cubesat>
 
 		<aar>
 			<file>Aircraft/Generic/aar.nas</file>
@@ -714,7 +714,7 @@
 			<!-- eg B738, C172, BE9L
 			http://www.icao.int/publications/DOC8643/Pages/Search.aspx may help finding these
 			-->
-			<type type="string">ZZZZ</type> <!-- no ICAO code for the ufo -->
+			<type type="string">ZZZZ</type> <!-- no ICAO code for the cubesat -->
 
 			<!-- ICAO equipment string  -->
 			<equipment type="string">SDFGY</equipment>

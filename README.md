@@ -35,6 +35,5 @@ Segue uma descrição dos scripts que fazem parte da simulação:
 
 | Script                | Descrição                                                                                                           |
 | --------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| cubesat_plots.py      | Plotagem dos dados simulados no script `dynamic_simulation.py`                                                      |
 | cubesat_design.ipynb  | Projeto preliminar que define dados do veículo espacial, rodas de reação e missão.                                  |
 | dynamic_simulation.py | Simulação da missão do cubesat 6U com modelo não linear, em que as equações do movimento são integradas pelo JSBSim |

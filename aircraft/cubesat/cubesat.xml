@@ -118,14 +118,15 @@
           <y>0</y>
           <z>0</z>
         </location>
-        <!-- The direction that the thrust acts in is defined below in the Pointing
-             channel of the flight_control section, through the creation of a unit 
-             pointing vector. That is, the direction specified below
-             is the direction that the drag force acts in. -->
+        <direction>
+          <x>  0 </x>
+          <y>  0 </y>
+          <z>  0 </z>
+        </direction>
       </force>
 
     </external_reactions>
-
+    
     <propulsion/>
 
     <flight_control name="FGFCS">
@@ -179,9 +180,7 @@
         </axis>
     </aerodynamics>
 
-
-    <!--
-    <output name="BallOut.csv" type="CSV" rate="1">
+    <output name="CubesatOut.csv" type="CSV" rate="1">
         <rates> ON </rates>
         <velocities> ON </velocities>
         <forces> ON </forces>
@@ -192,6 +191,5 @@
         <property> position/vrp-longitude_deg </property>
         <property> position/vrp-radius-ft </property>
     </output>
-    -->
     
 </fdm_config>

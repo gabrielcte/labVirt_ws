@@ -1,12 +1,11 @@
 import jsbsim
-import jsbsim_utils as jsbsu
-from pathlib        import Path
 import time
-import numpy as np
-from enum              import Enum
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import pandas as pd
+from pathlib                import Path
+import numpy                as np
+from enum                   import Enum
+import matplotlib.pyplot    as plt
+import matplotlib.image     as mpimg
+import pandas               as pd
 
 def ft2m(feet_value):
     meter_value = feet_value*0.3048
@@ -37,7 +36,7 @@ if __name__ == '__main__':
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
     no_control_duration = 0
-    control_duration = 1200
+    control_duration = 3600
     
 
     # Parâmetros do CubeSat
@@ -108,9 +107,9 @@ if __name__ == '__main__':
     fdm['ic/h-sl-ft'] = m2ft(569366.9993)        # ft
 
     # Attitude
-    fdm['ic/phi-rad'] =   np.deg2rad(-1)                         # Roll (rad)
-    fdm['ic/theta-rad'] = np.deg2rad(-1)                       # Pitch (rad)   
-    fdm['ic/psi-true-rad'] =   np.deg2rad(-1)                     # Yaw (rad)
+    fdm['ic/phi-rad'] =   np.deg2rad(0)                         # Roll (rad)
+    fdm['ic/theta-rad'] = np.deg2rad(0)                       # Pitch (rad)   
+    fdm['ic/psi-true-rad'] =   np.deg2rad(0)                     # Yaw (rad)
 
 
      # Linear Velocities
@@ -119,16 +118,14 @@ if __name__ == '__main__':
     fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
 
     # Angular Velocities
-    fdm['ic/p-rad_sec'] = np.deg2rad(-0.1)                                    
-    fdm['ic/q-rad_sec'] = np.deg2rad(-0.1)                                     
-    fdm['ic/r-rad_sec'] = np.deg2rad(-0.1)                                   
+    fdm['ic/p-rad_sec'] = np.deg2rad(0)                                    
+    fdm['ic/q-rad_sec'] = np.deg2rad(0)                                     
+    fdm['ic/r-rad_sec'] = np.deg2rad(0)                                   
 
     fdm.run_ic()
      
     # Data frame
     data = []
-    
-
 
     try:
            
@@ -203,18 +200,9 @@ if __name__ == '__main__':
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
                 # Aplicação do torque de controle na planta
-                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/q-rad_sec']*fdm['velocities/r-rad_sec']+N_app[0][i+1])
-                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/p-rad_sec']*fdm['velocities/r-rad_sec']+N_app[1][i+1])
-                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/p-rad_sec']*fdm['velocities/q-rad_sec']+N_app[2][i+1])
-
-                fdm['velocities/p-rad_sec'] = fdm['velocities/p-rad_sec']+fdm['accelerations/pdot-rad_sec2']*dt
-                fdm['velocities/q-rad_sec'] = fdm['velocities/q-rad_sec']+fdm['accelerations/qdot-rad_sec2']*dt
-                fdm['velocities/r-rad_sec'] = fdm['velocities/r-rad_sec']+fdm['accelerations/rdot-rad_sec2']*dt
-
-                fdm['attitude/phi-rad'] = fdm['attitude/phi-rad']+fdm['velocities/p-rad_sec']*dt
-                fdm['attitude/theta-rad'] = fdm['attitude/theta-rad']+fdm['velocities/q-rad_sec']*dt
-                fdm['attitude/psi-rad'] = fdm['attitude/psi-rad']+fdm['velocities/r-rad_sec']*dt
-
+                fdm['propulsion/tvc_inertial_x'] = (1/J_1)*((J_2-J_3)*fdm['velocities/q-rad_sec']*fdm['velocities/r-rad_sec']+N_app[0][i+1])
+                fdm['propulsion/tvc_inertial_y'] = (1/J_2)*((J_3-J_1)*fdm['velocities/p-rad_sec']*fdm['velocities/r-rad_sec']+N_app[1][i+1])
+                fdm['propulsion/tvc_inertial_z'] = (1/J_3)*((J_1-J_2)*fdm['velocities/p-rad_sec']*fdm['velocities/q-rad_sec']+N_app[2][i+1])
 
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
@@ -321,18 +309,18 @@ if __name__ == '__main__':
 
 
         plt.figure(2)
-        plt.plot(df['sim-time-sec'], df['attitude/phi-rad'],':b')
-        plt.plot(df['sim-time-sec'], df['attitude/theta-rad'],':r')
-        plt.plot(df['sim-time-sec'], df['attitude/psi-rad'],':g')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/phi-rad']),':b')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/theta-rad']),':r')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/psi-rad']),':g')
         plt.xlabel('Time [sec]')
         plt.ylabel('Attitude [rad]')
         plt.title('Evolução da Atitude do Cubesat 6U')
         plt.grid()
 
         plt.figure(3)
-        plt.plot(df['sim-time-sec'], df['velocities/phidot-rad_sec'],':b')
-        plt.plot(df['sim-time-sec'], df['velocities/thetadot-rad_sec'],':r')
-        plt.plot(df['sim-time-sec'], df['velocities/psidot-rad_sec'],':g')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/phidot-rad_sec']),':b')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/thetadot-rad_sec']),':r')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/psidot-rad_sec']),':g')
         plt.xlabel('Time [sec]')
         plt.ylabel('Attitude [rad]')
         plt.title('Velocidade Angular do Cubesat 6U')
