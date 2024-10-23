@@ -1,0 +1,63 @@
+import sys
+sys.path.insert(0, './aerospace_ctrl_toolkit')
+import matplotlib.pyplot as plt
+import numpy             as np
+import pandas as pd
+import unit_conversion as uc
+
+df = pd.read_csv('JSBSim_Val.csv')
+
+la = -df['/fdm/jsbsim/metrics/aero-rp-x-in'] + df['/fdm/jsbsim/inertia/cg-x-in']
+CNa = df['/fdm/jsbsim/aero/coefficient/dCMq']
+
+plt.figure(0)
+plt.plot(df['Time'], uc.in2m(la),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$l_{a} \ [m]$')
+plt.title('Variação Margem Estática')
+plt.grid()
+
+plt.figure(1)
+plt.plot(df['Time'], uc.in2m(CNa),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$CN_{\alpha} \ $')
+plt.title('Variação do Coeficiente de Yaw')
+plt.grid()
+
+plt.figure(2)
+plt.plot(df['Time'], uc.slugsqft2kgsqm(df['/fdm/jsbsim/inertia/iyy-slugs_ft2']),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$I_{yy} \ [Kg.m^2]$')
+plt.title('Variação do momento de inércia no eixo Y')
+plt.grid()
+
+plt.figure(3)
+plt.plot(df['Time'], uc.psf2Pa(df['/fdm/jsbsim/aero/qbar-psf']),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$P_{din} \ [Pa]$')
+plt.title('Variação da pressão dinâmica')
+plt.grid()
+
+plt.figure(4)
+plt.plot(df['Time'], uc.ft2m(df['/fdm/jsbsim/velocities/u-fps']),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$U_{} \ [m/s]$')
+plt.title('Variação da componente U da velocidade NED')
+plt.grid()
+
+plt.figure(5)
+plt.plot(df['Time'], uc.in2m(df['/fdm/jsbsim/inertia/cg-x-in']),':b')
+plt.xlabel('Tempo [s]')
+plt.ylabel(r'$X_{cg} \ [m]$')
+plt.title('Variação do CG no eixo X')
+plt.grid()
+
+#plt.figure(6)
+#plt.plot(df['sim-time-sec'], df['custom/aero-efficiency'],':b')
+#plt.xlabel('Tempo [s]')
+#plt.ylabel(r'$M_{\alpha} \ [1/s^2]$')
+#plt.title('Variação da Eciciência Aerodinamica')
+#plt.grid()
+
+# Mostrar a imagem
+plt.show()

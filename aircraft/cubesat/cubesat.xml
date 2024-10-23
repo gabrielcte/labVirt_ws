@@ -204,9 +204,24 @@
         <moments> ON </moments>
         <position> ON </position>
         <massprops> ON </massprops>
-        <property> position/vrp-gc-latitude_deg </property>
-        <property> position/vrp-longitude_deg </property>
-        <property> position/vrp-radius-ft </property>
+		
+		<property> position/lat-geod-deg </property>
+		<property> position/long-gc-deg </property>
+		<property> position/geod-alt-ft </property>
+		<property> attitude/phi-rad </property>
+		<property> attitude/theta-rad </property>
+		<property> attitude/psi-rad </property>
+		<property> velocities/u-fps </property>
+		<property> velocities/p-rad_sec </property>
+		<property> velocities/q-rad_sec </property>
+		<property> velocities/r-rad_sec </property>
+		<property> velocities/phidot-rad_sec </property>
+		<property> velocities/thetadot-rad_sec </property>
+		<property> velocities/psidot-rad_sec </property>
+		<property> inertia/cg-x-in </property>
+		<property> inertia/iyy-slugs_ft2 </property>
+		<property> aero/qbar-psf </property>
+		<property> metrics/aero-rp-x-in </property>
     </output>
     
 </fdm_config>
