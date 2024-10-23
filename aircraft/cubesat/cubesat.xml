@@ -19,7 +19,7 @@
     </fileheader>
 
     <metrics>
-        <wingarea unit="FT2"> 1 </wingarea>
+        <wingarea unit="FT2"> 0.21527821 </wingarea>
         <wingspan unit="FT"> 1 </wingspan>
         <chord unit="FT"> 1 </chord>
         <htailarea unit="FT2"> 0 </htailarea>
@@ -57,6 +57,7 @@
             <z> 0 </z>
         </location>
     </mass_balance>
+
 <ground_reactions>
         <contact type="BOGEY" name="CONTACT">
             <location unit="IN">
@@ -127,7 +128,7 @@
 
     </external_reactions>
 
-  
+      <propulsion>
             <engine file="EPSS_C2">
             <feed>0</feed>
             <feed>1</feed>
@@ -144,7 +145,7 @@
                 </orient>
             </thruster>
         </engine>
-    <propulsion/>
+    </propulsion>
 
     <flight_control name="FGFCS">
     

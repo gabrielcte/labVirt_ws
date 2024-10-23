@@ -204,12 +204,6 @@ if __name__ == '__main__':
                 fdm['moments/m-total-lbsft'] = Nm2Lbft(N_app[1][i+1])
                 fdm['moments/n-total-lbsft'] = Nm2Lbft(N_app[2][i+1]) 
 
-                fdm['accelerations/pdot-rad_sec2'] = (1/J_1)*((J_2-J_3)*fdm['velocities/thetadot-rad_sec']*fdm['velocities/psidot-rad_sec']+fdm['propulsion/tvc_inertial_x'])
-                fdm['accelerations/qdot-rad_sec2'] = (1/J_2)*((J_3-J_1)*fdm['velocities/phidot-rad_sec']*fdm['velocities/psidot-rad_sec']+fdm['propulsion/tvc_inertial_y'])
-                fdm['accelerations/rdot-rad_sec2'] = (1/J_3)*((J_1-J_2)*fdm['velocities/phidot-rad_sec']*fdm['velocities/thetadot-rad_sec']+fdm['propulsion/tvc_inertial_z'])
-
-                fdm['accelerations/pdot-rad_sec2']
-
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
                 elif np.abs(wRDR[1][i]) == 761.11:

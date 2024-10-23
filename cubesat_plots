@@ -1,63 +1,97 @@
-import sys
-sys.path.insert(0, './aerospace_ctrl_toolkit')
-import matplotlib.pyplot as plt
-import numpy             as np
-import pandas as pd
-import unit_conversion as uc
+import jsbsim
+import time
+from pathlib                import Path
+import numpy                as np
+from enum                   import Enum
+import matplotlib.pyplot    as plt
+import matplotlib.image     as mpimg
+import pandas               as pd
 
-df = pd.read_csv('JSBSim_Val.csv')
 
-la = -df['/fdm/jsbsim/metrics/aero-rp-x-in'] + df['/fdm/jsbsim/inertia/cg-x-in']
-CNa = df['/fdm/jsbsim/aero/coefficient/dCMq']
+df = pd.read_csv('CubesatOut.csv')
+
+
 
 plt.figure(0)
-plt.plot(df['Time'], uc.in2m(la),':b')
-plt.xlabel('Tempo [s]')
-plt.ylabel(r'$l_{a} \ [m]$')
-plt.title('Variação Margem Estática')
-plt.grid()
+plt.title('Ground Track')
+plt.plot(df['/fdm/jsbsim/position/long-gc-deg'], df['/fdm/jsbsim/position/lat-geod-deg'],':b')
+
+# Ler a imagem
+
+contour = mpimg.imread('mapaContorno.jpg')
+# Configurar a exibição da imagem
+
+plt.imshow(contour, extent=[-180, 180, -90, 90], cmap='gray')
+
+# Configurar os rótulos dos eixos
+plt.xlabel("Longitude")
+plt.ylabel("Latitude")
+
+# Definir limites dos eixos
+plt.xlim([-180, 180])
+plt.ylim([-90, 90])
+
+# Definir as marcações dos eixos x
+plt.xticks([-180, -150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150, 180],
+        ['180W', '150W', '120W', '90W', '60W', '30W', '0', '30E', '60E', '90E', '120E', '150E', '180E'])
+
+# Definir as marcações dos eixos y
+plt.yticks([90, 75, 60, 45, 30, 15, 0, -15, -30, -45, -60, -75, -90],
+        ['90N', '75N', '60N', '45N', '30N', '15N', '0', '15S', '30S', '45S', '60S', '75S', '90S'])
+
+# Configurar a grade e proporções iguais
+plt.axis('on')
+plt.axis('equal')
+plt.grid(True)
+
 
 plt.figure(1)
-plt.plot(df['Time'], uc.in2m(CNa),':b')
-plt.xlabel('Tempo [s]')
-plt.ylabel(r'$CN_{\alpha} \ $')
-plt.title('Variação do Coeficiente de Yaw')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/attitude/phi-rad']),':b')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/attitude/theta-rad']),':r')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/attitude/psi-rad']),':g')
+plt.xlabel('Time [sec]')
+plt.ylabel('Attitude [Deg]')
+plt.title('Evolução da Atitude do Cubesat 6U')
 plt.grid()
 
 plt.figure(2)
-plt.plot(df['Time'], uc.slugsqft2kgsqm(df['/fdm/jsbsim/inertia/iyy-slugs_ft2']),':b')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/velocities/phidot-rad_sec']),':b')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/velocities/thetadot-rad_sec']),':r')
+plt.plot(df['Time'], np.rad2deg(df['/fdm/jsbsim/velocities/psidot-rad_sec']),':g')
+plt.xlabel('Time [sec]')
+plt.ylabel('Velocidade Angular [Deg/sec]')
+plt.title('Velocidade Angular do Cubesat 6U')
+plt.grid()
+
+plt.figure(3)
+plt.plot(df['Time'], df['/fdm/jsbsim/inertia/iyy-slugs_ft2'],':b')
 plt.xlabel('Tempo [s]')
 plt.ylabel(r'$I_{yy} \ [Kg.m^2]$')
 plt.title('Variação do momento de inércia no eixo Y')
 plt.grid()
 
-plt.figure(3)
-plt.plot(df['Time'], uc.psf2Pa(df['/fdm/jsbsim/aero/qbar-psf']),':b')
+plt.figure(4)
+plt.plot(df['Time'], df['/fdm/jsbsim/aero/qbar-psf'],':b')
 plt.xlabel('Tempo [s]')
 plt.ylabel(r'$P_{din} \ [Pa]$')
 plt.title('Variação da pressão dinâmica')
 plt.grid()
 
-plt.figure(4)
-plt.plot(df['Time'], uc.ft2m(df['/fdm/jsbsim/velocities/u-fps']),':b')
+plt.figure(5)
+plt.plot(df['Time'], df['/fdm/jsbsim/velocities/u-fps'],':b')
 plt.xlabel('Tempo [s]')
 plt.ylabel(r'$U_{} \ [m/s]$')
 plt.title('Variação da componente U da velocidade NED')
 plt.grid()
 
-plt.figure(5)
-plt.plot(df['Time'], uc.in2m(df['/fdm/jsbsim/inertia/cg-x-in']),':b')
+plt.figure(7)
+plt.plot(df['Time'], df['/fdm/jsbsim/inertia/cg-x-in'],':b')
 plt.xlabel('Tempo [s]')
 plt.ylabel(r'$X_{cg} \ [m]$')
 plt.title('Variação do CG no eixo X')
 plt.grid()
 
-#plt.figure(6)
-#plt.plot(df['sim-time-sec'], df['custom/aero-efficiency'],':b')
-#plt.xlabel('Tempo [s]')
-#plt.ylabel(r'$M_{\alpha} \ [1/s^2]$')
-#plt.title('Variação da Eciciência Aerodinamica')
-#plt.grid()
+
 
 # Mostrar a imagem
 plt.show()
