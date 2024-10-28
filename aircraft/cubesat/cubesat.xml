@@ -19,24 +19,24 @@
     </fileheader>
 
     <metrics>
-        <wingarea unit="FT2"> 0.21527821 </wingarea>
-        <wingspan unit="FT"> 1 </wingspan>
-        <chord unit="FT"> 1 </chord>
-        <htailarea unit="FT2"> 0 </htailarea>
-        <htailarm unit="FT"> 0 </htailarm>
-        <vtailarea unit="FT2"> 0 </vtailarea>
-        <vtailarm unit="FT"> 0 </vtailarm>
-        <location name="AERORP" unit="IN">
+        <wingarea unit="M2"> 0.02 </wingarea>
+        <wingspan unit="M"> 1 </wingspan>
+        <chord unit="M"> 1 </chord>
+        <htailarea unit="M2"> 0 </htailarea>
+        <htailarm unit="M"> 0 </htailarm>
+        <vtailarea unit="M2"> 0 </vtailarea>
+        <vtailarm unit="M"> 0 </vtailarm>
+        <location name="AERORP" unit="M">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
         </location>
-        <location name="EYEPOINT" unit="IN">
+        <location name="EYEPOINT" unit="M">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
         </location>
-        <location name="VRP" unit="IN">
+        <location name="VRP" unit="M">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
@@ -44,14 +44,14 @@
     </metrics>
 
     <mass_balance>
-        <ixx unit="SLUG*FT2"> 0.001357553227747535 </ixx>
-        <iyy unit="SLUG*FT2"> 0.00104427171365195 </iyy>
-        <izz unit="SLUG*FT2"> 0.000522135856825975 </izz>
-        <ixy unit="SLUG*FT2"> -0 </ixy>
-        <ixz unit="SLUG*FT2"> -0 </ixz>
-        <iyz unit="SLUG*FT2"> -0 </iyz>
-        <emptywt unit="LBS"> 13.2277357 </emptywt>
-        <location name="CG" unit="IN">
+        <ixx unit="KG*M2"> 0.05416667 </ixx>
+        <iyy unit="KG*M2"> 0.04166667 </iyy>
+        <izz unit="KG*M2"> 0.02083333 </izz>
+        <ixy unit="KG*M2"> 0 </ixy>
+        <ixz unit="KG*M2"> 0 </ixz>
+        <iyz unit="KG*M2"> 0 </iyz>
+        <emptywt unit="KG"> 5 </emptywt>
+        <location name="CG" unit="M">
             <x> 0 </x>
             <y> 0 </y>
             <z> 0 </z>
@@ -60,16 +60,16 @@
 
 <ground_reactions>
         <contact type="BOGEY" name="CONTACT">
-            <location unit="IN">
+            <location unit="M">
                 <x> 0 </x>
                 <y> 0 </y>
-                <z> 0 </z>
+                <z> -0.15 </z>
             </location>
             <static_friction> 0 </static_friction>
             <dynamic_friction> 0 </dynamic_friction>
             <rolling_friction> 0 </rolling_friction>
-            <spring_coeff unit="LBS/FT"> 10000 </spring_coeff>
-            <damping_coeff unit="LBS/FT/SEC"> 200000 </damping_coeff>
+            <spring_coeff unit="N/M"> 10000 </spring_coeff>
+            <damping_coeff unit="N/M/SEC"> 200000 </damping_coeff>
             <max_steer unit="DEG"> 0.0 </max_steer>
             <brake_group> NONE </brake_group>
             <retractable>0</retractable>
@@ -80,6 +80,7 @@
       <!-- "Declare" the reefing term -->
       <property>fcs/parachute_reef_pos_norm</property>
       <property>propulsion/rocket_thrust</property>
+      <property>actuator/RDR-x</property>
       
       <force name="parachute" frame="WIND">
         <function>
@@ -93,8 +94,8 @@
         <!-- The location below is in structural frame (x positive
              aft), so this location describes a point 1 foot aft
              of the origin. In this case, the origin is the center. -->
-        <location unit="FT">
-          <x>1</x>
+        <location unit="M">
+          <x>0.3</x>
           <y>0</y>
           <z>0</z>
         </location>
@@ -110,17 +111,34 @@
         </direction>
       </force>
 
-      <force name="rocket" frame="INERTIAL">
+      <force name="RDR" frame="INERTIAL"> <!-- Rocket to rotate in x -->
+        <function>
+          <property> actuator/RDR-x </property>
+        </function>
+        <location unit="M">
+          <x>0</x>
+          <y>0</y>
+          <z>0.15</z>
+        </location>
+        <direction>
+          <x>  1 </x>
+          <y>  0 </y>
+          <z>  0 </z>
+        </direction>
+      </force>
+
+
+      <force name="rocket" frame="INERTIAL"> <!-- Rocket to rotate in x -->
         <function>
           <property> propulsion/rocket_thrust </property>
         </function>
-        <location unit="FT">
+        <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>0</z>
+          <z>0.15</z>
         </location>
         <direction>
-          <x>  0 </x>
+          <x>  1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
@@ -145,7 +163,36 @@
                 </orient>
             </thruster>
         </engine>
-    </propulsion>
+
+            <engine file="EPSS_C2">
+            <feed>0</feed>
+            <feed>1</feed>
+            <thruster file="epss_c2_nozzle">
+                <location unit="M">
+                    <x> 0 </x>
+                    <y> 0 </y>
+                    <z> -0.15 </z>
+                </location>
+                <orient unit="DEG">
+                    <roll> 0.0 </roll>
+                    <pitch> 0.0 </pitch>
+                    <yaw> 0.0 </yaw>
+                </orient>
+            </thruster>
+        </engine>
+
+        <!-- Internal fuel -->
+        <tank type="FUEL" number="0">
+          <location unit="M">
+            <x>   0.00  </x>
+            <y>   0.00 </y>
+            <z>   0.75 </z>
+          </location>
+          <capacity unit="KG"> 1 </capacity>
+          <contents unit="KG"> 0.8 </contents>
+        </tank>
+
+      </propulsion>
 
     <flight_control name="FGFCS">
     

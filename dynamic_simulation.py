@@ -200,9 +200,11 @@ if __name__ == '__main__':
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
                 # Aplicação do torque de controle na planta
-                fdm['moments/l-total-lbsft'] = Nm2Lbft(N_app[0][i+1])
-                fdm['moments/m-total-lbsft'] = Nm2Lbft(N_app[1][i+1])
-                fdm['moments/n-total-lbsft'] = Nm2Lbft(N_app[2][i+1]) 
+                #fdm['moments/l-total-lbsft'] = Nm2Lbft(N_app[0][i+1])
+                #fdm['moments/m-total-lbsft'] = Nm2Lbft(N_app[1][i+1])
+                #fdm['moments/n-total-lbsft'] = Nm2Lbft(N_app[2][i+1])
+
+                fdm['actuator/RDR-x'] = Nm2Lbft(N_app[2][i+1]) 
 
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
