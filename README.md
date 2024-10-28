@@ -36,8 +36,13 @@ Segue uma descrição dos scripts que fazem parte da simulação:
 | cubesat_design.ipynb  | Preliminary design that defines data for the spacecraft, reaction wheels, and mission.                               |
 | dynamic_simulation.py | Simulation of the 6U cubesat mission with a non-linear model, where the equations of motion are integrated by JSBSim |
 
-### Rodando pelo power shell
+### Runing the JSBSim by powershell
 
 ```powershell
 .\JSBSim.exe --realtime --script= .\scripts\cubesat_orbit.xml
+```
+### Flight Gear Additional Settings
+
+```
+fgfs --fdm=null --native-fdm=socket,in,60,localhost,5550,udp --httpd=8080
 ```
