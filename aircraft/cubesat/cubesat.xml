@@ -118,14 +118,14 @@
           <property> actuator/RDR-y </property>
         </function>
         <location unit="M">
-          <x>0</x>
+          <x>1</x>
           <y>0</y>
-          <z>0.15</z>
+          <z>0</z>
         </location>
         <direction>
-          <x>  1 </x>
+          <x>  0 </x>
           <y>  0 </y>
-          <z>  0 </z>
+          <z>  1 </z>
         </direction>
       </force>
 
@@ -136,7 +136,7 @@
         <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>0.15</z>
+          <z>1</z>
         </location>
         <direction>
           <x>  0 </x>
@@ -147,16 +147,16 @@
 
       <force name="RDR_Z" frame="BODY"> <!-- Rocket to rotate in y -->
         <function>
-          <property> actuator/RDR-y </property>
+          <property> actuator/RDR-z </property>
         </function>
         <location unit="M">
           <x>0</x>
-          <y>0.1</y>
+          <y>1</y>
           <z>0</z>
         </location>
         <direction>
-          <x>  0 </x>
-          <y>  1 </y>
+          <x>  1 </x>
+          <y>  0 </y>
           <z>  0 </z>
         </direction>
       </force>
