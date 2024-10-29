@@ -1,4 +1,5 @@
 # Default ignored files
 /.ideia
 /.git
+/.ipynb_checkpoints
 /__pycache__

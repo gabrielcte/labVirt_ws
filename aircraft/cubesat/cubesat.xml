@@ -81,6 +81,8 @@
       <property>fcs/parachute_reef_pos_norm</property>
       <property>propulsion/rocket_thrust</property>
       <property>actuator/RDR-x</property>
+      <property>actuator/RDR-y</property>
+      <property>actuator/RDR-z</property>
       
       <force name="parachute" frame="WIND">
         <function>
@@ -111,7 +113,23 @@
         </direction>
       </force>
 
-      <force name="RDR" frame="INERTIAL"> <!-- Rocket to rotate in x -->
+      <force name="RDR_y" frame="BODY"> <!-- Rocket to rotate in x -->
+        <function>
+          <property> actuator/RDR-y </property>
+        </function>
+        <location unit="M">
+          <x>0</x>
+          <y>0</y>
+          <z>0.15</z>
+        </location>
+        <direction>
+          <x>  1 </x>
+          <y>  0 </y>
+          <z>  0 </z>
+        </direction>
+      </force>
+
+      <force name="RDR_x" frame="BODY"> <!-- Rocket to rotate in y -->
         <function>
           <property> actuator/RDR-x </property>
         </function>
@@ -121,32 +139,52 @@
           <z>0.15</z>
         </location>
         <direction>
-          <x>  1 </x>
-          <y>  0 </y>
+          <x>  0 </x>
+          <y>  1 </y>
+          <z>  0 </z>
+        </direction>
+      </force>
+
+      <force name="RDR_Z" frame="BODY"> <!-- Rocket to rotate in y -->
+        <function>
+          <property> actuator/RDR-y </property>
+        </function>
+        <location unit="M">
+          <x>0</x>
+          <y>0.1</y>
+          <z>0</z>
+        </location>
+        <direction>
+          <x>  0 </x>
+          <y>  1 </y>
           <z>  0 </z>
         </direction>
       </force>
 
 
-      <force name="rocket" frame="INERTIAL"> <!-- Rocket to rotate in x -->
+      <!--
+      <force name="rocket" frame="INERTIAL">
         <function>
           <property> propulsion/rocket_thrust </property>
         </function>
         <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>0.15</z>
+          <z>0</z>
         </location>
         <direction>
           <x>  1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
-      </force>
+      </force> -->
 
     </external_reactions>
 
+       
       <propulsion>
+
+      <!--
             <engine file="EPSS_C2">
             <feed>0</feed>
             <feed>1</feed>
@@ -163,7 +201,8 @@
                 </orient>
             </thruster>
         </engine>
-
+        -->
+            <!--
             <engine file="EPSS_C2">
             <feed>0</feed>
             <feed>1</feed>
@@ -180,8 +219,11 @@
                 </orient>
             </thruster>
         </engine>
+        -->
 
-        <!-- Internal fuel -->
+        <!--Internal fuel -->
+
+        <!--
         <tank type="FUEL" number="0">
           <location unit="M">
             <x>   0.00  </x>
@@ -191,6 +233,7 @@
           <capacity unit="KG"> 1 </capacity>
           <contents unit="KG"> 0.8 </contents>
         </tank>
+        -->
 
       </propulsion>
 

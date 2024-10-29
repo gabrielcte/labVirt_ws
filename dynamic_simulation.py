@@ -55,9 +55,9 @@ if __name__ == '__main__':
     fdm['ic/h-sl-ft'] = m2ft(569366.9993)            # ft
 
     # Attitude
-    fdm['ic/phi-rad'] =   np.deg2rad(0)                            # Roll (rad)
-    fdm['ic/theta-rad'] = np.deg2rad(0)                            # Pitch (rad)   
-    fdm['ic/psi-true-rad'] =   np.deg2rad(0)                       # Yaw (rad)
+    fdm['ic/phi-rad'] =   np.deg2rad(45)                            # Roll (rad)
+    fdm['ic/theta-rad'] = np.deg2rad(45)                            # Pitch (rad)   
+    fdm['ic/psi-true-rad'] =   np.deg2rad(45)                       # Yaw (rad)
 
 
      # Linear Velocities
@@ -66,9 +66,9 @@ if __name__ == '__main__':
     fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
 
     # Angular Velocities
-    fdm['ic/p-rad_sec'] = np.deg2rad(-0.1)                                    
-    fdm['ic/q-rad_sec'] = np.deg2rad(-0.1)                                     
-    fdm['ic/r-rad_sec'] = np.deg2rad(0.1)                                   
+    fdm['ic/p-rad_sec'] = np.deg2rad(0)                                    
+    fdm['ic/q-rad_sec'] = np.deg2rad(0)                                     
+    fdm['ic/r-rad_sec'] = np.deg2rad(0)                                   
 
     fdm.run_ic()
      
@@ -109,9 +109,9 @@ if __name__ == '__main__':
     ref_ang = np.array([fdm['ic/phi-rad'], fdm['ic/theta-rad'], fdm['ic/psi-true-rad']], dtype='float32') 
     Se_angdt = np.array([0, 0, 0], dtype='float32') 
     e_ang = np.zeros((3,num_steps), dtype='float32') 
-    Kp_ang = 15
-    Ki_ang = 15/(0.5*10)
-    Kd_ang = 15*0.125*10
+    Kp_ang = 0.6
+    Ki_ang = 0.6*2
+    Kd_ang = 0.6*0.125
 
     # Afinação do Contole de Rotação da Roda de Reação
     Vapp = np.array([0, 0, 0], dtype='float32') 
@@ -199,12 +199,10 @@ if __name__ == '__main__':
                     aRDR[j][i+1] = N_app[j][i+1]/J_axial_RDR # [rad/s^2]                    
                     wRDR[j][i+1] = wRDR[j][i]+aRDR[j][i+1]*dt # [rad/s]
                     
-                # Aplicação do torque de controle na planta
-                #fdm['moments/l-total-lbsft'] = Nm2Lbft(N_app[0][i+1])
-                #fdm['moments/m-total-lbsft'] = Nm2Lbft(N_app[1][i+1])
-                #fdm['moments/n-total-lbsft'] = Nm2Lbft(N_app[2][i+1])
-
-                fdm['actuator/RDR-x'] = Nm2Lbft(N_app[2][i+1]) 
+                    # Aplicação do torque de controle na planta
+                    fdm['actuator/RDR-y'] = -Nm2Lbft(N_app[0][i+1])/(h_CubeSat/2) # F_rdr_x equivale Fy = T_x/h/2
+                    fdm['actuator/RDR-x'] = Nm2Lbft(N_app[1][i+1])/(h_CubeSat/2) # F_rdr_y equivale Fx = T_y/h/2 
+                    fdm['actuator/RDR-z'] = -Nm2Lbft(N_app[2][i+1])/(l_CubeSat/2) # F_rdr_z equivale Fy = T_z/l/2
 
                 if np.abs(wRDR[0][i]) == 761.11:
                     print('RDR eixo X Saturou')
@@ -317,18 +315,21 @@ if __name__ == '__main__':
 
 
         plt.figure(2)
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/phi-rad']),':b')
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/theta-rad']),':r')
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/psi-rad']),':g')
+        # Plotar as curvas de atitude
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/phi-rad']), ':b', label=r'$\phi$')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/theta-rad']), ':r', label=r'$\theta$')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/psi-rad']), ':g', label=r'$\psi$')
+        plt.legend()
         plt.xlabel('Time [sec]')
         plt.ylabel('Attitude [Deg]')
         plt.title('Evolução da Atitude do Cubesat 6U')
         plt.grid()
 
         plt.figure(3)
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/phidot-rad_sec']),':b')
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/thetadot-rad_sec']),':r')
-        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/psidot-rad_sec']),':g')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/phidot-rad_sec']),':b', label=r'$\dot{\phi}$')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/thetadot-rad_sec']),':r', label=r'$\dot{\theta}$')
+        plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/psidot-rad_sec']),':g', label=r'$\dot{\psi}$')
+        plt.legend()
         plt.xlabel('Time [sec]')
         plt.ylabel('Velocidade Angular [Deg/sec]')
         plt.title('Velocidade Angular do Cubesat 6U')
