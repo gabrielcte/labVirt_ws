@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+************************************************************************
+
+
+************************************************************************
+-->
+
+
+<PropertyList>
+
+
+ <sim>
+		<description>CUBESAT 6U</description>
+		<author>Gabriel Alves Silva</author>
+
+  <flight-model>network</flight-model>
+
+
+  <model>
+    <path>Aircraft/cubesat/Models/cubesat.xml</path>
+  </model>
+
+
+  <systems>
+   <electrical>
+    <path>Aircraft/Generic/generic-electrical.xml</path>
+   </electrical>
+  </systems> 
+
+
+ </sim>
+
+
+</PropertyList>
