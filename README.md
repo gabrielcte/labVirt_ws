@@ -18,7 +18,7 @@ This repository contains scripts for:
 
 ## Softwares
 
-The 6U Cubesat control system analysis was conducted using three tools:
+The 6U Cubesat control system analysis was conducted using four tools:
 
 | Tool                                        | Application                                                                                       |
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
