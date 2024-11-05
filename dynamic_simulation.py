@@ -43,7 +43,7 @@ if __name__ == '__main__':
     aircraft_path=(Path('.')).resolve()
 
     fdm = jsbsim.FGFDMExec(str(aircraft_path))
-    fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
+    #fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
     fdm.set_debug_level(0)
     fdm.load_model(aircraft_model)
     fdm.set_dt(dt)                                            # Define o passo da simulação (s)

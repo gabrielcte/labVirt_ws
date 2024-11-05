@@ -113,12 +113,13 @@
         </direction>
       </force>
 
-      <force name="RDR_y" frame="BODY"> <!-- Rocket to rotate in x -->
+      <!-- ROTATION IN Y -->
+      <force name="RDR_y_1" frame="BODY"> 
         <function>
           <property> actuator/RDR-y </property>
         </function>
         <location unit="M">
-          <x>1</x>
+          <x>0.5</x>
           <y>0</y>
           <z>0</z>
         </location>
@@ -129,14 +130,31 @@
         </direction>
       </force>
 
-      <force name="RDR_x" frame="BODY"> <!-- Rocket to rotate in y -->
+      <force name="RDR_y_2" frame="BODY"> 
+        <function>
+          <property> actuator/RDR-y </property>
+        </function>
+        <location unit="M">
+          <x>-0.5</x>
+          <y>0</y>
+          <z>0</z>
+        </location>
+        <direction>
+          <x>  0 </x>
+          <y>  0 </y>
+          <z>  -1 </z>
+        </direction>
+      </force>
+
+      <!-- ROTATION IN X -->
+      <force name="RDR_x_1" frame="BODY">
         <function>
           <property> actuator/RDR-x </property>
         </function>
         <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>1</z>
+          <z>0.5</z>
         </location>
         <direction>
           <x>  0 </x>
@@ -145,17 +163,50 @@
         </direction>
       </force>
 
-      <force name="RDR_Z" frame="BODY"> <!-- Rocket to rotate in y -->
+      <force name="RDR_x_2" frame="BODY">
+        <function>
+          <property> actuator/RDR-x </property>
+        </function>
+        <location unit="M">
+          <x>0</x>
+          <y>0</y>
+          <z>-0.5</z>
+        </location>
+        <direction>
+          <x>  0 </x>
+          <y> -1 </y>
+          <z>  0 </z>
+        </direction>
+      </force>
+
+      <!-- ROTATION IN Z -->
+      <force name="RDR_z_1" frame="BODY">
         <function>
           <property> actuator/RDR-z </property>
         </function>
         <location unit="M">
           <x>0</x>
-          <y>1</y>
+          <y>0.5</y>
           <z>0</z>
         </location>
         <direction>
           <x>  1 </x>
+          <y>  0 </y>
+          <z>  0 </z>
+        </direction>
+      </force>
+
+      <force name="RDR_z_2" frame="BODY">
+        <function>
+          <property> actuator/RDR-z </property>
+        </function>
+        <location unit="M">
+          <x>0</x>
+          <y>-0.5</y>
+          <z>0</z>
+        </location>
+        <direction>
+          <x>  -1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
