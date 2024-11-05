@@ -28,7 +28,7 @@ if __name__ == '__main__':
     
     # Simulação
 
-    realtime     = False
+    realtime     = True
     sim_period   = 3600
     num_steps = sim_period*100
     frame_time   = 0
