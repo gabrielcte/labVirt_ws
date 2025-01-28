@@ -506,7 +506,7 @@ Onde:
 q_1 \\ q_2 \\ q_3\end{bmatrix}
 \end{equation}
 
-\section{Dinâmica Rotacional}\label{sec:3.1.3}
+\section{Dinâmica do Movimento}\label{sec:3.1.3}
 
 \subsection{Dinâmica de Órbita Circular}\label{sec:3.1.3.1}
 
@@ -610,21 +610,82 @@ Considerando que está-se interessado na alteração da atitude do satélite (co
 \vec{\omega}^b_{ib}=\vec{\omega}^b_{ob}+C^{B/O}\;\vec{\omega}^o_{io}
 \end{equation}
 
-Onde \begin{math}\omega^o_{io}\end{math} é o movimento médio da órbita. Que é obtido por:
+Onde \begin{math}\omega^o_{io}\end{math} é o movimento médio da órbita. 
+
+Que é obtido por:
+
 \begin{equation}\omega^o_{io} =\begin{bmatrix}0\\-\omega_0\\0
-\end{bmatrix}\end{equation}Recapitulando a seção anterior, tem-se que:
+\end{bmatrix}\end{equation}
+
+Recapitulando a seção anterior, tem-se que:
 \begin{equation}\omega_0=\sqrt{\frac{\mu}{R_o^3}}\end{equation}
 
 Onde, $\mu$ é a parâmetro gravitacional da Terra e $R_o$ o raio da órbita circular.
 
+As equações diferenciais cinemáticas de um corpo rígido em órbita podem ser encontrado como:
+
+\begin{equation}
+	\begin{bmatrix}
+		\dot{\phi}  \\
+		\dot{\theta} \\
+		\dot{\psi}
+\end{bmatrix} = \frac{1}{cos\theta}
+\begin{bmatrix}
+	cos\theta & sin\phi sin\theta & cos\phi sin\theta \\
+	0 & cos\phi cos\theta & -sin\phi cos\theta \\
+	0 & cos\phi & cos\phi
+\end{bmatrix} \cdot
+ \begin{bmatrix}
+ 	\omega_x\\
+ 	\omega_y\\
+ 	\omega_z
+ \end{bmatrix} + \frac{\omega_o}{cos\theta}
+ \begin{bmatrix}
+ 	sin\psi  \\
+ 	cos\psi cos\theta \\
+ 	sin\psi sin\theta
+ \end{bmatrix}
+\end{equation}
+
+\subsection{Modelo Linearizado}\label{sec:3.1.3.}
+
+Para a aplicação de um controle no sistema é necessário linearizar as equações do satélite \citeonline{mahdi2018attitude}.
+
+No contexto para pequenos ângulos a linearização se dá pela substituição de $sin\theta\approx\theta$ e $cos\theta\approx1$, tem-se portanto:
+
+\begin{equation}
+\begin{bmatrix} \omega_x \\
+				\omega_y \\
+				\omega_z
+\end{bmatrix}
+=
+\begin{bmatrix} \dot{\phi}+\omega_o\psi \\
+	            \dot{\theta}-\omega_o \\
+	            \dot{\psi}-\omega_o\phi \omega_z
+\end{bmatrix}  
+\end{equation}
+
+A equação do movimento pode ser escrita então como:
+
+\begin{equation}
+\ddot{\phi}=\frac{1}{J_x}(\omega_o^2(J_z-J_y)\phi+\omega_o(J_x+J_z-I_y)\dot{\psi}+T_x)
+\end{equation}
+\begin{equation}
+\ddot{\theta}=\frac{T_y}{J_y}
+\end{equation}
+\begin{equation}
+\ddot{\psi}=\frac{1}{J_z}(-\omega_o^2(J_y-J_x)\psi-\omega_o(J_z+J_y+I_x)\dot{\phi}+T_z)
+\end{equation}
+
+
 
 \section{Sistema de Determinação e Controle de Atitude (ADCS)}\label{sec:3.1.4}
 
-O sistema de determinação e controle de atitude é composto por sensores, {e.g.}, sensor de campo magnético, sensor solar, por atuadores, {e.g.}, torqueador eletromagnético, rodas-de-reação, e por algoritmos de determinação e controle, {e.g.}, TRIAD, PID respectivamente, que tratam da orientação do veículo espacial.
+O sistema de determinação e controle de atitude é composto por sensores, {e.g.}, sensor de campo magnético, sensor solar e girômetros, por atuadores, {e.g.}, torqueador eletromagnético, rodas-de-reação, e por algoritmos de determinação e controle, {e.g.}, TRIAD, PID respectivamente, que tratam da orientação do veículo espacial.
 
 Existe disponível no mercado uma ampla gama de sensores, atuadores e até de ADCS completos, como o XACT-50 da Blue Canyon Technologies  (Figura~\ref{fig:5}) que oferece de forma integrada a solução para a determinação e controle de atitude utilizando sensores de estrela e de rodas de reação.
 
-\subsection{Sensor Solar e Sensor Magnético}\label{sec:3.1.4.1}
+\subsection{Sensor Solar, Sensor Magnético e Girômetro}\label{sec:3.1.4.1}
 
 Os sensores são componentes com  função de medir uma grandeza física e produzir um sinal capaz de alimentar o algoritmo de determinação de atitude. Os atuadores são componentes com função de alterar o estado do satélite da forma desejada a partir da produção de forças e torques, sua operação é definida por um controlador a partir do estado medido e de uma referencia. A seguir é explorado alguns exemplos de sensores e atuadores comuns.
 
@@ -717,7 +778,7 @@ m_i^*=\frac{R_T^3H_0}{r^3}\begin{bmatrix} 3(\mathbf{d}_i^T\mathbf{\hat{r}}_i)\ha
 \includegraphics[scale=0.3]{figs/magfield.png}
 \caption{Modelo Sensor Magnético}
 {Fonte: \cite[p.~13]{mahdi2018attitude}}
-\label{fig:4}
+\label{fig:5}
 \end{figure}
 
 Sendo $r$ o vetor posição do veículo espacial, $R_T$ o raio da Terra, $H_0$ a constante característica do vetor magnético da Terra e $\theta_m'$ co-elevação.
@@ -728,7 +789,11 @@ Sendo $r$ o vetor posição do veículo espacial, $R_T$ o raio da Terra, $H_0$ a
 
 Sendo $\theta_{}go$ a época sideral de greenwich, $\omega_T$ a rotação média da Terra, $t$ o tempo desde a época e $\phi_m'$ a longitude leste do dipolo.
 
-\subsection{Determinação de Atitude: Metodo TRIAD}\label{sec:3.1.5}
+O girômetro do inglês (\textit{rate gyro}) são dispositivos que medem a velocidade angular de um objeto em rotação, esses sensores tem opções mais simples e baratas geralmente adequadas para o controle da taxa de rotação de um cubeSat mas em um sistema com feedback sua saída requer correção frequente para determinação usando outros sensores como solares e magnéticos.
+ 
+(COMPLEMENTAR)
+
+\subsection{Determinação de Atitude: Método TRIAD}\label{sec:3.1.5}
 
 Pelo menos dois vetores são necessários para determinar a atitude. No entanto, é importante notar que, embora sejam necessários três parâmetros independentes para determinar a atitude, cada medição de vetor unitário na verdade fornece apenas dois parâmetros devido à restrição do vetor unitário. Portanto, são necessários três escalares para determinar completamente a atitude. Assim, a exigência é de mais de uma, mas menos de dois medições de vetores. A determinação da atitude é única nesse sentido, pois uma medição não é suficiente, ou seja, o problema é subdeterminado, e duas medições são demais, ou seja, o problema é super-determinado. A principal implicação dessa observação é que todos os algoritmos de determinação de atitude são realmente algoritmos de estimação de atitude.
 
@@ -827,7 +892,7 @@ O Ciclo de trabalho $X_{ct}$ varia entre +1 e -1 a partir do sinal de controle, 
 \includegraphics[scale=1]{figs/CicloTrabalho.png}
 \caption{Ciclo de Trabalho $X_{CT}$}
 {Fonte: \cite[p.~271]{wertz2012spacecraft}}
-\label{fig:4}
+\label{fig:6}
 \end{figure}
 
 O torque líquido é encontrado por:

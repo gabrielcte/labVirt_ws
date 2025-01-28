@@ -12,14 +12,14 @@
 \contentsline {section}{Objetivos}{2}{section*.19}%
 \contentsline {section}{Objetivo Geral}{2}{section*.20}%
 \contentsline {section}{Objetivos Específicos}{2}{section*.21}%
-\contentsline {part}{\partnumberline {I}\MakeTextUppercase {Preparação da pesquisa}}{3}{part.1}%
+\contentsline {part}{\partnumberline {I}\MakeTextUppercase []{Preparação da pesquisa}}{3}{part.1}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase {Uso de referências bibliográficas}}{5}{chapter.1}%
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase []{Uso de referências bibliográficas}}{5}{chapter.1}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase {Estado da Arte}}{7}{chapter.2}%
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase []{Estado da Arte}}{7}{chapter.2}%
 \contentsline {section}{Trabalhos Relacionados}{7}{section*.23}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase {Modelagem Físico Matemática}}{11}{chapter.3}%
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Modelagem Físico Matemática}}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Sistemas de Coordenadas e Sistema de Medida de Tempo}{11}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Sistema de Coordenadas Geocêntrico-Equatorial Inercial (SCGI)}{11}{subsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.1.2}Sistema de Coordenadas Orbital (SCO)}{11}{subsection.3.1.2}%
@@ -32,19 +32,20 @@
 \contentsline {subsection}{\numberline {3.2.4}Parâmetros de Euler (Quatérnios)}{18}{subsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.2.5}Equações Diferenciais da Cinemática}{20}{subsection.3.2.5}%
 \contentsline {subsection}{\numberline {3.2.6}Equações Diferenciais Parametrização de Quatérnios}{20}{subsection.3.2.6}%
-\contentsline {section}{\numberline {3.3}Dinâmica Rotacional}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Dinâmica do Movimento}{21}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Dinâmica de Órbita Circular}{21}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Dinâmica Rotacional de Corpo Rígido}{22}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Modelo de Corpo Rígido em Órbita Circular}{23}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Modelo Linearizado}{24}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Sistema de Determinação e Controle de Atitude (ADCS)}{24}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Sensor Solar e Sensor Magnético}{24}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Determinação de Atitude: Metodo TRIAD}{26}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.1}Sensor Solar, Sensor Magnético e Girômetro}{25}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Determinação de Atitude: Método TRIAD}{27}{subsection.3.4.2}%
 \contentsline {subsection}{\numberline {3.4.3}Controle de Atitude: Técnica de Controle PID}{28}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Rodas de Reação em 3 Eixos}{28}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Modelagem das Rodas-De-Reação}{30}{subsection.3.4.5}%
-\contentsline {part}{\partnumberline {II}\MakeTextUppercase {Proposta}}{33}{part.2}%
+\contentsline {subsection}{\numberline {3.4.4}Rodas de Reação em 3 Eixos}{29}{subsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.4.5}Modelagem das Rodas-De-Reação}{32}{subsection.3.4.5}%
+\contentsline {part}{\partnumberline {II}\MakeTextUppercase []{Proposta}}{33}{part.2}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase {Implementando Laboratório Virtual}}{35}{chapter.4}%
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Implementando Laboratório Virtual}}{35}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Robot Operating System 2 (ROS2) e Gazebo 11}{35}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Roteiro 0: Instalação e Configuração}{37}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Instalação ROS 2 Humble, Gazebo 11 Simulator e GNU Octave}{38}{subsection.4.2.1}%
@@ -55,9 +56,9 @@
 \contentsline {subsection}{\numberline {4.4.1}Sensor IMU}{47}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Sensor Câmera}{49}{subsection.4.4.2}%
 \contentsline {section}{\numberline {4.5}Considerações Finais}{50}{section.4.5}%
-\contentsline {part}{\partnumberline {III}\MakeTextUppercase {Parte Final}}{53}{part.3}%
+\contentsline {part}{\partnumberline {III}\MakeTextUppercase []{Parte Final}}{53}{part.3}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
-\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase {Cronograma de Atividades}}{55}{chapter.5}%
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Cronograma de Atividades}}{55}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Atividades Previstas}{55}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Cronograma}{55}{section.5.2}%
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
@@ -69,11 +70,11 @@
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase {Primeiro Apêncice}}{61}{appendix.A}%
+\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Primeiro Apêncice}}{61}{appendix.A}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase {Segundo apêndice com título tão grande quanto se queira porque ele já faz a quebra de linha da coisa toda}}{63}{appendix.B}%
+\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Segundo apêndice com título tão grande quanto se queira porque ele já faz a quebra de linha da coisa toda}}{63}{appendix.B}%
 \vspace {\cftbeforechapterskip }
 \cftinsert {AAA}
 \renewcommand *{\cftappendixname }{ANEXO \space }
@@ -83,8 +84,8 @@
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase {Nome do Primeiro Anexo}}{67}{appendix.anexochapback.1}%
+\contentsline {appendix}{\chapternumberline {A}\MakeTextUppercase []{Nome do Primeiro Anexo}}{67}{appendix.anexochapback.1}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
-\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase {Nome de Outro Anexo}}{69}{appendix.anexochapback.2}%
+\contentsline {appendix}{\chapternumberline {B}\MakeTextUppercase []{Nome de Outro Anexo}}{69}{appendix.anexochapback.2}%
