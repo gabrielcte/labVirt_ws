@@ -647,7 +647,7 @@ As equações diferenciais cinemáticas de um corpo rígido em órbita podem ser
  \end{bmatrix}
 \end{equation}
 
-\subsection{Modelo Linearizado}\label{sec:3.1.3.}
+\subsection{Modelo Planta Linearizado}\label{sec:3.1.3.}
 
 Para a aplicação de um controle no sistema é necessário linearizar as equações do satélite \citeonline{mahdi2018attitude}.
 
@@ -668,13 +668,13 @@ No contexto para pequenos ângulos a linearização se dá pela substituição d
 A equação do movimento pode ser escrita então como:
 
 \begin{equation}
-\ddot{\phi}=\frac{1}{J_x}(\omega_o^2(J_z-J_y)\phi+\omega_o(J_x+J_z-I_y)\dot{\psi}+T_x)
+\ddot{\phi}=\frac{1}{J_x}(\omega_o^2(J_z-J_y)\phi+\omega_o(J_x+J_z-J_y)\dot{\psi}+T_x)
 \end{equation}
 \begin{equation}
 \ddot{\theta}=\frac{T_y}{J_y}
 \end{equation}
 \begin{equation}
-\ddot{\psi}=\frac{1}{J_z}(-\omega_o^2(J_y-J_x)\psi-\omega_o(J_z+J_y+I_x)\dot{\phi}+T_z)
+\ddot{\psi}=\frac{1}{J_z}(-\omega_o^2(J_y-J_x)\psi-\omega_o(J_z-J_y+J_x)\dot{\phi}+T_z)
 \end{equation}
 
 
@@ -790,8 +790,28 @@ Sendo $r$ o vetor posição do veículo espacial, $R_T$ o raio da Terra, $H_0$ a
 Sendo $\theta_{}go$ a época sideral de greenwich, $\omega_T$ a rotação média da Terra, $t$ o tempo desde a época e $\phi_m'$ a longitude leste do dipolo.
 
 O girômetro do inglês (\textit{rate gyro}) são dispositivos que medem a velocidade angular de um objeto em rotação, esses sensores tem opções mais simples e baratas geralmente adequadas para o controle da taxa de rotação de um cubeSat mas em um sistema com feedback sua saída requer correção frequente para determinação usando outros sensores como solares e magnéticos.
+
+Um girômetro de fibra óptica utiliza o princípio da interferência de luz para medir a rotação ou a orientação angular. Quando a fibra óptica gira, a luz que passa por ela sofre uma mudança de fase, que pode ser medida para determinar a rotação.
+
+As equações de movimento para um girômetro de fibra óptica podem ser expressas da seguinte forma:
+ 	
+\begin{equation}
+ 		\Delta \phi &= \frac{4 \pi}{\lambda} \cdot L \cdot \Omega
+\end{equation}
+
+\begin{equation}
+	 		\Omega &= \frac{\Delta \phi \cdot \lambda}{4 \pi \cdot L}
+\end{equation}
+ 	
+ 	Onde:
+ 	
+\begin{itemize}
+ 		\item $\Delta \phi$ é a mudança de fase,
+ 		\item $\lambda$ é o comprimento de onda da luz,
+ 		\item $L$ é o comprimento da fibra óptica,
+ 		\item $\Omega$ é a velocidade angular.
+\end{itemize}
  
-(COMPLEMENTAR)
 
 \subsection{Determinação de Atitude: Método TRIAD}\label{sec:3.1.5}
 

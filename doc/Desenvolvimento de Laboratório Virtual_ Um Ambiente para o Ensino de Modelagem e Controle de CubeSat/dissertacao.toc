@@ -36,13 +36,14 @@
 \contentsline {subsection}{\numberline {3.3.1}Dinâmica de Órbita Circular}{21}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Dinâmica Rotacional de Corpo Rígido}{22}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Modelo de Corpo Rígido em Órbita Circular}{23}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Modelo Linearizado}{24}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.4}Modelo Planta Linearizado}{24}{subsection.3.3.4}%
 \contentsline {section}{\numberline {3.4}Sistema de Determinação e Controle de Atitude (ADCS)}{24}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Sensor Solar, Sensor Magnético e Girômetro}{25}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Determinação de Atitude: Método TRIAD}{27}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Controle de Atitude: Técnica de Controle PID}{28}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.2}Determinação de Atitude: Método TRIAD}{28}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Controle de Atitude: Técnica de Controle PID}{29}{subsection.3.4.3}%
 \contentsline {subsection}{\numberline {3.4.4}Rodas de Reação em 3 Eixos}{29}{subsection.3.4.4}%
-\contentsline {subsection}{\numberline {3.4.5}Modelagem das Rodas-De-Reação}{32}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.5}Modelagem das Rodas-De-Reação}{31}{subsection.3.4.5}%
+\contentsline {subsection}{\numberline {3.4.6}Linearização do Modelo das Rodas de Reação}{32}{subsection.3.4.6}%
 \contentsline {part}{\partnumberline {II}\MakeTextUppercase []{Proposta}}{33}{part.2}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Implementando Laboratório Virtual}}{35}{chapter.4}%
