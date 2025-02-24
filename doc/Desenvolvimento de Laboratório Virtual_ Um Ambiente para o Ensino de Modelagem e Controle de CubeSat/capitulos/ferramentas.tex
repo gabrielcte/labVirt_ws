@@ -813,11 +813,19 @@ As equações de movimento para um girômetro de fibra óptica podem ser express
 \end{itemize}
  
 
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=0.3]{figs/pina_m.10ad82fe.png}
+	\caption{INS para aplicações de espaço}
+	{Fonte: https://castroleite.com.br/}}
+	\label{fig:6}
+\end{figure}
+
 \subsection{Determinação de Atitude: Método TRIAD}\label{sec:3.1.5}
 
 Pelo menos dois vetores são necessários para determinar a atitude. No entanto, é importante notar que, embora sejam necessários três parâmetros independentes para determinar a atitude, cada medição de vetor unitário na verdade fornece apenas dois parâmetros devido à restrição do vetor unitário. Portanto, são necessários três escalares para determinar completamente a atitude. Assim, a exigência é de mais de uma, mas menos de dois medições de vetores. A determinação da atitude é única nesse sentido, pois uma medição não é suficiente, ou seja, o problema é subdeterminado, e duas medições são demais, ou seja, o problema é super-determinado. A principal implicação dessa observação é que todos os algoritmos de determinação de atitude são realmente algoritmos de estimação de atitude.
 
-O algoritmo TRIAD é uma técnica fundamental na determinação da atitude de uma espaçonave. A atitude de uma espaçonave é essencialmente a descrição da matriz de rotação que descreve a orientação do referencial fixo à espaçonave, $B$, em relação a um referencial conhecido, como um referencial inercial, $I$.
+O algoritmo TRIAD é uma técnica fundamental na determinação da atitude de uma espaçonave. A atitude de uma espaço-nave é essencialmente a descrição da matriz de rotação que descreve a orientação do referencial fixo à espaçonave, $B$, em relação a um referencial conhecido, como um referencial inercial, $I$.
 
 Embora essa matriz de cossenos diretores possua nove números, como mostrado anteriormente, apenas três números são necessários para determiná-la completamente. Como cada vetor unitário medido fornece duas informações, são necessárias pelo menos duas medidas diferentes para determinar a atitude o que resulta em um problema super-determinado, pois temos três incógnitas e quatro quantidades conhecidas.
 
