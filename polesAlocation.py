@@ -65,7 +65,7 @@ w_O_I_O = movimentoMedio
 # Projeto de controle
 
 states = ['phi', 'psi', 'dotphi', 'dotpsi']
-inputs = ['omega_rdr_x', 'omega_rdr_z', 'dotomega_rdr_x', 'dotomega_rdr_z']
+inputs = ['dotomega_rdr_x', 'dotomega_rdr_z']
 
 A_Plant = np.array([
     [0, 0, 1, 0],
@@ -75,8 +75,8 @@ A_Plant = np.array([
 ])
 
 B_Plant = np.array([
-    [-f, 0],
-    [0, -f],
+    [0, 0],
+    [0, 0],
     [I_rdr/Ixx, 0],
     [ 0, I_rdr/Izz],
 ])

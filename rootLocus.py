@@ -62,7 +62,7 @@ movimentoMedio = np.sqrt(mu_Terra/a**3) # [rad/s]
 w_O_I_O = movimentoMedio
 
 states = ['theta', 'dottheta']
-inputs = ['omega_rdr_y', 'dotomega_rdr_y']
+inputs = [ 'dotomega_rdr_y']
 
 A_Plant = np.array([
     [0, 1],
@@ -70,8 +70,8 @@ A_Plant = np.array([
 ])
 
 B_Plant = np.array([
-    [0, 0],
-    [-f, I_rdr/Iyy],
+    [0],
+    [I_rdr/Iyy],
 ])
 
 num_inputs  = B_Plant.shape[1]
@@ -94,16 +94,16 @@ plt.ylabel("Real")
 plt.grid(True)
 
 #%% Control design
-K_theta = 0
+K_theta = -1
 
 K = np.zeros([1,num_outputs])
-output_index = states.index('theta')
+output_index = states.index('dottheta')
 K[0][output_index] = K_theta
 
 # Define the closed-loop system state-space matrices
 
 # Inverted because feedback is inverted!!
-input_index = inputs.index('omega_rdr_y')
+input_index = inputs.index('dotomega_rdr_y')
 B_elevator = B_Plant[:,input_index:input_index+1]
 
 A_SAS = A_Plant + K*B_elevator
