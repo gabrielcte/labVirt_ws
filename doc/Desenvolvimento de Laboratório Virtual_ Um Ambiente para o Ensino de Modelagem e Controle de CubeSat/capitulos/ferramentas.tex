@@ -654,14 +654,16 @@ Para a aplicação de um controle no sistema é necessário linearizar as equaç
 No contexto para pequenos ângulos a linearização se dá pela substituição de $sin\theta\approx\theta$ e $cos\theta\approx1$, tem-se portanto:
 
 \begin{equation}
-\begin{bmatrix} \omega_x \\
-				\omega_y \\
-				\omega_z
+\begin{bmatrix}
+	\omega_x \\
+	\omega_y \\
+	\omega_z
 \end{bmatrix}
 =
-\begin{bmatrix} \dot{\phi}+\omega_o\psi \\
-	            \dot{\theta}-\omega_o \\
-	            \dot{\psi}-\omega_o\phi \omega_z
+\begin{bmatrix}
+	\dot{\phi}+\omega_o\psi \\
+	\dot{\theta}-\omega_o \\
+	\dot{\psi}-\omega_o\phi \omega_z
 \end{bmatrix}  
 \end{equation}
 
@@ -670,9 +672,11 @@ A equação do movimento pode ser escrita então como:
 \begin{equation}
 \ddot{\phi}=\frac{1}{J_x}(\omega_o^2(J_z-J_y)\phi+\omega_o(J_x+J_z-J_y)\dot{\psi}+T_x)
 \end{equation}
+
 \begin{equation}
 \ddot{\theta}=\frac{T_y}{J_y}
 \end{equation}
+
 \begin{equation}
 \ddot{\psi}=\frac{1}{J_z}(-\omega_o^2(J_y-J_x)\psi-\omega_o(J_z-J_y+J_x)\dot{\phi}+T_z)
 \end{equation}
@@ -736,11 +740,13 @@ Utilizando a mesma metodologia para as seis faces tem-se:
 Sendo $\mathbf{N}$:
 
 \begin{equation}
-\mathbf{N}=\begin{bmatrix}
-1 & 0 & 0 & -1 & 0 & 0\\ 
-0 & 1 & 0 & 0 & -1 & 0\\ 
-0 & 0 & 1 & 0 & 0 & -1
-\end{bmatrix}\end{equation}
+\mathbf{N}=
+\begin{bmatrix}
+	1 & 0 & 0 & -1 & 0 & 0\\ 
+	0 & 1 & 0 & 0 & -1 & 0\\ 
+	0 & 0 & 1 & 0 & 0 & -1
+\end{bmatrix}
+\end{equation}
 
 Mas ainda $\vec{s}^b_{ib}$ pode ser encontrado por:
 
