@@ -101,7 +101,7 @@ plt.grid(True)
 
 
 
-P = np.array([-2, -0.5, -1-1j, -1+1j])
+P = np.array([-2, -0.5, -1-1j, -1+1j])/1000
 fsf = signal.place_poles(A_Plant, B_Plant, P, method='YT')
 plt.plot(fsf.computed_poles.real, fsf.computed_poles.imag, 'bx', label=r'$Poles \; Alocated$')
 plt.legend()
