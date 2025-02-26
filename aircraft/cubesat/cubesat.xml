@@ -114,6 +114,7 @@
       </force>
 
       <!-- ROTATION IN Y -->
+      <property>actuator/RDR-x</property>
       <force name="RDR_y_1" frame="BODY"> 
         <function>
           <property> actuator/RDR-y </property>

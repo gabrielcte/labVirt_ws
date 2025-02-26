@@ -31,6 +31,71 @@ Para o funcionamento é previsto o hardware mínimo a seguir:
 
 É possível encontrar em suas respectivas páginas oficiais de forma, o sistema operacional Ubuntu, o modelo de dinâmica de voo JSBSim e o simulador de voo FlightGear.
 
+\section{CubeSat Design}
+
+Define-se o cubesat como um corpo rígido homogêneo, o mesmo 10 cm de comprimento, 20 cm de lagura e 30 cm de altura e 5kg de massa.
+
+Considerando que o eixo do corpo está alinhado com os eixos principais de Inércia, tem-se:
+
+\begin{verbatim}
+<mass_balance>
+	<ixx unit="KG*M2"> 0.05416667 </ixx>
+	<iyy unit="KG*M2"> 0.04166667 </iyy>
+	<izz unit="KG*M2"> 0.02083333 </izz>
+	<ixy unit="KG*M2"> 0 </ixy>
+	<ixz unit="KG*M2"> 0 </ixz>
+	<iyz unit="KG*M2"> 0 </iyz>
+	<emptywt unit="KG"> 5 </emptywt>
+	<location name="CG" unit="M">
+		<x> 0 </x>
+		<y> 0 </y>
+		<z> 0 </z>
+	</location>
+</mass_balance>
+
+\end{verbatim}
+
+Define-se a roda de reação como um corpo rígido homogêneo cilíndrico, de raio 0.0435 m e massa de 0.137kg.
+
+Considerando que o eixo do corpo está alinhado com os eixos principais de Inércia, tem-se:
+
+\begin{verbatim}
+<!-- ROTATION IN X -->
+	<force name="RDR_x_1" frame="BODY">
+	<function>
+		<property> actuator/RDR-x </property>
+	</function>
+	<location unit="M">
+		<x>0</x>
+		<y>0</y>
+		<z>0.5</z>
+	</location>
+	<direction>
+		<x>  0 </x>
+		<y>  1 </y>
+		<z>  0 </z>
+	</direction>
+</force>
+
+<force name="RDR_x_2" frame="BODY">
+	<function>
+		<property> actuator/RDR-x </property>
+	</function>
+	<location unit="M">
+		<x>0</x>
+		<y>0</y>
+		<z>-0.5</z>
+	</location>
+	<direction>
+		<x>  0 </x>
+		<y> -1 </y>
+		<z>  0 </z>
+	</direction>
+</force>
+\end{verbatim}
+
+Perceba que para caracterização devida do momento é feita um binário de força.
+
 \section{Considerações Finais}
 
 
