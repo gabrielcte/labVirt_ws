@@ -20,6 +20,7 @@
 	brazil					% o último idioma é o principal do documento
 	]{abntex2}
 
+
 % ---------------------
 % Pacotes OBRIGATÓRIOS
 % ---------------------
@@ -61,9 +62,9 @@
 % ---------------------
 % Pacotes de CITAÇÕES
 % ---------------------
-\usepackage[brazilian,hyperpageref]{backref}	% Paginas com as citações na bibl
-\usepackage[alf]{abntex2cite}				% Citações padrão ABNT (alfa)
-%\usepackage[num]{abntex2cite}				% Citações padrão ABNT (numericas)
+\usepackage[num]{abntex2cite}              % Citações padrão ABNT (numéricas)
+\bibliographystyle{plain}              % Estilo da bibliografia
+\bibliography{referencias}              % Arquivo .bib com as referências
 % ---------------------
 
 % Configurações de CITAÇÕES para abntex2
@@ -180,30 +181,30 @@
 % Lista de abreviaturas e siglas
 % Ordem Alfabética
 \begin{siglas}
-\item[ADCS] Sistema de Determinação e Controle de Atitude (\textit{Attitude Determination and Control System})
- \item[CGEE] Centro de Gestão e Estudos Estratégicos
- \item[CSLI] Iniciativa de lançamento do CubeSat  (\textit{CubeSat Launch Initiative})
- \item [EDO] Equação Diferencial Ordinária
- \item[IGRF] Campo de Referência Geomagnético Internacional (\textit{International Geomagnetic Reference Field})
-  \item[INPE] Instituto Nacional de Pesquisas Espaciais
-  \item[J2000] Data Juliana em 1 de Janeiro de 2000
-  \item[JPL] Laboratório de Propulsão a Jato (\textit{Jet Propulsion Laboratory})
-  \item[LEO] Órbita Terrestre Baixa (\textit{Low Earth Orbit})
- \item[MarsCo] (\textit{Mars Cube One})
-  \item[NASA] Administração Nacional da Aeronáutica e Espaço (\textit{National Aeronautics and Space Administration})
-  \item[NEO] Objeto Próximo da Terra (\textit{Near-Earth Object})  
-  \item[PID] Proporcional Integral Derivativo
-  \item[REQ] Requisito
-  \item[ROS] sistema operacional de robôs (\textit{Robot Operating System})
-  \item[RPM] Rotações Por Minuto
-  \item[SCFC] Sistema de Coordenadas Fixo no Corpo
-  \item[SCGI] Sistema de Coordenadas Geocêntrico-Equatorial Inercial
-  \item[SCO] Sistema de Coordenadas Orbital]
-  \item[SDF] Formato de Descrição de Simulação (\textit{Simulation Description Format})
-  \item[TRIAD] Determinação de Atitude Triaxial (\textit{TRIaxial Attitude Determination})  
-  \item[VE] Veículo Espacial  
-  \item[URDF] Formato de Descrição de Robôs  Unificado (\textit{Unified Robotics Description Format}) 
-  \item[UT] Horário Universal  
+	\item[ADCS] Sistema de Determinação e Controle de Atitude (\textit{Attitude Determination and Control System})
+	\item[CGEE] Centro de Gestão e Estudos Estratégicos
+	\item[CSLI] Iniciativa de lançamento do CubeSat  (\textit{CubeSat Launch Initiative})
+	\item [EDO] Equação Diferencial Ordinária
+	\item[IGRF] Campo de Referência Geomagnético Internacional (\textit{International Geomagnetic Reference Field})
+	\item[INPE] Instituto Nacional de Pesquisas Espaciais
+	\item[J2000] Data Juliana em 1 de Janeiro de 2000
+	\item[JPL] Laboratório de Propulsão a Jato (\textit{Jet Propulsion Laboratory})
+	\item[LEO] Órbita Terrestre Baixa (\textit{Low Earth Orbit})
+	\item[MarsCo] (\textit{Mars Cube One})
+	\item[NASA] Administração Nacional da Aeronáutica e Espaço (\textit{National Aeronautics and Space Administration})
+	\item[NEO] Objeto Próximo da Terra (\textit{Near-Earth Object})  
+	\item[PID] Proporcional Integral Derivativo
+	\item[REQ] Requisito
+	\item[ROS] sistema operacional de robôs (\textit{Robot Operating System})
+	\item[RPM] Rotações Por Minuto
+	\item[SCFC] Sistema de Coordenadas Fixo no Corpo
+	\item[SCGI] Sistema de Coordenadas Geocêntrico-Equatorial Inercial
+	\item[SCO] Sistema de Coordenadas Orbital]
+	\item[SDF] Formato de Descrição de Simulação (\textit{Simulation Description Format})
+	\item[TRIAD] Determinação de Atitude Triaxial (\textit{TRIaxial Attitude Determination})  
+	\item[VE] Veículo Espacial  
+	\item[URDF] Formato de Descrição de Robôs  Unificado (\textit{Unified Robotics Description Format}) 
+	\item[UT] Horário Universal  
 \end{siglas}
 
 % Lista de símbolos
@@ -303,7 +304,11 @@
 \postextual
 
 % Referências bibliográficas
-\bibliography{bibliografia}
+% \bibliography{bibliografia}
+
+% Referências bibliográficas
+\bibliographystyle{plain}              % Estilo da bibliografia
+\bibliography{bibliografia}            % Arquivo .bib com as referências
 
 % Glossário (Consulte o manual)
 %\glossary
@@ -317,5 +322,4 @@
 % Índice remissivo (Consultar manual)
 %\phantompart
 %\printindex
-
 \end{document}
