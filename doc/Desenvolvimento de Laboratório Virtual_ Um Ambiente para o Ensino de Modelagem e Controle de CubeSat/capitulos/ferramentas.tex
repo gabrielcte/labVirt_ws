@@ -859,38 +859,6 @@ C^{B/I} = C^{B/T}C^{B/I}=\left [\hat{t}_{1b} \hat{t}_{2b} \hat{t}_{3b}  \right ]
 \end{bmatrix}
 \end{equation}
 
-\subsection{Controle de Atitude: Técnica de Controle PID}\label{sec:3.1.6}
-
-Para o controle da atitude do CubeSat por rodas de reação se usa um controlador automático estes comparam o valor de saída, medido por um sensor, com o valor de entrada, de referência, desejado. A comparação desses dois valores determina um desvio chamado de erro, e esse sinal de erro é tratado pelo controlador que gera por fim um sinal de controle para os atuadores que agiram sobre o sistema na busca de diminuir esse desvio. A técnica aqui demostrada está presente em \cite[p.~21]{ogata2011engenharia}.
-
-O controle proporcional-integral-derivativo ou PID, é um controle automático que combina ações de natureza proporcional, integral e derivativa no tratamento do sinal de erro. Essa ação combinada oferece as vantagens induviais de cada um desses tipo de controle. 
-A utilização de rodas de reação quando o controle é feito por velocidade, no presente caso aplica-se um controlador PID ao sinal de corrente. Dessa forma a equação do sinal de controle é dada por:
-
-\begin{equation}
-u(t)=K_p\left(e(t)+\frac{1}{T_i}\int_{0}^{t}e(t)dt+T_d\frac{\mathrm{d}e(t) }{\mathrm{d} t}\right )
-\end{equation}
-
-Onde $e(t)$ é o erro entre a velocidade angular de referência e a observada, $K_p$ é o ganho proporcional, $T_i$ é o tempo integrativo e $T_d$ é o tempo derivativo.
-
-Para o caso que o modelo matemático da planta a ser considerada possa ser obtido, então é possível aplicar técnicas de projeto para auxiliar na determinação de parâmetros do controlador para atender as especificações do regime transitório e do regime permanente do sistema de malha fechada. Contudo se a planta for muito complexa é possível que a abordagem analítica seja não praticável, assim tem-se que recorrer para uma abordagem experimental de sintonia do controlador PID.
-
-O método de sintonia  de Ziegler e Nichols, \cite[p.~524]{ogata2011engenharia}, sugere ajustar os parâmetros $Kp$, $T_i$ e $T_d$ a partir da resposta experimental ao aumentar o valor de $K_p$ até resultar em uma estabilidade marginal, quando só a ação proporcional é considerada. Ou seja, definindo $T_i=\infty$ e $T_d=0$, aumenta-se o valor de $K_p$ de 0 até o valor crítico $K_{cr}$no qual a saída oscila de forma sustentada pela primeira vez, o período de oscilação encontrado é $P_{cr}$. Caso para qualquer valor de $K_p$ não se encontre uma resposta oscilatória sustentada do sistema então o método não se aplica.
-
-Para os valores de $P_{cr}$ e $K_{cr}$encontrados Ziegle e Nichols sugere escolher os parâmetros $Kp$, $T_i$ e $T_d$ de acordo com a  tabela~\ref{tab:1} a seguir:
-
-\begin{table}[htpb]
-\centering
-\caption{Regra de sintonia de Ziegler-Nichols baseada no ganho crítico $K_{cr}$ e no período crítico $P_{cr}$.}\label{tab:1}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\small{Tipo de controlador} & \small{$K_p$} & \small{$T_i$} & \small{$T_d$} \\ \hline
-P&$0,5K_{cr}$&$\infty$&$0$\\\hline
-PI& $0,45K_{cr}$&$\frac{1}{1,2}P_{cr}$&$0$\\\hline
-PID	& $0,6K_{cr}$&$0,5P_{cr}$&$0,125P_{cr}$\\\hline
-\end{tabular}
-\end{table}
-
-
 \subsection{Rodas de Reação em 3 Eixos}\label{sec:3.1.6.1}
 
 
@@ -970,6 +938,15 @@ Como as três rodas-de-reação são idênticas, pode-se modela-las como cilindr
 
 \subsection{Linearização do Modelo das Rodas de Reação}\label{sec:3.1.6.3}
 
+A linearização da roda de reação se dá considerando a indutância desprezível, assim como o atrito de Coulomb e que sua dinâmica é regida somente pela o atrito de fricção dinâmica e por um ganho $K_e$ e resistência
+
+Sendo a entrada do sistema a tensão V e o estado a velocidade de rotação da roda de reação $\omega_rdr$, assim tem-se:
+
+\begin{equation}
+	\dot{\omega} = -f\omega+\frac{K_e}{R}V
+\end{equation}
 
 
+
+\subsection{Controle de Atitude: Alocação de Polos e Lugar das Raízes}\label{sec:3.1.6}
 

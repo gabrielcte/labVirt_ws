@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.1.29)  24 FEB 2025 20:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.1.29)  25 FEB 2025 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1836,20 +1836,25 @@ LaTeX Warning: Citation `hall2003spacecraft' on page 5 undefined on input line
 8.
 
 
+LaTeX Warning: Citation `mahdi2018attitude' on page 5 undefined on input line 8
+.
+
+
 LaTeX Warning: Citation `ogata2011engenharia' on page 5 undefined on input line
  8.
 
 
-LaTeX Warning: Citation `ros2humble' on page 5 undefined on input line 10.
+LaTeX Warning: Citation `' on page 5 undefined on input line 10.
 
 
-LaTeX Warning: Citation `gazebosim' on page 5 undefined on input line 10.
+LaTeX Warning: Citation `' on page 5 undefined on input line 10.
 
 
-LaTeX Warning: Citation `sdf' on page 5 undefined on input line 10.
+LaTeX Warning: Citation `manualJSBSim' on page 5 undefined on input line 10.
 
 
-LaTeX Warning: Citation `urdf' on page 5 undefined on input line 10.
+LaTeX Warning: Citation `manualFlightGear' on page 5 undefined on input line 10
+.
 
 )
 pdfTeX warning (ext4): destination with the same identifier (name{page.5}) has 
@@ -1876,14 +1881,10 @@ l.1 \chapter
 
 ]
 
-LaTeX Warning: Citation `lotfi2021use' on page 7 undefined on input line 18.
+LaTeX Warning: Citation `lotfi2021use' on page 7 undefined on input line 20.
 
 
-LaTeX Warning: Citation `lotfi2022use' on page 7 undefined on input line 20.
-
-
-LaTeX Warning: Citation `linner2011modeling' on page 7 undefined on input line 
-22.
+LaTeX Warning: Citation `lotfi2022use' on page 7 undefined on input line 22.
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.7}) has 
@@ -1893,21 +1894,25 @@ been already used, duplicate ignored
 l.23 
       [7]
 
-LaTeX Warning: Citation `hao2021intelligent' on page 8 undefined on input line 
+LaTeX Warning: Citation `linner2011modeling' on page 8 undefined on input line 
 24.
 
 
-LaTeX Warning: Citation `kang2019urdf' on page 8 undefined on input line 26.
+LaTeX Warning: Citation `hao2021intelligent' on page 8 undefined on input line 
+26.
 
 
-LaTeX Warning: Citation `udugama2023mini' on page 8 undefined on input line 28.
+LaTeX Warning: Citation `kang2019urdf' on page 8 undefined on input line 28.
+
+
+LaTeX Warning: Citation `udugama2023mini' on page 8 undefined on input line 30.
 
 
 
-LaTeX Warning: Citation `canas2020ros' on page 8 undefined on input line 30.
+LaTeX Warning: Citation `canas2020ros' on page 8 undefined on input line 32.
 
 
-LaTeX Warning: Citation `canas2020open' on page 8 undefined on input line 32.
+LaTeX Warning: Citation `canas2020open' on page 8 undefined on input line 34.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1917,14 +1922,21 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.8}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 U
-      m aspecto que merece destaque na Robotics Academy, conforme abordado p...
-[8]
+l.35 
+      [8]
 
-LaTeX Warning: Citation `roldan2022ros' on page 9 undefined on input line 34.
+LaTeX Warning: Citation `roldan2022ros' on page 9 undefined on input line 36.
 
 
-LaTeX Warning: Citation `ramon2023task' on page 9 undefined on input line 36.
+LaTeX Warning: Citation `ramon2023task' on page 9 undefined on input line 38.
+
+
+LaTeX Warning: Citation `tavares2019desenvolvimento' on page 9 undefined on inp
+ut line 40.
+
+
+LaTeX Warning: Citation `moness2012automatic' on page 9 undefined on input line
+ 42.
 
 )
 pdfTeX warning (ext4): destination with the same identifier (name{page.9}) has 
@@ -2080,32 +2092,32 @@ LaTeX Warning: Citation `mahdi2018attitude' on page 24 undefined on input line
 [24]
 
 LaTeX Warning: Citation `baroni2020attitude' on page 25 undefined on input line
- 696.
+ 700.
 
 <figs/Detector Cossenoildal Sensor Solar.png, id=465, 389.455pt x 270.00874pt>
 File: figs/Detector Cossenoildal Sensor Solar.png Graphic file (type png)
 <use figs/Detector Cossenoildal Sensor Solar.png>
 Package pdftex.def Info: figs/Detector Cossenoildal Sensor Solar.png  used on i
-nput line 714.
+nput line 718.
 (pdftex.def)             Requested size: 194.72702pt x 135.00403pt.
 
 LaTeX Warning: Citation `wertz2012spacecraft' on page 25 undefined on input lin
-e 716.
+e 720.
 
 [25 <./figs/Detector Cossenoildal Sensor Solar.png>]
 <figs/magfield.png, id=475, 601.24625pt x 602.25pt>
 File: figs/magfield.png Graphic file (type png)
 <use figs/magfield.png>
-Package pdftex.def Info: figs/magfield.png  used on input line 778.
+Package pdftex.def Info: figs/magfield.png  used on input line 784.
 (pdftex.def)             Requested size: 180.37526pt x 180.67639pt.
 
 
 LaTeX Warning: Citation `mahdi2018attitude' on page 26 undefined on input line 
-780.
+786.
 
 [26]
 ! Misplaced alignment tab character &.
-l.799  		\Delta \phi &
+l.805  		\Delta \phi &
                       = \frac{4 \pi}{\lambda} \cdot L \cdot \Omega
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -2115,7 +2127,7 @@ you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
 ! Misplaced alignment tab character &.
-l.803 	 		\Omega &
+l.809 	 		\Omega &
                   = \frac{\Delta \phi \cdot \lambda}{4 \pi \cdot L}
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -2127,106 +2139,106 @@ might try typing `S' now just to see what is salvageable.
 [27 <./figs/magfield.png>] [28]
 
 LaTeX Warning: Citation `ogata2011engenharia' on page 29 undefined on input lin
-e 858.
+e 864.
 
 
 LaTeX Warning: Citation `ogata2011engenharia' on page 29 undefined on input lin
-e 871.
+e 877.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 880.
+(Font)              <10.95> on input line 886.
 [29]
 
-LaTeX Warning: Reference `fig:10' on page 30 undefined on input line 895.
+LaTeX Warning: Reference `fig:10' on page 30 undefined on input line 901.
 
 
 LaTeX Warning: Citation `wertz2012spacecraft' on page 30 undefined on input lin
-e 904.
+e 910.
 
 
-LaTeX Warning: Reference `fig:14' on page 30 undefined on input line 908.
+LaTeX Warning: Reference `fig:14' on page 30 undefined on input line 914.
 
 <figs/CicloTrabalho.png, id=511, 311.66437pt x 207.77625pt>
 File: figs/CicloTrabalho.png Graphic file (type png)
 <use figs/CicloTrabalho.png>
-Package pdftex.def Info: figs/CicloTrabalho.png  used on input line 912.
+Package pdftex.def Info: figs/CicloTrabalho.png  used on input line 918.
 (pdftex.def)             Requested size: 311.6636pt x 207.77573pt.
 
 LaTeX Warning: Citation `wertz2012spacecraft' on page 30 undefined on input lin
-e 914.
+e 920.
 
 
-LaTeX Warning: Command \c invalid in math mode on input line 920.
+LaTeX Warning: Command \c invalid in math mode on input line 926.
 
 
-LaTeX Warning: Command \~ invalid in math mode on input line 920.
+LaTeX Warning: Command \~ invalid in math mode on input line 926.
 
 
-LaTeX Warning: Command \c invalid in math mode on input line 922.
+LaTeX Warning: Command \c invalid in math mode on input line 928.
 
 
-LaTeX Warning: Command \~ invalid in math mode on input line 922.
+LaTeX Warning: Command \~ invalid in math mode on input line 928.
 
 [30]
 
-LaTeX Warning: Command \c invalid in math mode on input line 924.
+LaTeX Warning: Command \c invalid in math mode on input line 930.
 
 
-LaTeX Warning: Command \~ invalid in math mode on input line 924.
+LaTeX Warning: Command \~ invalid in math mode on input line 930.
 
 <figs/torqueEletromagnetico.png, id=520, 381.67593pt x 231.86626pt>
 File: figs/torqueEletromagnetico.png Graphic file (type png)
 <use figs/torqueEletromagnetico.png>
-Package pdftex.def Info: figs/torqueEletromagnetico.png  used on input line 940
+Package pdftex.def Info: figs/torqueEletromagnetico.png  used on input line 946
 .
 (pdftex.def)             Requested size: 381.675pt x 231.86568pt.
 
 LaTeX Warning: Citation `wertz2012spacecraft' on page 31 undefined on input lin
-e 942.
+e 948.
 
-[31 <./figs/CicloTrabalho.png>]) [32 <./figs/torqueEletromagnetico.png>]
-[33
+[31 <./figs/CicloTrabalho.png>] [32 <./figs/torqueEletromagnetico.png>])
+[33] [34
 
 
 
-] [34]
+] [35] [36]
 \openout2 = `capitulos/proposta.aux'.
 
  (./capitulos/proposta.tex
 
-LaTeX Warning: Citation `manualJSBSim' on page 35 undefined on input line 17.
+LaTeX Warning: Citation `manualJSBSim' on page 37 undefined on input line 17.
 
 
-LaTeX Warning: Citation `manualFlightGear' on page 35 undefined on input line 1
+LaTeX Warning: Citation `manualFlightGear' on page 37 undefined on input line 1
 9.
 
-) [35
+) [37
 
 
-] [36
+] [38
 
 
 
-] [37] [38]
+] [39] [40]
 \openout2 = `capitulos/resultados.aux'.
 
- (./capitulos/resultados.tex) [39
+ (./capitulos/resultados.tex) [41
 
 
 ]
 \openout2 = `capitulos/conclusao.aux'.
 
 
-(./capitulos/conclusao.tex [40
+(./capitulos/conclusao.tex [42
 
 
 
 
-]) [41]
+]) [43]
 No file dissertacao.bbl.
 \openout2 = `postextual/apendices.aux'.
 
-(./postextual/apendices.tex [42
+(./postextual/apendices.tex [44
 
 
 
@@ -2236,16 +2248,16 @@ No file dissertacao.bbl.
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\uppercase' on input line 12.
 
-[43
+[45
 
-] [44] [45
+] [46] [47
 
-] [46
+] [48
 
-]) [47]
+]) [49]
 \openout2 = `postextual/anexos.aux'.
 
- (./postextual/anexos.tex [48
+ (./postextual/anexos.tex [50
 
 
 
@@ -2255,13 +2267,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\uppercase' on input line 12.
 
-[49
+[51
 
-] [50] [51
+] [52] [53
 
-] [52
+] [54
 
-]) [53]
+]) [55]
 \tf@lof=\write8
 \openout8 = `dissertacao.lof'.
 
@@ -2311,11 +2323,11 @@ LaTeX Warning: There were undefined references.
 ### semi simple group (level 1) entered at line 11 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 38734 strings out of 474222
- 732053 string characters out of 5748733
+ 38737 strings out of 474222
+ 732127 string characters out of 5748733
  1953975 words of memory out of 5000000
- 59696 multiletter control sequences out of 15000+600000
- 667438 words of font info for 228 fonts, out of 8000000 for 9000
+ 59694 multiletter control sequences out of 15000+600000
+ 667535 words of font info for 229 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,13n,107p,1315b,1223s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/
@@ -2330,10 +2342,10 @@ texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/
 lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/tex
 mf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lms
 y6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on dissertacao.pdf (77 pages, 1304315 bytes).
+Output written on dissertacao.pdf (79 pages, 1306172 bytes).
 PDF statistics:
- 975 PDF objects out of 1000 (max. 8388607)
- 835 compressed objects within 9 object streams
- 281 named destinations out of 1000 (max. 500000)
+ 986 PDF objects out of 1000 (max. 8388607)
+ 844 compressed objects within 9 object streams
+ 284 named destinations out of 1000 (max. 500000)
  61981 words of extra memory for PDF output out of 74296 (max. 10000000)
 
