@@ -43,7 +43,7 @@ if __name__ == '__main__':
     aircraft_path=(Path('.')).resolve()
 
     fdm = jsbsim.FGFDMExec(str(aircraft_path))
-    #fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
+    fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
     fdm.set_debug_level(0)
     fdm.load_model(aircraft_model)
     fdm.set_dt(dt)                                            # Define o passo da simulação (s)
@@ -168,6 +168,7 @@ if __name__ == '__main__':
                         de_wrdr = 0
 
                     Se_wrdrdt[j] = Se_wrdrdt[j]+e_wrdr[j][i]*dt
+
                     Vapp[j] = Kp_wrdr*e_wrdr[j][i]+Ki_wrdr*Se_wrdrdt[j]+Kd_wrdr*de_wrdr/dt # [V]
                     
                     # Atuador

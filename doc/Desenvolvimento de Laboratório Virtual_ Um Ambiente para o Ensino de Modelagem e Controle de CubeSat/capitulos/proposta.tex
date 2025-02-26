@@ -96,7 +96,82 @@ Considerando que o eixo do corpo está alinhado com os eixos principais de Inér
 
 Perceba que para caracterização devida do momento é feita um binário de força.
 
+\section{Control Design}
+
+foi escolhido os seguites polos 
+[-8.08825423e-05+0.j   -6.93278934e-05+0.j   -7.51052178e-05-0.01j
+-7.51052178e-05+0.01j]
+
+por serem entre 6 a 7 vezes mais lento que 1.15546489e-05 que é o polo da roda de reação
+
+A matriz de ganhos ficou 
+
+\begin{equation}
+	K = \begin{bmatrix}
+		-6.13702972 \times 10^{-4} & 6.00828148 \times 10^{-4} & -6.08004453 \times 10^{0} & 7.70729819 \times 10^{0} \\
+		-1.98023000 \times 10^{-4} & 3.06189753 \times 10^{-4} & -2.54675474 \times 10^{2} & 2.38676450 \times 10^{0}
+	\end{bmatrix}
+\end{equation}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale0.751]{figs/resultado_lugar_das_raizes.png}
+	\caption{Lugar das Raízes}
+	\label{fig:15}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale0.5]{figs/resultado_alocacao_polos.png}
+	\caption{Alocação de polos}
+	\label{fig:15}
+\end{figure}
+
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_evolucao_acelang_linear.png}
+	\caption{Resultado Aceleração Angular Controle Planta Linearizada}
+	\label{fig:15}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_evolucao_velang_linear.png}
+	\caption{Resultado Velocidade Angular Controle Planta Linearizada}
+\label{fig:15}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_evolucao_atitude_linear.png}
+	\caption{Resultado Atitude Controle Planta Linearizada}
+	\label{fig:15}
+\end{figure}
+
+
+\section{Simulação Dinâmica}
+
+r_SCGI = np.array([2.25526213722520e+006, -3.00492371279401e+006, -5.84397331427593e+006]) # m
+v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224794e+003]) # m/s
+
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_simulacao_dinamica_velocidade.png}
+	\caption{Resultado Atitude Simulação}
+	\label{fig:15}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_simulacao_dinamica_atitude.png}
+	\caption{Resultado Velocidade Simulação}
+	\label{fig:15}
+\end{figure}
+
 \section{Considerações Finais}
+
 
 
 

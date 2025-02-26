@@ -86,8 +86,6 @@ plt.title("Lugar das raízes")
 poles_SAS = sys_SAS.poles()
 print (poles_SAS)
 
-print (poles_SAS/poles_Plant)
-
 plt.plot(poles_Plant.real, poles_Plant.imag, 'b*', label=r'$Sys Open Loop$')
 plt.plot(poles_SAS.real, poles_SAS.imag, 'r*', label=r'$Sys Augmented$')
 plt.legend()
