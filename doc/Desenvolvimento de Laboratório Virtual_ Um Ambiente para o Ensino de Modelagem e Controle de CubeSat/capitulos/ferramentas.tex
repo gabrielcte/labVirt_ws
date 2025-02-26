@@ -681,6 +681,95 @@ A equação do movimento pode ser escrita então como:
 \ddot{\psi}=\frac{1}{J_z}(-\omega_o^2(J_y-J_x)\psi-\omega_o(J_z-J_y+J_x)\dot{\phi}+T_z)
 \end{equation}
 
+Observando a matriz \( A \), percebe-se que o comportamento de \( \theta \), \( \dot{\theta} \) e \( \omega_{{rdr}_y} \) é desacoplado do restante do sistema. Portanto, o estudo pode ser dividido em um sistema MIMO e um sistema SISO:
+
+- **MIMO**: comportamento de \( \phi \), \( \psi \), \( \dot{\phi} \), \( \dot{\psi} \), \( \omega_{{rdr}_x} \) e \( \omega_{{rdr}_z} \), que são acoplados.
+- **SISO**: comportamento de \( \theta \), \( \dot{\theta} \) e \( \omega_{{rdr}_y} \).
+
+\subsubsection{MIMO}
+
+O vetor de estados é:
+
+$$
+X = [\phi, \: \psi, \: \dot{\phi}, \: \dot{\psi}]^T
+$$
+
+A derivada do vetor de estados é:
+
+$$
+\dot{X} = [\dot{\phi}, \: \dot{\psi}, \: \ddot{\phi}, \: \ddot{\psi}]^T
+$$
+
+O vetor de controle é:
+
+$$
+U = [\dot{\omega_{rdr_x}}, \: \dot{\omega_{rdr_z}}]^T
+$$
+
+A equação fundamental que rege o sistema é:
+
+$$
+A = \begin{bmatrix}
+	0 & 0 & 1 & 0 \\
+	0 & 0 & 0 & 1 \\
+	\frac{1}{J_x}(\omega_o^2(J_z-J_y)) & 0 & 0 & \frac{1}{J_x}(\omega_o(J_x+J_z-J_y)) \\
+	0 & \frac{1}{J_z}(-\omega_o^2(J_y-J_x)) & \frac{1}{J_z}(-\omega_o(J_z-J_y+J_x)) & 0
+\end{bmatrix}
+$$
+
+$$
+B = \begin{bmatrix}
+	0 & 0 \\
+	0 & 0 \\
+	\frac{J_{rdr}}{J_{xx}} & 0 \\
+	0 & \frac{J_{rdr}}{J_{zz}}
+\end{bmatrix}
+$$
+
+$$
+\dot{X} = A\:X + B\:U
+$$
+
+\subsubsection{SISO}
+
+O vetor de estados é:
+
+$$
+X = [\theta, \: \dot{\theta}]^T
+$$
+
+A derivada do vetor de estados é:
+
+$$
+\dot{X} = [\dot{\theta}, \: \ddot{\theta}]^T
+$$
+
+O vetor de controle é:
+
+$$
+U = \dot{\omega_{rdr_y}}
+$$
+
+A equação fundamental que rege o sistema é:
+
+$$
+A = \begin{bmatrix}
+	1 & 0 \\
+	0 & 1
+\end{bmatrix}
+$$
+
+$$
+B = \begin{bmatrix}
+	0 & 0 \\
+	0 & \frac{J_{rdr}}{J_{yy}}
+\end{bmatrix}
+$$
+
+$$
+\dot{X} = A\:X + B\:U
+$$
+
 
 
 \section{Sistema de Determinação e Controle de Atitude (ADCS)}\label{sec:3.1.4}
@@ -802,11 +891,11 @@ Um girômetro de fibra óptica utiliza o princípio da interferência de luz par
 As equações de movimento para um girômetro de fibra óptica podem ser expressas da seguinte forma:
  	
 \begin{equation}
- 		\Delta \phi &= \frac{4 \pi}{\lambda} \cdot L \cdot \Omega
+ 		\Delta \phi = \frac{4 \pi}{\lambda} \cdot L \cdot \Omega
 \end{equation}
 
 \begin{equation}
-	 		\Omega &= \frac{\Delta \phi \cdot \lambda}{4 \pi \cdot L}
+	 		\Omega = \frac{\Delta \phi \cdot \lambda}{4 \pi \cdot L}
 \end{equation}
  	
  	Onde:
@@ -947,6 +1036,69 @@ Sendo a entrada do sistema a tensão V e o estado a velocidade de rotação da r
 \end{equation}
 
 
-
 \subsection{Controle de Atitude: Alocação de Polos e Lugar das Raízes}\label{sec:3.1.6}
 
+\subsubsection{Lugar das Raízes}
+
+
+O método de controle por lugar das raízes é uma técnica utilizada no design de sistemas de controle para analisar a posição das raízes de uma equação característica em função de um parâmetro variável, geralmente o ganho 𝐾.
+
+A partir da equação característica do sistema de controle:
+
+\begin{equation}
+	1+𝐺(𝑠)𝐻(𝑠)=0
+\end{equation}
+
+Onde 𝐺(𝑠) é a função de transferência do sistema e 𝐻(𝑠) é a função de transferência do controlador.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/sistemaDeControle.png}
+	\caption{Sistema de Controle com Realimentação}
+	{Fonte: \cite[p.~247]{ogata2011engenharia}}
+	\label{fig:15}
+\end{figure}
+
+O método permite visualizar como as raízes da equação característica se movem no plano complexo à medida que o ganho 𝐾 é variado. Essas trajetórias são conhecidas como "lugar das raízes".
+
+A estabilidade do sistema depende de onde as raízes estão localizadas. Se todas as raízes estiverem no semiplano esquerdo do plano complexo, o sistema é estável. O lugar das raízes ajuda a ajustar o ganho 𝐾 de forma que as raízes estejam em posições desejadas para garantir a estabilidade do sistema.
+
+Com análise do lugar das raízes, pode-se projetar controladores que posicionem as raízes em locais específicos para obter a resposta desejada do sistema.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/lugarDasRaizes.png}
+	\caption{Exemplo de Lugar das Raízes}
+	{Fonte: \cite[p.~264]{ogata2011engenharia}}
+	\label{fig:15}
+\end{figure}
+	
+\subsubsection{Alocação de Polos}
+
+A alocação de polos é uma técnica utilizada em sistemas de controle para posicionar os polos de malha fechada do sistema em locais desejados no plano complexo. Essa técnica é essencial para garantir que o sistema de controle tenha a resposta dinâmica desejada, como tempos de resposta, estabilidade e amortecimento adequados.
+
+Sendo a equação característica de malha fechada dada por 𝑃(𝑠)=0, onde 𝑃(𝑠) é um polinômio em 𝑠 que descreve a dinâmica do sistema de malha fechada. Analisando a matriz de controlabilidade e garantindo que o sistema é controlável pode-se definir os polos desejados, $𝑠_1$, $𝑠_2$,...,$𝑠_n$, para o sistema de malha fechada.
+
+Esses polos são escolhidos com base nos requisitos de desempenho desejados, como tempo de assentamento, sobressinal, e estabilidade.
+
+Ajustando os parâmetros do controlador de forma que os polos de malha fechada do sistema coincidam com os polos desejados. Isso pode ser feito projetando um controlador adequado, como um controlador de estado, um controlador PID ou um compensador.
+
+No caso de um controlador de estado, a técnica de alocação de polos geralmente envolve a construção de uma matriz de ganhos 𝐾 que, quando aplicada ao sistema, posiciona os polos de malha fechada nos locais desejados.
+A equação de estado típica do sistema é:
+
+\begin{equation}
+	\dot{x}(𝑡)=𝐴𝑥(𝑡)+𝐵𝑢(𝑡)
+\end{equation}
+
+E a realimentação de estado é dada por:
+\begin{equation}
+	𝑢(𝑡)=−𝐾𝑥(𝑡)
+\end{equation}
+
+ A equação característica de malha fechada resultante é dada por:
+ 
+ \begin{equation}
+ |(𝑠𝐼−(𝐴−𝐵𝐾))|=0
+ \end{equation}
+	
+A matriz de ganhos 𝐾 é calculada de forma que os polos desta equação característica coincidam com os polos desejados.
