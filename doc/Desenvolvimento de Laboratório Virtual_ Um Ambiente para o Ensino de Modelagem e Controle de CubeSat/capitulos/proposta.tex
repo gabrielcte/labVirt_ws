@@ -98,20 +98,31 @@ Perceba que para caracterização devida do momento é feita um binário de for�
 
 \section{Control Design}
 
-foi escolhido os seguites polos 
-[-8.08825423e-05+0.j   -6.93278934e-05+0.j   -7.51052178e-05-0.01j
--7.51052178e-05+0.01j]
+Utilizando o scrip pyhton para o projeto do controlador por alocação de polos:
 
-por serem entre 6 a 7 vezes mais lento que 1.15546489e-05 que é o polo da roda de reação
+Como exemplificado nas secções anteriores para os estados acoplados MIMO, pode-se usar a técnica de alocação de polos para estimar a matriz de ganhos do controlador de estados, foi escolhido os seguintes polos:
+$s_1 = -0.00808825$, $s_2=-0.00693279$, $s_3=-0.00075105-1.e-04j$ e $s_4=-0.00075105+1.e-04j$ por serem entre 6 a 7 vezes mais lento que os polos da roda de reação.
 
-A matriz de ganhos ficou 
+A matriz de ganhos ficou: 
 
 \begin{equation}
 	K = \begin{bmatrix}
-		-6.13702972 \times 10^{-4} & 6.00828148 \times 10^{-4} & -6.08004453 \times 10^{0} & 7.70729819 \times 10^{0} \\
-		-1.98023000 \times 10^{-4} & 3.06189753 \times 10^{-4} & -2.54675474 \times 10^{2} & 2.38676450 \times 10^{0}
+		 2.34836293e-03 & -3.43392593e-04 & 3.69386652e+00 & 2.30815220e-01 \\
+		 1.09354336e-04 & 9.51070684e-04 & -2.66493008e-01 & 1.23500323e+00
 	\end{bmatrix}
 \end{equation}
+
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale0.5]{figs/resultado_alocacao_polos.png}
+	\caption{Alocação de polos}
+	\label{fig:15}
+\end{figure}
+
+Utilizando o scrip pyhton para o projeto do controlador por lugar das raizes:
+
+Por sua vez o estados acoplados SISO, foi usado a técnica de alocação de polos, perceba que como só tem-se o estado e um integrador é possível escolher o valor de K que satisfaça as especificações da roda de reação:
 
 \begin{figure}[htpb]
 	\centering
@@ -120,12 +131,9 @@ A matriz de ganhos ficou
 	\label{fig:15}
 \end{figure}
 
-\begin{figure}[htpb]
-	\centering
-	\includegraphics[scale0.5]{figs/resultado_alocacao_polos.png}
-	\caption{Alocação de polos}
-	\label{fig:15}
-\end{figure}
+\section{Control Design}
+
+Utilizando o scrip pyhton para o projeto do controlador é possível simular a planta linearizada e adicionar a componente de fricção as rodas de reação, tendo os seguinte resultados:
 
 
 \begin{figure}[htpb]
@@ -149,11 +157,41 @@ A matriz de ganhos ficou
 	\label{fig:15}
 \end{figure}
 
+Nessa primeira simulação da planta linear, temos que a atitude apesar de ter um sobressinal entre 15° e 20° em valores absolutos, com o passar do tempo vão se acomodando em valores em torno de 5°.
+
+As rodas de reação são capazes de controlar a planta, mas o tempo de acomodação é muito longo se aproximadamente 1 hora. O que pode ser um indício que a escolha das rodas de reação pode não ser apropriada.
 
 \section{Simulação Dinâmica}
 
-r_SCGI = np.array([2.25526213722520e+006, -3.00492371279401e+006, -5.84397331427593e+006]) # m
-v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224794e+003]) # m/s
+Definindo a órbita a partir dos vetores de posição e velocidade:
+
+$r_SCGI = np.array([2.25526213722520e+006, -3.00492371279401e+006, -5.84397331427593e+006])$
+
+e
+
+$v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224794e+003])$ 
+
+
+Ao introduzir esse valores no JSBSim o papel da simulação da trajetória do corpo, pode-se acompanhar o mesmo pelo tracejado em solo.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_groud_track.png}
+	\caption{Resultado Tracejado em Solo}
+	\label{fig:15}
+\end{figure}
+
+
+Assim como pela interface gráfica, proposta como objetivo desse trabalho:
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=0.5]{figs/resultado_inteface_grafica.png}
+	\caption{Resultado Interface Gráfica}
+	\label{fig:15}
+\end{figure}
+
+A simulação pelo JSBSim adiciona as não linearidades das rodas de reação,
 
 
 \begin{figure}[htpb]
@@ -169,6 +207,8 @@ v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224
 	\caption{Resultado Velocidade Simulação}
 	\label{fig:15}
 \end{figure}
+
+
 
 \section{Considerações Finais}
 

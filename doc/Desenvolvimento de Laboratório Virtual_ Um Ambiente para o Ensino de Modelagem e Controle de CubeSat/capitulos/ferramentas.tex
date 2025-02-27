@@ -1046,7 +1046,7 @@ O método de controle por lugar das raízes é uma técnica utilizada no design 
 A partir da equação característica do sistema de controle:
 
 \begin{equation}
-	1+𝐺(𝑠)𝐻(𝑠)=0
+	1+G(s)H(S)=0
 \end{equation}
 
 Onde 𝐺(𝑠) é a função de transferência do sistema e 𝐻(𝑠) é a função de transferência do controlador.
@@ -1087,18 +1087,18 @@ No caso de um controlador de estado, a técnica de alocação de polos geralment
 A equação de estado típica do sistema é:
 
 \begin{equation}
-	\dot{x}(𝑡)=𝐴𝑥(𝑡)+𝐵𝑢(𝑡)
+	\dot{x}(t)=Ax(t)+Bu(t)
 \end{equation}
 
 E a realimentação de estado é dada por:
 \begin{equation}
-	𝑢(𝑡)=−𝐾𝑥(𝑡)
+	u(t)=-Kx(t)
 \end{equation}
 
  A equação característica de malha fechada resultante é dada por:
  
  \begin{equation}
- |(𝑠𝐼−(𝐴−𝐵𝐾))|=0
+ 	|(sI-(A-BK))|=0
  \end{equation}
 	
 A matriz de ganhos 𝐾 é calculada de forma que os polos desta equação característica coincidam com os polos desejados.

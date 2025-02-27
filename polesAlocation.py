@@ -71,7 +71,7 @@ A_Plant = np.array([
     [0, 0, 1, 0],
     [0, 0, 0, 1],
     [1/Ixx*w_O_I_O**2*(Izz-Iyy), 0, 0, 1/Ixx*w_O_I_O*(Ixx+Izz-Iyy)],
-    [0, 1/Izz*-w_O_I_O**2*(Iyy-Ixx), 1/Izz*-w_O_I_O/(Izz-Iyy+Ixx),0]
+    [0, 1/Izz*-w_O_I_O**2*(Iyy-Ixx), 1/Izz*-w_O_I_O*(Izz-Iyy+Ixx),0]
 ])
 
 B_Plant = np.array([
@@ -100,8 +100,7 @@ plt.ylabel("Real")
 plt.grid(True)
 
 
-
-P = np.array([-7*1.15546489e-05, -6*1.15546489e-05, -6.5*1.15546489e-05-0.01j, -6.5*1.15546489e-05+0.01j])
+P = np.array([-7*1.15546489e-03, -6*1.15546489e-03, -6.5*1.15546489e-04-0.0001j, -6.5*1.15546489e-04+0.0001j])
 fsf = signal.place_poles(A_Plant, B_Plant, P, method='YT')
 plt.plot(fsf.computed_poles.real, fsf.computed_poles.imag, 'bx', label=r'$Poles \; Alocated$')
 plt.legend()
