@@ -100,7 +100,7 @@ plt.ylabel("Real")
 plt.grid(True)
 
 
-P = np.array([-7*1.15546489e-03, -6*1.15546489e-03, -6.5*1.15546489e-04-0.0001j, -6.5*1.15546489e-04+0.0001j])
+P = np.array([-6.5*1.15546489e-03, -6*1.15546489e-03, -6.25*1.15546489e-03-0.0005j, -6.25*1.15546489e-03+0.0005j])/4
 fsf = signal.place_poles(A_Plant, B_Plant, P, method='YT')
 plt.plot(fsf.computed_poles.real, fsf.computed_poles.imag, 'bx', label=r'$Poles \; Alocated$')
 plt.legend()
