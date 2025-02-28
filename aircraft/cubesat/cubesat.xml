@@ -44,13 +44,13 @@
     </metrics>
 
     <mass_balance>
-        <ixx unit="KG*M2"> 0.05416667 </ixx>
-        <iyy unit="KG*M2"> 0.04166667 </iyy>
-        <izz unit="KG*M2"> 0.02083333 </izz>
+        <ixx unit="KG*M2"> 0.065 </ixx>
+        <iyy unit="KG*M2"> 0.05</iyy>
+        <izz unit="KG*M2"> 0.025000000000000005 </izz>
         <ixy unit="KG*M2"> 0 </ixy>
         <ixz unit="KG*M2"> 0 </ixz>
         <iyz unit="KG*M2"> 0 </iyz>
-        <emptywt unit="KG"> 5 </emptywt>
+        <emptywt unit="KG"> 6 </emptywt>
         <location name="CG" unit="M">
             <x> 0 </x>
             <y> 0 </y>
@@ -114,7 +114,6 @@
       </force>
 
       <!-- ROTATION IN Y -->
-      <property>actuator/RDR-x</property>
       <force name="RDR_y_1" frame="BODY"> 
         <function>
           <property> actuator/RDR-y </property>
