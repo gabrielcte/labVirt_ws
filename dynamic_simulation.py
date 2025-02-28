@@ -36,8 +36,8 @@ if __name__ == '__main__':
     frame_time   = 0
     dt = 0.01
     frame_period = dt
-    flight_stage_current = FlightStages.flight_stage_control
-    no_control_duration = 1
+    flight_stage_current = FlightStages.flight_stage_no_control
+    no_control_duration = 300
     control_duration = 10000    
 
     # Set jsbsim and flightgear
@@ -133,6 +133,10 @@ if __name__ == '__main__':
     data = []
         
     for i in range(num_steps):
+        psi = fdm['attitude/psi-rad']  # Yaw
+        x = np.cos(psi)
+        y = np.sin(psi)
+        psi_calc = np.arctan2(y, x)
 
         if flight_stage_current == FlightStages.flight_stage_no_control:
 
@@ -142,12 +146,6 @@ if __name__ == '__main__':
                 #break
 
         elif flight_stage_current == FlightStages.flight_stage_control:
-            
-            # Correção do Yaw para [-pi pi]
-            psi = fdm['attitude/psi-rad']  # Yaw
-            x = np.cos(psi)
-            y = np.sin(psi)
-            psi_calc = np.arctan2(y, x)
 
             # Controle
 

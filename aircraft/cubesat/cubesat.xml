@@ -212,7 +212,6 @@
         </direction>
       </force>
 
-
       <!--
       <force name="rocket" frame="INERTIAL">
         <function>
@@ -231,10 +230,8 @@
       </force> -->
 
     </external_reactions>
-
        
       <propulsion>
-
       <!--
             <engine file="EPSS_C2">
             <feed>0</feed>
