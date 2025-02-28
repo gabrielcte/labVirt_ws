@@ -119,7 +119,7 @@
           <property> actuator/RDR-y </property>
         </function>
         <location unit="M">
-          <x>0.5</x>
+          <x>1</x>
           <y>0</y>
           <z>0</z>
         </location>
@@ -135,7 +135,7 @@
           <property> actuator/RDR-y </property>
         </function>
         <location unit="M">
-          <x>-0.5</x>
+          <x>-1</x>
           <y>0</y>
           <z>0</z>
         </location>
@@ -154,7 +154,7 @@
         <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>0.5</z>
+          <z>1</z>
         </location>
         <direction>
           <x>  0 </x>
@@ -170,7 +170,7 @@
         <location unit="M">
           <x>0</x>
           <y>0</y>
-          <z>-0.5</z>
+          <z>-1</z>
         </location>
         <direction>
           <x>  0 </x>
@@ -186,7 +186,7 @@
         </function>
         <location unit="M">
           <x>0</x>
-          <y>0.5</y>
+          <y>1</y>
           <z>0</z>
         </location>
         <direction>
@@ -202,7 +202,7 @@
         </function>
         <location unit="M">
           <x>0</x>
-          <y>-0.5</y>
+          <y>-1</y>
           <z>0</z>
         </location>
         <direction>
