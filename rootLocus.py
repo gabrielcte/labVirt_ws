@@ -94,11 +94,11 @@ plt.ylabel("Real")
 plt.grid(True)
 
 #%% Control design
-K_theta = -1
+K_dottheta = -0.5
 
 K = np.zeros([1,num_outputs])
 output_index = states.index('dottheta')
-K[0][output_index] = K_theta
+K[0][output_index] = K_dottheta
 
 # Define the closed-loop system state-space matrices
 
@@ -106,18 +106,50 @@ K[0][output_index] = K_theta
 input_index = inputs.index('dotomega_rdr_y')
 B_elevator = B_Plant[:,input_index:input_index+1]
 
-A_SAS = A_Plant + K*B_elevator
+A_Inner = A_Plant + K*B_elevator
+
+num_outputs = A_Plant.shape[0]
+C_open_loop = np.eye(num_outputs)
+C_dottheta = C_Plant[output_index,:]
+
+sys_Inner = control.StateSpace(A_Inner, B_elevator, C_dottheta, 0)
+control.root_locus(sys_Inner)
+
+plt.figure()
+plt.title("Lugar das raízes")
+poles_SAS = sys_Inner.poles()
+plt.plot(poles_Plant.real, poles_Plant.imag, 'b*', label=r'$Sys Open Loop$')
+plt.plot(poles_SAS.real, poles_SAS.imag, 'r*', label=r'$Sys Augmented$')
+plt.legend()
+plt.xlabel("Imaginário")
+plt.ylabel("Real")
+plt.grid(True)
+plt.show()
+
+K_theta = -1
+
+K = np.zeros([1,num_outputs])
+output_index = states.index('theta')
+K[0][output_index] = K_dottheta
+
+# Define the closed-loop system state-space matrices
+
+# Inverted because feedback is inverted!!
+input_index = inputs.index('dotomega_rdr_y')
+B_elevator = B_Plant[:,input_index:input_index+1]
+
+A_Outter = A_Inner + K*B_elevator
 
 num_outputs = A_Plant.shape[0]
 C_open_loop = np.eye(num_outputs)
 C_theta = C_Plant[output_index,:]
 
-sys_SAS = control.StateSpace(A_SAS, B_elevator, C_theta, 0)
-control.root_locus(sys_SAS)
+sys_Outter = control.StateSpace(A_Outter, B_elevator, C_theta, 0)
+control.root_locus(sys_Outter)
 
 plt.figure()
 plt.title("Lugar das raízes")
-poles_SAS = sys_SAS.poles()
+poles_SAS = sys_Outter.poles()
 plt.plot(poles_Plant.real, poles_Plant.imag, 'b*', label=r'$Sys Open Loop$')
 plt.plot(poles_SAS.real, poles_SAS.imag, 'r*', label=r'$Sys Augmented$')
 plt.legend()
