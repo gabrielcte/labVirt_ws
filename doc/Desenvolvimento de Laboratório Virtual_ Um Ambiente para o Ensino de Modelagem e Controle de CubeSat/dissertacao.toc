@@ -54,20 +54,19 @@
 \contentsline {section}{\numberline {4.1}Requisitos}{39}{section.4.1}%
 \contentsline {section}{\numberline {4.2}CubeSat Design}{40}{section.4.2}%
 \contentsline {section}{\numberline {4.3}Control Design}{41}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Control Design}{41}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Simulação Dinâmica}{42}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Considerações Finais}{42}{section.4.6}%
+\contentsline {section}{\numberline {4.4}Simulação Dinâmica}{42}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Considerações Finais}{42}{section.4.5}%
 \contentsline {part}{\partnumberline {III}\MakeTextUppercase []{Parte Final}}{51}{part.3}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Cronograma de Atividades}}{53}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Atividades Previstas}{53}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Cronograma}{53}{section.5.2}%
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
-\contentsline {chapter}{Conclusão e Trabalhos Futuros}{55}{chapter*.44}%
+\contentsline {chapter}{Conclusão e Trabalhos Futuros}{55}{chapter*.46}%
 \renewcommand *{\cftappendixname }{AP\^ENDICE \space }
 \setlength {\cftpartindent }{\cftlastnumwidth } \setlength {\cftpartnumwidth }{2em}
 \cftinsert {A}
-\contentsline {part}{\uppercase {Ap\^endices}}{57}{section*.48}%
+\contentsline {part}{\uppercase {Ap\^endices}}{57}{section*.50}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}
@@ -81,7 +80,7 @@
 \renewcommand *{\cftappendixname }{ANEXO \space }
 \setlength {\cftpartindent }{\cftlastnumwidth } \setlength {\cftpartnumwidth }{2em}
 \cftinsert {A}
-\contentsline {part}{\uppercase {Anexos}}{63}{section*.49}%
+\contentsline {part}{\uppercase {Anexos}}{63}{section*.51}%
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
 \cftinsert {A}

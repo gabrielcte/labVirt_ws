@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.1.29)  26 FEB 2025 21:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.1.29)  3 MAR 2025 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1524,6 +1524,12 @@ LaTeX Warning: Label `fig:15' multiply defined.
 
 LaTeX Warning: Label `fig:15' multiply defined.
 
+
+LaTeX Warning: Label `fig:15' multiply defined.
+
+
+LaTeX Warning: Label `fig:15' multiply defined.
+
 ) (./capitulos/resultados.aux) (./capitulos/conclusao.aux)
 (./postextual/apendices.aux) (./postextual/anexos.aux))
 \openout1 = `dissertacao.aux'.
@@ -1817,7 +1823,7 @@ Underfull \vbox (badness 3449) has occurred while \output is active []
  [21
 
 ]
-Overfull \hbox (21.39528pt too wide) in paragraph at lines 78--78
+Overfull \hbox (21.39528pt too wide) in paragraph at lines 77--77
  [][] [][][]\T1/lmss/bx/n/12 (-20) SEGUNDO AP N-DICE COM TÕ-TULO T√O GRANDE 
  []
 
@@ -2033,7 +2039,7 @@ l.1 \chapter
 
 LaTeX Warning: Citation `zanardi2018' on page 11 undefined on input line 11.
 
-<figs/SCGI.png, id=341, 1036.87375pt x 773.89125pt>
+<figs/SCGI.png, id=343, 1036.87375pt x 773.89125pt>
 File: figs/SCGI.png Graphic file (type png)
 <use figs/SCGI.png>
 Package pdftex.def Info: figs/SCGI.png  used on input line 15.
@@ -2042,7 +2048,7 @@ Package pdftex.def Info: figs/SCGI.png  used on input line 15.
 LaTeX Warning: Citation `wertz2012spacecraft' on page 11 undefined on input lin
 e 22.
 
-<figs/SCO.png, id=343, 1036.87375pt x 773.89125pt>
+<figs/SCO.png, id=345, 1036.87375pt x 773.89125pt>
 File: figs/SCO.png Graphic file (type png)
 <use figs/SCO.png>
 Package pdftex.def Info: figs/SCO.png  used on input line 26.
@@ -2059,7 +2065,7 @@ s/SCGI.png (PNG copy)>]
 LaTeX Warning: Citation `wertz2012spacecraft' on page 12 undefined on input lin
 e 33.
 
-<figs/SCBF.png, id=349, 1036.87375pt x 773.89125pt>
+<figs/SCBF.png, id=351, 1036.87375pt x 773.89125pt>
 File: figs/SCBF.png Graphic file (type png)
 <use figs/SCBF.png>
 Package pdftex.def Info: figs/SCBF.png  used on input line 37.
@@ -2171,7 +2177,7 @@ LaTeX Warning: Citation `baroni2020attitude' on page 26 undefined on input line
  789.
 
 [26]
-<figs/Detector Cossenoildal Sensor Solar.png, id=513, 389.455pt x 270.00874pt>
+<figs/Detector Cossenoildal Sensor Solar.png, id=515, 389.455pt x 270.00874pt>
 File: figs/Detector Cossenoildal Sensor Solar.png Graphic file (type png)
 <use figs/Detector Cossenoildal Sensor Solar.png>
 Package pdftex.def Info: figs/Detector Cossenoildal Sensor Solar.png  used on i
@@ -2183,7 +2189,7 @@ LaTeX Warning: Citation `wertz2012spacecraft' on page 27 undefined on input lin
 e 809.
 
 [27 <./figs/Detector Cossenoildal Sensor Solar.png>]
-<figs/magfield.png, id=526, 601.24625pt x 602.25pt>
+<figs/magfield.png, id=528, 601.24625pt x 602.25pt>
 File: figs/magfield.png Graphic file (type png)
 <use figs/magfield.png>
 Package pdftex.def Info: figs/magfield.png  used on input line 873.
@@ -2205,7 +2211,7 @@ e 967.
 
 LaTeX Warning: Reference `fig:14' on page 31 undefined on input line 971.
 
-<figs/CicloTrabalho.png, id=551, 311.66437pt x 207.77625pt>
+<figs/CicloTrabalho.png, id=553, 311.66437pt x 207.77625pt>
 File: figs/CicloTrabalho.png Graphic file (type png)
 <use figs/CicloTrabalho.png>
 Package pdftex.def Info: figs/CicloTrabalho.png  used on input line 975.
@@ -2233,7 +2239,7 @@ LaTeX Warning: Command \c invalid in math mode on input line 987.
 LaTeX Warning: Command \~ invalid in math mode on input line 987.
 
 [31 <./figs/CicloTrabalho.png>]
-<figs/torqueEletromagnetico.png, id=562, 381.67593pt x 231.86626pt>
+<figs/torqueEletromagnetico.png, id=564, 381.67593pt x 231.86626pt>
 File: figs/torqueEletromagnetico.png Graphic file (type png)
 <use figs/torqueEletromagnetico.png>
 Package pdftex.def Info: figs/torqueEletromagnetico.png  used on input line 100
@@ -2314,7 +2320,7 @@ l.1052 ...de transfer√™ncia do sistema e ùêª(ùë†
 You may provide a definition with
 \DeclareUnicodeCharacter 
 
-<figs/sistemaDeControle.png, id=571, 302.3295pt x 175.857pt>
+<figs/sistemaDeControle.png, id=573, 302.3295pt x 175.857pt>
 File: figs/sistemaDeControle.png Graphic file (type png)
 <use figs/sistemaDeControle.png>
 Package pdftex.def Info: figs/sistemaDeControle.png  used on input line 1056.
@@ -2352,7 +2358,7 @@ You may provide a definition with
 \DeclareUnicodeCharacter 
 
 [33]
-<figs/lugarDasRaizes.png, id=582, 157.18726pt x 192.72pt>
+<figs/lugarDasRaizes.png, id=584, 157.18726pt x 192.72pt>
 File: figs/lugarDasRaizes.png Graphic file (type png)
 <use figs/lugarDasRaizes.png>
 Package pdftex.def Info: figs/lugarDasRaizes.png  used on input line 1070.
@@ -2532,146 +2538,143 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [40]
-
-! Package keyval Error: scale0.5 undefined.
-
-See the keyval package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.118 ...le0.5]{figs/resultado_alocacao_polos.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-<figs/resultado_alocacao_polos.png, id=619, 462.528pt x 346.896pt>
+<figs/diagrama_blocos_rdr_z.png, id=621, 758.835pt x 397.485pt>
+File: figs/diagrama_blocos_rdr_z.png Graphic file (type png)
+<use figs/diagrama_blocos_rdr_z.png>
+Package pdftex.def Info: figs/diagrama_blocos_rdr_z.png  used on input line 108
+.
+(pdftex.def)             Requested size: 379.41658pt x 198.742pt.
+<figs/diagrama_blocos_rdr_x.png, id=622, 758.835pt x 397.485pt>
+File: figs/diagrama_blocos_rdr_x.png Graphic file (type png)
+<use figs/diagrama_blocos_rdr_x.png>
+Package pdftex.def Info: figs/diagrama_blocos_rdr_x.png  used on input line 109
+.
+(pdftex.def)             Requested size: 379.41658pt x 198.742pt.
+<figs/resultado_alocacao_polos.png, id=623, 462.528pt x 346.896pt>
 File: figs/resultado_alocacao_polos.png Graphic file (type png)
 <use figs/resultado_alocacao_polos.png>
 Package pdftex.def Info: figs/resultado_alocacao_polos.png  used on input line 
-118.
+127.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (7.52686pt too wide) in paragraph at lines 118--119
+Overfull \hbox (7.52686pt too wide) in paragraph at lines 127--128
  [][] 
  []
 
-
-! Package keyval Error: scale0.751 undefined.
-
-See the keyval package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.129 ...751]{figs/resultado_lugar_das_raizes.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-<figs/resultado_lugar_das_raizes.png, id=620, 462.528pt x 346.896pt>
+<figs/diagrama_blocos_rdr_y.png, id=624, 759.83875pt x 277.035pt>
+File: figs/diagrama_blocos_rdr_y.png Graphic file (type png)
+<use figs/diagrama_blocos_rdr_y.png>
+Package pdftex.def Info: figs/diagrama_blocos_rdr_y.png  used on input line 138
+.
+(pdftex.def)             Requested size: 379.91844pt x 138.51715pt.
+<figs/resultado_lugar_das_raizes.png, id=625, 462.528pt x 346.896pt>
 File: figs/resultado_lugar_das_raizes.png Graphic file (type png)
 <use figs/resultado_lugar_das_raizes.png>
 Package pdftex.def Info: figs/resultado_lugar_das_raizes.png  used on input lin
-e 129.
+e 145.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (7.52686pt too wide) in paragraph at lines 129--130
+Overfull \hbox (7.52686pt too wide) in paragraph at lines 145--146
  [][] 
  []
 
-<figs/resultado_evolucao_acelang_linear.png, id=621, 430.0065pt x 328.8285pt>
+<figs/resultado_evolucao_acelang_linear.png, id=626, 430.0065pt x 328.8285pt>
 File: figs/resultado_evolucao_acelang_linear.png Graphic file (type png)
 <use figs/resultado_evolucao_acelang_linear.png>
 Package pdftex.def Info: figs/resultado_evolucao_acelang_linear.png  used on in
-put line 141.
+put line 157.
 (pdftex.def)             Requested size: 430.00545pt x 328.8277pt.
-<figs/resultado_evolucao_velang_linear.png, id=622, 420.6114pt x 328.8285pt>
+<figs/resultado_evolucao_velang_linear.png, id=627, 420.6114pt x 328.8285pt>
 File: figs/resultado_evolucao_velang_linear.png Graphic file (type png)
 <use figs/resultado_evolucao_velang_linear.png>
 Package pdftex.def Info: figs/resultado_evolucao_velang_linear.png  used on inp
-ut line 148.
+ut line 164.
 (pdftex.def)             Requested size: 420.61038pt x 328.8277pt.
-<figs/resultado_evolucao_atitude_linear.png, id=623, 417.7206pt x 328.8285pt>
+<figs/resultado_evolucao_atitude_linear.png, id=628, 417.7206pt x 328.8285pt>
 File: figs/resultado_evolucao_atitude_linear.png Graphic file (type png)
 <use figs/resultado_evolucao_atitude_linear.png>
 Package pdftex.def Info: figs/resultado_evolucao_atitude_linear.png  used on in
-put line 155.
+put line 171.
 (pdftex.def)             Requested size: 417.71957pt x 328.8277pt.
-[41]
-Overfull \hbox (60.8894pt too wide) in paragraph at lines 168--169
-[]$\OML/lmm/m/it/12 r[]CGI \OT1/lmr/m/n/12 (-20) = \OML/lmm/m/it/12 np:array\OT
-1/lmr/m/n/12 (-20) ([2\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 25526213722520\OM
-L/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) + 006\OML/lmm/m/it/12 ; \OMS/lmsy/m/n/12 
-^^@\OT1/lmr/m/n/12 (-20) 3\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 0049237127940
-1\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) + 006\OML/lmm/m/it/12 ; \OMS/lmsy/m/n
-/12 ^^@\OT1/lmr/m/n/12 (-20) 5\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 843973314
-27593\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) +
+
+Underfull \vbox (badness 3118) has occurred while \output is active []
+
+ [41]
+Overfull \hbox (7.87045pt too wide) in paragraph at lines 184--185
+[]$\OML/lmm/m/it/12 r[] \OT1/lmr/m/n/12 (-20) = ([2\OML/lmm/m/it/12 :\OT1/lmr/m
+/n/12 (-20) 25526213722520\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) + 006\OML/lm
+m/m/it/12 ; \OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 (-20) 3\OML/lmm/m/it/12 :\OT1/l
+mr/m/n/12 (-20) 00492371279401\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) + 006\OM
+L/lmm/m/it/12 ; \OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 (-20) 5\OML/lmm/m/it/12 :\O
+T1/lmr/m/n/12 (-20) 84397331427593\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) +
  []
 
 
-Overfull \hbox (61.2748pt too wide) in paragraph at lines 172--173
-[]$\OML/lmm/m/it/12 v[]CGI \OT1/lmr/m/n/12 (-20) = \OML/lmm/m/it/12 np:array\OT
-1/lmr/m/n/12 (-20) ([\OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 (-20) 5\OML/lmm/m/it/1
-2 :\OT1/lmr/m/n/12 (-20) 19923341417592\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20)
- + 003\OML/lmm/m/it/12 ; \OT1/lmr/m/n/12 (-20) 3\OML/lmm/m/it/12 :\OT1/lmr/m/n/
-12 (-20) 82519438208177\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) + 003\OML/lmm/m
-/it/12 ; \OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 (-20) 3\OML/lmm/m/it/12 :\OT1/lmr/
-m/n/12 (-20) 97333292224794\OML/lmm/m/it/12 e \OT1/lmr/m/n/12 (-20) +
+Overfull \hbox (8.25584pt too wide) in paragraph at lines 188--189
+[]$\OML/lmm/m/it/12 v[] \OT1/lmr/m/n/12 (-20) = ([\OMS/lmsy/m/n/12 ^^@\OT1/lmr/
+m/n/12 (-20) 5\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 19923341417592\OML/lmm/m/
+it/12 e \OT1/lmr/m/n/12 (-20) + 003\OML/lmm/m/it/12 ; \OT1/lmr/m/n/12 (-20) 3\O
+ML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 82519438208177\OML/lmm/m/it/12 e \OT1/lmr
+/m/n/12 (-20) + 003\OML/lmm/m/it/12 ; \OMS/lmsy/m/n/12 ^^@\OT1/lmr/m/n/12 (-20)
+ 3\OML/lmm/m/it/12 :\OT1/lmr/m/n/12 (-20) 97333292224794\OML/lmm/m/it/12 e \OT1
+/lmr/m/n/12 (-20) +
  []
 
-<figs/resultado_groud_track.png, id=629, 462.528pt x 346.896pt>
+<figs/resultado_groud_track.png, id=634, 462.528pt x 346.896pt>
 File: figs/resultado_groud_track.png Graphic file (type png)
 <use figs/resultado_groud_track.png>
-Package pdftex.def Info: figs/resultado_groud_track.png  used on input line 179
+Package pdftex.def Info: figs/resultado_groud_track.png  used on input line 195
 .
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (7.52686pt too wide) in paragraph at lines 179--180
+Overfull \hbox (7.52686pt too wide) in paragraph at lines 195--196
  [][] 
  []
 
-<figs/resultado_inteface_grafica.png, id=630, 737.44897pt x 530.96327pt>
+<figs/resultado_inteface_grafica.png, id=635, 737.44897pt x 530.96327pt>
 File: figs/resultado_inteface_grafica.png Graphic file (type png)
 <use figs/resultado_inteface_grafica.png>
 Package pdftex.def Info: figs/resultado_inteface_grafica.png  used on input lin
-e 189.
+e 205.
 (pdftex.def)             Requested size: 368.72359pt x 265.48097pt.
-<figs/resultado_simulacao_dinamica_velocidade.png, id=631, 462.528pt x 346.896p
+<figs/resultado_simulacao_dinamica_velocidade.png, id=636, 462.528pt x 346.896p
 t>
 File: figs/resultado_simulacao_dinamica_velocidade.png Graphic file (type png)
 <use figs/resultado_simulacao_dinamica_velocidade.png>
 Package pdftex.def Info: figs/resultado_simulacao_dinamica_velocidade.png  used
- on input line 197.
+ on input line 215.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (7.52686pt too wide) in paragraph at lines 197--198
+Overfull \hbox (7.52686pt too wide) in paragraph at lines 215--216
  [][] 
  []
 
-<figs/resultado_simulacao_dinamica_atitude.png, id=632, 462.528pt x 346.896pt>
+<figs/resultado_simulacao_dinamica_atitude.png, id=637, 462.528pt x 346.896pt>
 File: figs/resultado_simulacao_dinamica_atitude.png Graphic file (type png)
 <use figs/resultado_simulacao_dinamica_atitude.png>
 Package pdftex.def Info: figs/resultado_simulacao_dinamica_atitude.png  used on
- input line 204.
+ input line 222.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
 
-Overfull \hbox (7.52686pt too wide) in paragraph at lines 204--205
+Overfull \hbox (7.52686pt too wide) in paragraph at lines 222--223
  [][] 
  []
 
-) [42 <./figs/resultado_alocacao_polos.png>] [43 <./figs/resultado_lugar_das_ra
-izes.png>] [44 <./figs/resultado_evolucao_acelang_linear.png>] [45 <./figs/resu
-ltado_evolucao_velang_linear.png>] [46 <./figs/resultado_evolucao_atitude_linea
-r.png>] [47 <./figs/resultado_groud_track.png> <./figs/resultado_inteface_grafi
-ca.png>] [48 <./figs/resultado_simulacao_dinamica_velocidade.png>] [49 <./figs/
-resultado_simulacao_dinamica_atitude.png>] [50
+) [42 <./figs/diagrama_blocos_rdr_z.png> <./figs/diagrama_blocos_rdr_x.png>]
+[43 <./figs/resultado_alocacao_polos.png> <./figs/diagrama_blocos_rdr_y.png>]
+[44 <./figs/resultado_lugar_das_raizes.png>] [45 <./figs/resultado_evolucao_ace
+lang_linear.png>] [46 <./figs/resultado_evolucao_velang_linear.png>] [47 <./fig
+s/resultado_evolucao_atitude_linear.png>] [48 <./figs/resultado_groud_track.png
+> <./figs/resultado_inteface_grafica.png>] [49 <./figs/resultado_simulacao_dina
+mica_velocidade.png>] [50 <./figs/resultado_simulacao_dinamica_atitude.png>]
+[51
 
 
 
-] [51] [52]
+] [52]
 \openout2 = `capitulos/resultados.aux'.
 
-
-(./capitulos/resultados.tex) [53
+ (./capitulos/resultados.tex) [53
 
 
 ]
@@ -2682,7 +2685,8 @@ resultado_simulacao_dinamica_atitude.png>] [50
 
 
 
-]) [55]
+])
+[55]
 No file dissertacao.bbl.
 \openout2 = `postextual/apendices.aux'.
 
@@ -2774,13 +2778,13 @@ LaTeX Warning: There were multiply-defined labels.
 ### semi simple group (level 1) entered at line 11 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 38661 strings out of 474222
- 731913 string characters out of 5748733
+ 38680 strings out of 474222
+ 732672 string characters out of 5748733
  1953975 words of memory out of 5000000
- 59586 multiletter control sequences out of 15000+600000
+ 59604 multiletter control sequences out of 15000+600000
  663351 words of font info for 222 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,13n,107p,1315b,1251s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,13n,107p,1315b,1249s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/
 lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/
@@ -2794,10 +2798,10 @@ lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/tex
 mf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lms
 y6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/font
 s/type1/public/lm/lmtt12.pfb>
-Output written on dissertacao.pdf (91 pages, 2673533 bytes).
+Output written on dissertacao.pdf (91 pages, 2697072 bytes).
 PDF statistics:
- 1132 PDF objects out of 1200 (max. 8388607)
+ 1138 PDF objects out of 1200 (max. 8388607)
  953 compressed objects within 10 object streams
- 318 named destinations out of 1000 (max. 500000)
- 60564 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 319 named destinations out of 1000 (max. 500000)
+ 60571 words of extra memory for PDF output out of 61914 (max. 10000000)
 

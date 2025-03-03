@@ -100,8 +100,17 @@ Perceba que para caracterização devida do momento é feita um binário de for�
 
 Utilizando o scrip pyhton para o projeto do controlador por alocação de polos:
 
-Como exemplificado nas secções anteriores para os estados acoplados MIMO, pode-se usar a técnica de alocação de polos para estimar a matriz de ganhos do controlador de estados, foi escolhido os seguintes polos:
+Como exemplificado nas secções anteriores para os estados acoplados MIMO veja a figura, pode-se usar a técnica de alocação de polos para estimar a matriz de ganhos do controlador de estados, foi escolhido os seguintes polos:
 $s_1 = -0.00808825$, $s_2=-0.00693279$, $s_3=-0.00075105-1.e-04j$ e $s_4=-0.00075105+1.e-04j$ por serem entre 6 a 7 vezes mais lento que os polos da roda de reação.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=0.5]{figs/diagrama_blocos_rdr_z.png}
+	\includegraphics[scale=0.5]{figs/diagrama_blocos_rdr_x.png}
+	\caption{Diagrama de blocos do sistema MIMO}
+	\label{fig:15}
+\end{figure}
+
 
 A matriz de ganhos ficou: 
 
@@ -115,23 +124,30 @@ A matriz de ganhos ficou:
 
 \begin{figure}[htpb]
 	\centering
-	\includegraphics[scale0.5]{figs/resultado_alocacao_polos.png}
+	\includegraphics[scale=1]{figs/resultado_alocacao_polos.png}
 	\caption{Alocação de polos}
 	\label{fig:15}
 \end{figure}
 
-Utilizando o scrip pyhton para o projeto do controlador por lugar das raizes:
+Utilizando o scrip pyhton para o projeto do controlador por lugar das raízes:
 
-Por sua vez o estados acoplados SISO, foi usado a técnica de alocação de polos, perceba que como só tem-se o estado e um integrador é possível escolher o valor de K que satisfaça as especificações da roda de reação:
+Por sua vez o estados acoplados SISO veja a figura, foi usado a técnica de lugar das raízes, perceba que como só tem-se o estado e um integrador é possível escolher o valor de K que satisfaça as especificações da roda de reação:
 
 \begin{figure}[htpb]
 	\centering
-	\includegraphics[scale0.751]{figs/resultado_lugar_das_raizes.png}
+	\includegraphics[scale=0.5]{figs/diagrama_blocos_rdr_y.png}
+	\caption{Diagrama de blocos do sistema MIMO}
+	\label{fig:15}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[scale=1]{figs/resultado_lugar_das_raizes.png}
 	\caption{Lugar das Raízes}
 	\label{fig:15}
 \end{figure}
 
-\section{Control Design}
+
 
 Utilizando o scrip pyhton para o projeto do controlador é possível simular a planta linearizada e adicionar a componente de fricção as rodas de reação, tendo os seguinte resultados:
 
@@ -165,11 +181,11 @@ As rodas de reação são capazes de controlar a planta, mas o tempo de acomoda�
 
 Definindo a órbita a partir dos vetores de posição e velocidade:
 
-$r_SCGI = np.array([2.25526213722520e+006, -3.00492371279401e+006, -5.84397331427593e+006])$
+$r_{SCGI} = [2.25526213722520e+006, -3.00492371279401e+006, -5.84397331427593e+006]$
 
 e
 
-$v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224794e+003])$ 
+$v_{SCGI} = [-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224794e+003]$ 
 
 
 Ao introduzir esse valores no JSBSim o papel da simulação da trajetória do corpo, pode-se acompanhar o mesmo pelo tracejado em solo.
