@@ -37,7 +37,7 @@ if __name__ == '__main__':
     dt = 0.01
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
-    no_control_duration = 300
+    no_control_duration = 0
     control_duration = 10000    
 
     # Set jsbsim and flightgear
@@ -100,6 +100,7 @@ if __name__ == '__main__':
     I_rdr = 0.5*m_rdr*r_rdr**2 # [kg*m²]
     R = 166.66 # [OHN]
     Ke = wRDR_Otima*f*R/V_RDR_Operacao
+    T_max = 3.2e-3 # [N*m]
 
     # Declarando Variáveis
     w_rdr_x = np.zeros((num_steps, 1))
@@ -114,20 +115,23 @@ if __name__ == '__main__':
 
     # Ganhos Controlador
     K = np.array([
-        [ 1.28191298e-03,  7.62356968e-06,  1.56928976e+00,  2.79798603e-01],
-        [ 2.93214218e-06,  6.80382393e-04, -2.79798603e-01,  6.03572983e-01]
+    [1.61301684e+00, 5.15160536e-02, 5.34167090e+01, 1.17972689e+00],
+    [1.98138668e-02, 6.20578432e-01, 6.63276596e-02, 2.05448881e+01]
     ])
 
-    K_phi_rdr_x =       -K[0][0]
-    K_psi_rdr_x =       -K[0][1]  
-    K_dotphi_rdr_x =    -K[0][2]
-    K_dotpsi_rdr_x =    -K[0][3]
-    K_phi_rdr_z =       -K[1][0]  
-    K_psi_rdr_z =       -K[1][1]
-    K_dotphi_rdr_z =    -K[1][2]
-    K_dotpsi_rdr_z =    -K[1][3]
+    K_phi_rdr_x =       -K[0][0]*0-1
+    K_psi_rdr_x =       -K[0][1]*0 
+    K_dotphi_rdr_x =    -K[0][2]*0-0.5
+    K_dotpsi_rdr_x =    -K[0][3]*0-0.5
+
+    K_phi_rdr_z =       -K[1][0]*0
+    K_psi_rdr_z =       -K[1][1]*0-1
+    K_dotphi_rdr_z =    -K[1][2]*0-0.5
+    K_dotpsi_rdr_z =    -K[1][3]*0-0.5
+
     K_theta =           -0.5
     K_dottheta =        -1
+
 
     # Data frame
     data = []
@@ -167,13 +171,22 @@ if __name__ == '__main__':
             if abs(w_rdr_z[i])>wRDR_max:
                 w_rdr_z[i] = np.sign(w_rdr_z[i])*wRDR_max
 
-            T_x[i] = T_x[i]+dotw_rdr_x[i]*I_rdr-f*w_rdr_x[i] 
-            T_y[i] = T_y[i]+dotw_rdr_y[i]*I_rdr-f*w_rdr_y[i] 
-            T_z[i] = T_z[i]+dotw_rdr_z[i]*I_rdr-f*w_rdr_z[i] 
+            T_x[i] = dotw_rdr_x[i]*I_rdr-f*w_rdr_x[i] 
+            T_y[i] = dotw_rdr_y[i]*I_rdr-f*w_rdr_y[i] 
+            T_z[i] = dotw_rdr_z[i]*I_rdr-f*w_rdr_z[i]
+
+            if abs(T_x[i])>T_max:
+                T_x[i] = np.sign(T_x[i])*T_max
+
+            if abs(T_y[i])>T_max:
+                T_y[i+1] = np.sign(T_y[i])*T_max
+
+            if abs(T_z[i])>T_max:
+                T_z[i] = np.sign(T_z[i])*T_max 
 
             # Aplicação do torque de controle na planta
-            fdm['actuator/RDR-x'] = T_x[i]
-            fdm['actuator/RDR-y'] = T_y[i]
+            fdm['actuator/RDR-x'] =  T_x[i]
+            fdm['actuator/RDR-y'] =  T_y[i]
             fdm['actuator/RDR-z'] = -T_z[i]
 
         if fdm.get_sim_time() > control_duration:

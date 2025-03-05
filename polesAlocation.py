@@ -92,15 +92,22 @@ print("Os polos da planta em malha aberta são:")
 print (poles_Plant)
 
 plt.figure()
-plt.title("Lugar das raízes")
+plt.title("Alocação de Polos")
 plt.plot(poles_Plant.real, poles_Plant.imag, 'kx', label=r'$Poles \; Plant$')
 
 plt.xlabel("Imaginário")
 plt.ylabel("Real")
 plt.grid(True)
 
+P = np.array([
+  -0.080479,
+  -0.049499,
+  -0.077369,
+  -0.048302,
+])
 
-P = np.array([-7*1.15546489e-03, -6*1.15546489e-03, -6.5*1.15546489e-03-0.0005j, -6.5*1.15546489e-03+0.0005j])/4
+print(A_Plant)
+
 fsf = signal.place_poles(A_Plant, B_Plant, P, method='YT')
 plt.plot(fsf.computed_poles.real, fsf.computed_poles.imag, 'bx', label=r'$Poles \; Alocated$')
 plt.legend()
