@@ -88,8 +88,12 @@ D__Plant = np.zeros([num_outputs,num_inputs])
 sys_Plant = control.StateSpace(A_Plant, B_Plant, C_Plant,D__Plant)
 poles_Plant = sys_Plant.poles()
 
+
+
 print("Os polos da planta em malha aberta são:")
 print (poles_Plant)
+print("Em Hz:")
+print(f"{poles_Plant/(2*np.pi)} Hz")
 
 plt.figure()
 plt.title("Alocação de Polos")

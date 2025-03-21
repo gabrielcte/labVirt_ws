@@ -65,8 +65,8 @@ states = ['theta', 'dottheta']
 inputs = [ 'dotomega_rdr_y']
 
 A_Plant = np.array([
-    [0, 1],
     [0, 0],
+    [0, 1],
 ])
 
 B_Plant = np.array([
@@ -94,7 +94,7 @@ plt.ylabel("Real")
 plt.grid(True)
 
 #%% Control design
-K_dottheta = -0.5
+K_dottheta = 0.5
 
 K = np.zeros([1,num_outputs])
 output_index = states.index('dottheta')
@@ -126,7 +126,7 @@ plt.ylabel("Real")
 plt.grid(True)
 plt.show()
 
-K_theta = -1
+K_theta = 1
 
 K = np.zeros([1,num_outputs])
 output_index = states.index('theta')

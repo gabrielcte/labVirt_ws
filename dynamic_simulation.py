@@ -109,6 +109,9 @@ if __name__ == '__main__':
     dotw_rdr_x = np.zeros((num_steps, 1))
     dotw_rdr_y = np.zeros((num_steps, 1))
     dotw_rdr_z = np.zeros((num_steps, 1))
+    con_sig_dotw_rdr_x = np.zeros((num_steps, 1))
+    con_sig_dotw_rdr_y = np.zeros((num_steps, 1))
+    con_sig_dotw_rdr_z = np.zeros((num_steps, 1))
     T_x = np.zeros((num_steps, 1))
     T_y = np.zeros((num_steps, 1))
     T_z = np.zeros((num_steps, 1))
@@ -153,15 +156,24 @@ if __name__ == '__main__':
 
             # Controle
 
-            dotw_rdr_x[i] = K_phi_rdr_x*fdm['attitude/phi-rad']+K_psi_rdr_x*psi_calc+K_dotphi_rdr_x*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_x*fdm['velocities/psidot-rad_sec']
-            dotw_rdr_y[i] = K_theta*fdm['attitude/theta-rad']+K_dottheta*fdm['velocities/thetadot-rad_sec']  
-            dotw_rdr_z[i] = K_phi_rdr_z*fdm['attitude/phi-rad']+K_psi_rdr_z*psi_calc+K_dotphi_rdr_z*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_z*fdm['velocities/psidot-rad_sec']
+            con_sig_dotw_rdr_x[i] = K_phi_rdr_x*fdm['attitude/phi-rad']+K_psi_rdr_x*psi_calc+K_dotphi_rdr_x*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_x*fdm['velocities/psidot-rad_sec']
+            con_sig_dotw_rdr_y[i] = K_theta*fdm['attitude/theta-rad']+K_dottheta*fdm['velocities/thetadot-rad_sec']  
+            con_sig_dotw_rdr_z[i] = K_phi_rdr_z*fdm['attitude/phi-rad']+K_psi_rdr_z*psi_calc+K_dotphi_rdr_z*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_z*fdm['velocities/psidot-rad_sec']
             
+            # ==== Adicionando dinâmica do atuador ===== #            
+            constante_tempo = 1/8.31849893e-05 /6 # => 6x a planta
+            ganho_unit = 1 # de angulo da tubeira para angulo da tubeira
+            dotw_rdr_x[i] = ganho_unit*dt*(con_sig_dotw_rdr_x[i]+con_sig_dotw_rdr_x[i-1])/(2*constante_tempo+dt)+dotw_rdr_x[i-1]
+            dotw_rdr_y[i] = ganho_unit*dt*(con_sig_dotw_rdr_y[i]+con_sig_dotw_rdr_y[i-1])/(2*constante_tempo+dt)+dotw_rdr_y[i-1]
+            dotw_rdr_z[i] = ganho_unit*dt*(con_sig_dotw_rdr_z[i]+con_sig_dotw_rdr_z[i-1])/(2*constante_tempo+dt)+dotw_rdr_z[i-1]
+            # ========================================== #
 
             w_rdr_x[i] = w_rdr_x[i]+dotw_rdr_x[i]*dt
             w_rdr_y[i] = w_rdr_y[i]+dotw_rdr_y[i]*dt     
             w_rdr_z[i] = w_rdr_z[i]+dotw_rdr_z[i]*dt
 
+
+            # ==== Saturação atuador ===== #
             if abs(w_rdr_x[i])>wRDR_max:
                 w_rdr_x[i] = np.sign(w_rdr_x[i])*wRDR_max
 
@@ -170,10 +182,15 @@ if __name__ == '__main__':
 
             if abs(w_rdr_z[i])>wRDR_max:
                 w_rdr_z[i] = np.sign(w_rdr_z[i])*wRDR_max
+            # ============================ #
+            
+
 
             T_x[i] = dotw_rdr_x[i]*I_rdr-f*w_rdr_x[i] 
             T_y[i] = dotw_rdr_y[i]*I_rdr-f*w_rdr_y[i] 
             T_z[i] = dotw_rdr_z[i]*I_rdr-f*w_rdr_z[i]
+
+
 
             if abs(T_x[i])>T_max:
                 T_x[i] = np.sign(T_x[i])*T_max
