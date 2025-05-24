@@ -190,7 +190,7 @@
           <z>0</z>
         </location>
         <direction>
-          <x>  1 </x>
+          <x>  -1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
@@ -206,7 +206,7 @@
           <z>0</z>
         </location>
         <direction>
-          <x>  -1 </x>
+          <x>  1 </x>
           <y>  0 </y>
           <z>  0 </z>
         </direction>
@@ -336,6 +336,7 @@
         </axis>
     </aerodynamics>
 
+  <!--
     <output name="CubesatOut.csv" type="CSV" rate="1">
         <rates> ON </rates>
         <velocities> ON </velocities>
@@ -362,5 +363,5 @@
 		<property> aero/qbar-psf </property>
 		<property> metrics/aero-rp-x-in </property>
     </output>
-    
+    -->
 </fdm_config>

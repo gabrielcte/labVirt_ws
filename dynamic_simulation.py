@@ -23,6 +23,9 @@ def Nm2Lbft(Nm):
     Lbft = Nm*0.7375621493
     return Lbft
 
+def rpm2rads(rpm):
+    return rpm * (2 * np.pi) / 60
+
 class FlightStages(Enum):
     flight_stage_no_control           = 0
     flight_stage_control              = 1
@@ -38,14 +41,14 @@ if __name__ == '__main__':
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
     no_control_duration = 0
-    control_duration = 10000    
+    control_duration = 3600    
 
     # Set jsbsim and flightgear
     aircraft_model='cubesat'
     aircraft_path=(Path('.')).resolve()
 
     fdm = jsbsim.FGFDMExec(str(aircraft_path))
-    #fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
+    fdm.set_output_directive(str(aircraft_path/'fg_conn.xml'))
     fdm.set_debug_level(0)
     fdm.load_model(aircraft_model)
     fdm.set_dt(dt)                                            # Define o passo da simulação (s)
@@ -57,9 +60,9 @@ if __name__ == '__main__':
     fdm['ic/h-sl-ft'] = m2ft(569366.9993)            # ft
 
     # Attitude
-    fdm['ic/phi-rad'] =         np.deg2rad(15)   # Roll (rad)
-    fdm['ic/theta-rad'] =       np.deg2rad(15)   # Pitch (rad)   
-    fdm['ic/psi-true-rad'] =    np.deg2rad(15)  # Yaw (rad)
+    fdm['ic/phi-rad'] =         np.deg2rad(-1)   # Roll (rad)
+    fdm['ic/theta-rad'] =       np.deg2rad(-1)   # Pitch (rad)   
+    fdm['ic/psi-true-rad'] =    np.deg2rad(-1)  # Yaw (rad)
 
 
      # Linear Velocities
@@ -68,17 +71,17 @@ if __name__ == '__main__':
     fdm['ic/w-fps'] = m2ft(-3.97333292224794e+003)
 
     # Angular Velocities
-    fdm['ic/p-rad_sec'] =   np.deg2rad(0.01)                                    
-    fdm['ic/q-rad_sec'] =   np.deg2rad(0.01)                                     
-    fdm['ic/r-rad_sec'] =   np.deg2rad(0.01)         
+    fdm['ic/p-rad_sec'] =   np.deg2rad(0)                                    
+    fdm['ic/q-rad_sec'] =   np.deg2rad(0)                                     
+    fdm['ic/r-rad_sec'] =   np.deg2rad(0)         
 
 
     fdm.run_ic()
 
     # For a CubeSat 6U
-    cubeSatMass = 6 #  [kg] 
+    cubeSatMass = 5 #  [kg] 
     cubeSatLength = 0.1 # [m] -> x
-    cubeSatWidth = 0.2 # [m] -> y
+    cubeSatWidth  = 0.2 # [m] -> y
     cubeSatHeight = 0.3 # [m] -> z
 
     Ixx = 1 / 12 * cubeSatMass * ((cubeSatWidth ** 2) + (cubeSatHeight ** 2)) # slug * ft ^ 2
@@ -95,12 +98,14 @@ if __name__ == '__main__':
     No = 3.84e-003 # [N.m]
     N_C = 7.06e-004 # [N.m]
     f = 1.21e-008*9.5492965964254 # [N.m/rad/s]
-    m_rdr = 0.137 # [kg]
-    r_rdr = 0.0435 # [m]
-    I_rdr = 0.5*m_rdr*r_rdr**2 # [kg*m²]
+    m_RDR = 310e-3 # [kg]
+    r_RDR = 66e-3 # [m]
+    I_rdr = 0.5*m_RDR*r_RDR**2 # [kg*sqm]
+    w_rdr_max = rpm2rads(10000) # [rad/s]
+    T_rdr_max = 16e-3 # [Nm] 
+    dotw_rdr_max = T_rdr_max/I_rdr # [rad/sec^2]
     R = 166.66 # [OHN]
     Ke = wRDR_Otima*f*R/V_RDR_Operacao
-    T_max = 3.2e-3 # [N*m]
 
     # Declarando Variáveis
     w_rdr_x = np.zeros((num_steps, 1))
@@ -109,37 +114,33 @@ if __name__ == '__main__':
     dotw_rdr_x = np.zeros((num_steps, 1))
     dotw_rdr_y = np.zeros((num_steps, 1))
     dotw_rdr_z = np.zeros((num_steps, 1))
-    con_sig_dotw_rdr_x = np.zeros((num_steps, 1))
-    con_sig_dotw_rdr_y = np.zeros((num_steps, 1))
-    con_sig_dotw_rdr_z = np.zeros((num_steps, 1))
     T_x = np.zeros((num_steps, 1))
     T_y = np.zeros((num_steps, 1))
     T_z = np.zeros((num_steps, 1))
 
-    # Ganhos Controlador
-    K = np.array([
-    [1.61301684e+00, 5.15160536e-02, 5.34167090e+01, 1.17972689e+00],
-    [1.98138668e-02, 6.20578432e-01, 6.63276596e-02, 2.05448881e+01]
-    ])
 
-    K_phi_rdr_x =       -K[0][0]*0-1
-    K_psi_rdr_x =       -K[0][1]*0 
-    K_dotphi_rdr_x =    -K[0][2]*0-0.5
-    K_dotpsi_rdr_x =    -K[0][3]*0-0.5
+    K = np.array(
+    [[ 2.52713974e-01, -2.04575076e-03,  4.09150153e+00, -2.65105846e-02],
+    [-7.86827216e-04,  9.72336472e-02, -8.45709048e-02,  1.57365443e+00]]
+    )
 
-    K_phi_rdr_z =       -K[1][0]*0
-    K_psi_rdr_z =       -K[1][1]*0-1
-    K_dotphi_rdr_z =    -K[1][2]*0-0.5
-    K_dotpsi_rdr_z =    -K[1][3]*0-0.5
+    K_phi_rdr_x =       K[0][0]
+    K_psi_rdr_x =       K[0][1]
+    K_dotphi_rdr_x =    K[0][2]
+    K_dotpsi_rdr_x =    K[0][3]
 
-    K_theta =           -0.5
-    K_dottheta =        -1
+    K_phi_rdr_z =       K[1][0]
+    K_psi_rdr_z =       K[1][1]
+    K_dotphi_rdr_z =    K[1][2]
+    K_dotpsi_rdr_z =    K[1][3]
 
+    K_dottheta = 1.75
+    K_theta =  0.5
 
     # Data frame
     data = []
         
-    for i in range(num_steps):
+    for i in range(num_steps-1):
         psi = fdm['attitude/psi-rad']  # Yaw
         x = np.cos(psi)
         y = np.sin(psi)
@@ -156,55 +157,47 @@ if __name__ == '__main__':
 
             # Controle
 
-            con_sig_dotw_rdr_x[i] = K_phi_rdr_x*fdm['attitude/phi-rad']+K_psi_rdr_x*psi_calc+K_dotphi_rdr_x*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_x*fdm['velocities/psidot-rad_sec']
-            con_sig_dotw_rdr_y[i] = K_theta*fdm['attitude/theta-rad']+K_dottheta*fdm['velocities/thetadot-rad_sec']  
-            con_sig_dotw_rdr_z[i] = K_phi_rdr_z*fdm['attitude/phi-rad']+K_psi_rdr_z*psi_calc+K_dotphi_rdr_z*fdm['velocities/phidot-rad_sec']+K_dotpsi_rdr_z*fdm['velocities/psidot-rad_sec']
+            dotw_rdr_x[i+1] = -K_phi_rdr_x*fdm['attitude/phi-rad']-K_psi_rdr_x*psi_calc-K_dotphi_rdr_x*fdm['velocities/phidot-rad_sec']-K_dotpsi_rdr_x*fdm['velocities/psidot-rad_sec']
+            dotw_rdr_y[i+1] = -K_theta*fdm['attitude/theta-rad']-K_dottheta*fdm['velocities/thetadot-rad_sec']  
+            dotw_rdr_z[i+1] = -K_phi_rdr_z*fdm['attitude/phi-rad']-K_psi_rdr_z*psi_calc-K_dotphi_rdr_z*fdm['velocities/phidot-rad_sec']-K_dotpsi_rdr_z*fdm['velocities/psidot-rad_sec']
             
-            # ==== Adicionando dinâmica do atuador ===== #            
-            constante_tempo = 1/8.31849893e-05 /6 # => 6x a planta
-            ganho_unit = 1 # de angulo da tubeira para angulo da tubeira
-            dotw_rdr_x[i] = ganho_unit*dt*(con_sig_dotw_rdr_x[i]+con_sig_dotw_rdr_x[i-1])/(2*constante_tempo+dt)+dotw_rdr_x[i-1]
-            dotw_rdr_y[i] = ganho_unit*dt*(con_sig_dotw_rdr_y[i]+con_sig_dotw_rdr_y[i-1])/(2*constante_tempo+dt)+dotw_rdr_y[i-1]
-            dotw_rdr_z[i] = ganho_unit*dt*(con_sig_dotw_rdr_z[i]+con_sig_dotw_rdr_z[i-1])/(2*constante_tempo+dt)+dotw_rdr_z[i-1]
-            # ========================================== #
 
-            w_rdr_x[i] = w_rdr_x[i]+dotw_rdr_x[i]*dt
-            w_rdr_y[i] = w_rdr_y[i]+dotw_rdr_y[i]*dt     
-            w_rdr_z[i] = w_rdr_z[i]+dotw_rdr_z[i]*dt
+            # ==== Saturação atuador ===== #
+            if abs(dotw_rdr_x[i+1])>dotw_rdr_max:
+                dotw_rdr_x[i+1] = np.sign(dotw_rdr_x[i+1])*dotw_rdr_max
+
+            if abs(dotw_rdr_y[i+1])>dotw_rdr_max:
+                dotw_rdr_y[i+1] = np.sign(dotw_rdr_y[i+1])*dotw_rdr_max
+
+            if abs(dotw_rdr_z[i+1])>dotw_rdr_max:
+                dotw_rdr_z[i+1] = np.sign(dotw_rdr_z[i+1])*dotw_rdr_max
+            # ============================ #
+
+            w_rdr_x[i+1] = w_rdr_x[i]+dotw_rdr_x[i+1]*dt
+            w_rdr_y[i+1] = w_rdr_y[i]+dotw_rdr_y[i+1]*dt     
+            w_rdr_z[i+1] = w_rdr_z[i]+dotw_rdr_z[i+1]*dt
 
 
             # ==== Saturação atuador ===== #
-            if abs(w_rdr_x[i])>wRDR_max:
-                w_rdr_x[i] = np.sign(w_rdr_x[i])*wRDR_max
+            if abs(w_rdr_x[i+1])>wRDR_max:
+                w_rdr_x[i+1] = np.sign(w_rdr_x[i+1])*wRDR_max
 
-            if abs(w_rdr_y[i])>wRDR_max:
-                w_rdr_y[i] = np.sign(w_rdr_y[i])*wRDR_max
+            if abs(w_rdr_y[i+1])>wRDR_max:
+                w_rdr_y[i+1] = np.sign(w_rdr_y[i+1])*wRDR_max
 
-            if abs(w_rdr_z[i])>wRDR_max:
-                w_rdr_z[i] = np.sign(w_rdr_z[i])*wRDR_max
+            if abs(w_rdr_z[i+1])>wRDR_max:
+                w_rdr_z[i+1] = np.sign(w_rdr_z[i+1])*wRDR_max
             # ============================ #
             
+            T_x[i+1] = dotw_rdr_x[i+1]*I_rdr 
+            T_y[i+1] = dotw_rdr_y[i+1]*I_rdr
+            T_z[i+1] = dotw_rdr_z[i+1]*I_rdr
 
-
-            T_x[i] = dotw_rdr_x[i]*I_rdr-f*w_rdr_x[i] 
-            T_y[i] = dotw_rdr_y[i]*I_rdr-f*w_rdr_y[i] 
-            T_z[i] = dotw_rdr_z[i]*I_rdr-f*w_rdr_z[i]
-
-
-
-            if abs(T_x[i])>T_max:
-                T_x[i] = np.sign(T_x[i])*T_max
-
-            if abs(T_y[i])>T_max:
-                T_y[i+1] = np.sign(T_y[i])*T_max
-
-            if abs(T_z[i])>T_max:
-                T_z[i] = np.sign(T_z[i])*T_max 
 
             # Aplicação do torque de controle na planta
-            fdm['actuator/RDR-x'] =  T_x[i]
-            fdm['actuator/RDR-y'] =  T_y[i]
-            fdm['actuator/RDR-z'] = -T_z[i]
+            fdm['actuator/RDR-x'] =  T_x[i+1]
+            fdm['actuator/RDR-y'] =  T_y[i+1]
+            fdm['actuator/RDR-z'] =  T_z[i+1]
 
         if fdm.get_sim_time() > control_duration:
             break                                            
@@ -219,7 +212,7 @@ if __name__ == '__main__':
                     'attitude/psi-rad' : psi_calc,
                     'velocities/p-rad_sec' : fdm['velocities/p-rad_sec'],
                     'velocities/q-rad_sec': fdm['velocities/q-rad_sec'],
-                    'velocities/r-rad_sec': fdm['velocities/q-rad_sec'],
+                    'velocities/r-rad_sec': fdm['velocities/r-rad_sec'],
                     'velocities/phidot-rad_sec' : fdm['velocities/phidot-rad_sec'],                                
                     'velocities/thetadot-rad_sec' : fdm['velocities/thetadot-rad_sec'],                                     
                     'velocities/psidot-rad_sec' : fdm['velocities/psidot-rad_sec'],
@@ -290,11 +283,57 @@ if __name__ == '__main__':
     plt.grid(True)
 
 
+    velo_varr_mini = 3 # deg/s
+    velo_varr_reco = 7 # deg/s
+    desv_regi_esta_mini = 3/60 # deg/s
+    desv_regi_esta_reco = 1/60 # deg/s
+    erro_regi_esta_mini = 1 # deg
+    erro_regi_esta_reco = 0.08 # deg
+    temp_esta_5_por_cent_mini = 5*60 # s
+    temp_esta_5_por_cent_reco = 2*60 # s
+    temp_esta_2_por_cent_mini = 7*60 # s
+    temp_esta_2_por_cent_reco = 3*60 # s
+    temp_subi_mini = 5*60 # s
+    temp_subi_reco = 2*60 # s
+    maxi_sobr_sina_mini = 0.5 
+    maxi_sobr_sina_reco = 0.25
+
+    # R01: A taxa de variação do comando da velocidade angular não deve exceder a aceleração angular máxima permitida da roda de reação.
+    # R02: A velocidade angular comandada não deve exceder a velocidade angular máxima permitida da roda de reação.
+
+    # R03: A precisão do apontamento deve ser de pelo menos 1 grau como limite mínimo e 0,08 graus como objetivo.
+
+    # R04: A faixa de apontamento no eixo Z deve ser de -180 a 180 graus.
+    # R05: A faixa de apontamento no eixo Y deve ser de -90 a 90 graus.
+    # R06: A faixa de apontamento no eixo X deve ser de -180 a 180 graus.
+
+    # R07: A taxa de varredura deve ser maior que 3 deg/s como limite mínimo e maior que 7 deg/s como objetivo
+
+    # R08: Após a estabilização, a taxa de desvio deve ser menor que 3 deg/min como limite mínimo e menor que 1 deg/min como objetivo.
+
+    # R09: Após a estabilização, o desvio total deve ser <= $\pm$ 0,5 graus como limite mínimo e <= $\pm$ 0,1 graus como objetivo.
+    # R10: O tempo de estabilização de 5%deve ser <= 5 minutos como limite mínimo e <=2 minutos como objetivo.
+    # R11: O tempo de estabilização de 2%deve ser <= 7 minutos como limite mínimo e <=3 minutos como objetivo.
+    # R12: O tempo de subida deve ser <= 5 minutos como limite mínimo e <=2 minutos como objetivo.
+    # R13: O percentual de ultrapassagem deve ser <= 50% como limite mínimo e <= 25% como objetivo.
+
     plt.figure(2)
     # Plotar as curvas de atitude
     plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/phi-rad']), 'b', label=r'$\phi$')
     plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/theta-rad']), 'r', label=r'$\theta$')
     plt.plot(df['sim-time-sec'], np.rad2deg(df['attitude/psi-rad']), 'g', label=r'$\psi$')
+    plt.axhline(y=erro_regi_esta_reco, color='k', linestyle='--', label='R03')
+    plt.axhline(y=-erro_regi_esta_reco, color='k', linestyle='--', label='R03')
+    plt.axhline(y=erro_regi_esta_mini, color='k', linestyle='--', label='R03')
+    plt.axhline(y=-erro_regi_esta_mini, color='k', linestyle='--', label='R03')
+    plt.axvline(x=temp_esta_5_por_cent_reco, color='m', linestyle='--', label='R10')
+    plt.axvline(x=temp_esta_5_por_cent_mini, color='m', linestyle='--', label='R10')
+    plt.axvline(x=temp_esta_2_por_cent_reco, color='y', linestyle='--', label='R11')
+    plt.axvline(x=temp_esta_2_por_cent_mini, color='y', linestyle='--', label='R11')
+    plt.axhline(y=0.5, color='c', linestyle='--', label='R12')
+    plt.axhline(y=-0.5, color='c', linestyle='--', label='R12')
+    plt.axhline(y=0.25, color='orange', linestyle='--', label='R13')
+    plt.axhline(y=-0.25, color='orange', linestyle='--', label='R13')
     plt.legend()
     plt.xlabel('Time [sec]')
     plt.ylabel('Attitude [Deg]')
@@ -305,6 +344,10 @@ if __name__ == '__main__':
     plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/phidot-rad_sec']),'b', label=r'$\dot{\phi}$')
     plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/thetadot-rad_sec']),'r', label=r'$\dot{\theta}$')
     plt.plot(df['sim-time-sec'], np.rad2deg(df['velocities/psidot-rad_sec']),'g', label=r'$\dot{\psi}$')
+    plt.axhline(y=desv_regi_esta_reco, color='k', linestyle='--', label='R08')
+    plt.axhline(y=-desv_regi_esta_reco, color='k', linestyle='--', label='R08')
+    plt.axhline(y=desv_regi_esta_mini, color='k', linestyle='--', label='R08')
+    plt.axhline(y=-desv_regi_esta_mini, color='k', linestyle='--', label='R08')
     plt.legend()
     plt.xlabel('Time [sec]')
     plt.ylabel('Velocidade Angular [Deg/sec]')
@@ -317,4 +360,4 @@ if __name__ == '__main__':
     plt.show()
 
     # Salva data frame como csv
-    df.to_csv('cubesat_dataframe.csv', index=False)
+    # df.to_csv('cubesat_dataframe.csv', index=False)
