@@ -103,12 +103,12 @@ plt.xlabel("Imaginário")
 plt.ylabel("Real")
 plt.grid(True)
 
-P = np.array([
-  -0.080479,
-  -0.049499,
-  -0.077369,
-  -0.048302,
-])
+P1 = -7+5j 
+P2 = -7-5j
+P3 = -15+0.j
+P4 = -5+0.j
+
+P = np.array([P1, P2, P3, P4])
 
 print(A_Plant)
 
