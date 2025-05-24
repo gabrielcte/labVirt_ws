@@ -32,9 +32,9 @@ if __name__ == '__main__':
     
     # Simulação
     realtime     = False
-    num_steps = 300000
-    frame_time   = 0
     dt = 0.01
+    num_steps = int(7*2*60/dt)
+    frame_time   = 0
     frame_period = dt
     flight_stage_current = FlightStages.flight_stage_no_control
     no_control_duration = 0

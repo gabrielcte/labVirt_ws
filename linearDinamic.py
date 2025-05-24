@@ -30,8 +30,10 @@ v_SCGI = np.array([-5.19923341417592e+003, 3.82519438208177e+003, -3.97333292224
 movimentoMedio = np.sqrt(mu_Terra/a**3) # [rad/s]
 w_O_I_O = movimentoMedio
 
-samples = 6000
-dt = 0.05
+
+dt = 0.01
+samples = int(7*2*60/dt)
+
 time = np.zeros((samples, 1))
 phi = np.zeros((samples, 1))
 theta = np.zeros((samples, 1))
